@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pathapp/utilities/capital_habilidades.dart';
 import 'package:pathapp/utilities/instruction_box_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CapitalHabilidadesScreen extends StatelessWidget {
   final List<String> carreras;
@@ -23,29 +24,31 @@ class CapitalHabilidadesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffC3DA67),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: createList(),
-              ),
+      body: Column(
+        children: [
+          SvgPicture.asset(
+              "assets/images/curva_blanca.svg",
+              width: MediaQuery.of(context).size.width,
+          ),
+          Expanded(
+            child: ListView(
+              children: createList(),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-              child: Row(
-                children:[
-                  Icon(
-                      Icons.crop_square,
-                      color: Colors.white,
-                  ),
-                  Expanded(
-                      child: InstructionBoxWidget(texto: '¿Qué habilidades te gustaría aprender?',))
-                ]
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+            child: Row(
+              children:[
+                SvgPicture.asset(
+                    "assets/images/rombo.svg",
+                    //width: 20,
+                ),
+                Expanded(
+                    child: InstructionBoxWidget(texto: '¿Qué habilidades te gustaría aprender?',))
+              ]
             ),
-          ],
-        ),
+          ),
+        ]
       ),
     );
   }
