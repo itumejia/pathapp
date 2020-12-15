@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'screens/prueba.dart';
+import 'utilities/pantallaCarreras.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(pantalla());
 
-class MyApp extends StatelessWidget {
+
+class pantalla extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        backgroundColor: Color(0xffFDDD9D),
+        body: Pantalla(carreras: ["ITC","IRS","IBT","LEC"],),
+      ),
     );
   }
 }
+//hola
+
+
+
