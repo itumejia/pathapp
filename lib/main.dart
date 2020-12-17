@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pathapp/screens/Habilidades.dart';
+import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/HabilidadesPersona.dart';
+import 'package:pathapp/screens/Valores.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HabilidadesScreen(),
+      home: Valores(),
     );
   }
 }

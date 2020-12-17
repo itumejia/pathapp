@@ -5,8 +5,9 @@ class FieldTile extends StatelessWidget {
   final int grade;
   final String fieldTitle;
   final Function radioCallBack;
+  final Color colore;
 
-  FieldTile({this.grade, this.fieldTitle, this.radioCallBack});
+  FieldTile({this.grade, this.fieldTitle, this.radioCallBack, this.colore});
 
   @override
   Widget build(BuildContext context) {
@@ -29,31 +30,31 @@ class FieldTile extends StatelessWidget {
           Radio(
             value: 1,
             groupValue: grade,
-            activeColor: kColorMoradoSuave,
+            activeColor: colore,
             onChanged: radioCallBack,
           ),
           Radio(
             value: 2,
             groupValue: grade,
-            activeColor: kColorMoradoSuave,
+            activeColor: colore,
             onChanged: radioCallBack,
           ),
           Radio(
             value: 3,
             groupValue: grade,
-            activeColor: kColorMoradoSuave,
+            activeColor: colore,
             onChanged: radioCallBack,
           ),
           Radio(
             value: 4,
             groupValue: grade,
-            activeColor: kColorMoradoSuave,
+            activeColor: colore,
             onChanged: radioCallBack,
           ),
           Radio(
             value: 5,
             groupValue: grade,
-            activeColor: kColorMoradoSuave,
+            activeColor: colore,
             onChanged: radioCallBack,
           ),
         ],
