@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/HabilidadesPersona.dart';
 import 'package:pathapp/screens/Valores.dart';
+import 'package:pathapp/screens/capital_habilidades_screen.dart';
+import 'package:pathapp/screens/capital_relaciones_screen.dart';
+import 'screens/prueba.dart';
+import 'package:pathapp/screens/login_screen.dart';
+import 'package:pathapp/screens/register_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       home: Valores(),
+
     );
   }
+  //prueba git
 }
