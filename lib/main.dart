@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pathapp/screens/capital_carrera_habilidades.dart';
+import 'package:pathapp/screens/capital_habilidades_screen.dart';
+import 'package:pathapp/screens/capital_relaciones_screen.dart';
 import 'screens/prueba.dart';
+import 'package:pathapp/screens/login_screen.dart';
+import 'package:pathapp/screens/register_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: CapitalHabilidadesScreen(carreras: ['ITC','IRS','TUR'],),
+      home: LoginScreen(),
     );
   }
   //prueba git
