@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'white_box_carrera.dart';
 
 class CapitalHabilidadesWidgetLeft extends StatelessWidget {
   final String carrera;
@@ -29,25 +30,7 @@ class CapitalHabilidadesWidgetLeft extends StatelessWidget {
             thickness: 2,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 25),
-          child: Material(
-            elevation: 20,
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 25,horizontal: 55),
-              child: Text(
-                  carrera,
-                  style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                color: Colors.white,
-              ),
-
-            ),
-          ),
-        )
+        WhiteBoxCarrera(carrera: carrera, padRight: 25,),
       ],
     );
   }
@@ -63,25 +46,7 @@ class CapitalHabilidadesWidgetRight extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 25),
-          child: Material(
-            elevation: 20,
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 25,horizontal: 55),
-              child: Text(
-                carrera,
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                color: Colors.white,
-              ),
-
-            ),
-          ),
-        ),
+        WhiteBoxCarrera(carrera: carrera, padLeft: 25,),
         Expanded(
           child: Divider(
             color: Colors.white,
@@ -104,7 +69,6 @@ class CapitalHabilidadesWidgetRight extends StatelessWidget {
     );
   }
 }
-
 
 class CajaHabilidad extends StatelessWidget {
   final bool left;

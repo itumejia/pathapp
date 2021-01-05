@@ -35,19 +35,7 @@ class CapitalHabilidadesScreen extends StatelessWidget {
               children: createList(),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-            child: Row(
-              children:[
-                SvgPicture.asset(
-                    "assets/images/rombo.svg",
-                    //width: 20,
-                ),
-                Expanded(
-                    child: InstructionBoxWidget(texto: '¿Qué habilidades te gustaría aprender?',))
-              ]
-            ),
-          ),
+          InstructionBoxWidget(texto: '¿Qué habilidades te gustaría aprender?',),
         ]
       ),
     );
