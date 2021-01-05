@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:pathapp/screens/Habilidades.dart';
+import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/HabilidadesPersona.dart';
+import 'package:pathapp/screens/Valores.dart';
 import 'package:pathapp/screens/capital_habilidades_screen.dart';
 import 'package:pathapp/screens/capital_relaciones_screen.dart';
 import 'screens/prueba.dart';
@@ -14,8 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      home: LoginScreen(),
+
+      home: Valores(),
+
     );
   }
   //prueba git
