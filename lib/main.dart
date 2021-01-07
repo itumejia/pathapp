@@ -11,6 +11,7 @@ import 'package:pathapp/screens/login_screen.dart';
 import 'package:pathapp/screens/register_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:pathapp/screens/prestigio_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: sesionScreen(),
+      home: prestigioScreen(),
     );
   }
   //prueba git
