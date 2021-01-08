@@ -12,6 +12,7 @@ import 'package:pathapp/screens/register_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/prestigio_screen.dart';
+import 'package:pathapp/screens/versatilidad_screen.dart';
 
 void main() {
   runApp(MyApp());
