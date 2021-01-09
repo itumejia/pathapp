@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class InstructionBoxWidget extends StatelessWidget {
   final String texto;
@@ -29,13 +30,13 @@ class InstructionBoxWidget extends StatelessWidget {
                       texto,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
-                      style: TextStyle(
-                        fontFamily: 'Amaranth',
+                      style: GoogleFonts.amaranth(
+                        textStyle: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
-                  ),
+                  )),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                       color: Colors.transparent,

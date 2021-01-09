@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pathapp/utilities/instruction_box_widget.dart';
+import 'package:pathapp/utilities/components/instruction_box_widget2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pathapp/utilities/relaciones_rating.dart';
-import 'package:pathapp/utilities/white_box_carrera.dart';
+import 'package:pathapp/utilities/components/relaciones_rating.dart';
+import 'package:pathapp/utilities/components/white_box_carrera.dart';
 
 class CapitalRelacionesScreen extends StatelessWidget {
   final List<String> carreras;

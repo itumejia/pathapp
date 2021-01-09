@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/HabilidadesPersona.dart';
@@ -14,7 +15,9 @@ import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/prestigio_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -23,8 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: prestigioScreen(),
+      home: RegisterScreen(),
     );
   }
-  //prueba git
 }

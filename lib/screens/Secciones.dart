@@ -96,7 +96,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       colore: kColorAzul,
                       tapFunction: (){},
                       cardChild: CardIcon(
-                        nameImage: 'images/light-bulb.png',
+                        nameImage: 'assets/images/light-bulb.png',
                         iconTitle: 'Ramas del conocimiento',
                       ),
                     ),
@@ -106,7 +106,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       colore: kColorAmarillo,
                       tapFunction: (){},
                       cardChild: CardIcon(
-                        nameImage: 'images/world-map.png',
+                        nameImage: 'assets/images/world-map.png',
                         iconTitle: 'Problemas del mundo',
                       ),
                     ),
@@ -120,7 +120,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       colore: kColorNaranja,
                       tapFunction: (){},
                       cardChild: CardIcon(
-                        nameImage: 'images/treasure.png',
+                        nameImage: 'assets/images/treasure.png',
                         iconTitle: 'Capital de carrera',
                       ),
                     ),
@@ -130,7 +130,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       colore: kColorCafe,
                       tapFunction: (){},
                       cardChild: CardIcon(
-                        nameImage: 'images/paper-plane.png',
+                        nameImage: 'assets/images/paper-plane.png',
                         iconTitle: 'Personal fit',
                       ),
                     ),

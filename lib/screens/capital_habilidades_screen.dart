@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pathapp/utilities/capital_habilidades.dart';
-import 'package:pathapp/utilities/instruction_box_widget.dart';
+import 'package:pathapp/utilities/components/capital_habilidades.dart';
+import 'package:pathapp/utilities/components/instruction_box_widget2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CapitalHabilidadesScreen extends StatelessWidget {

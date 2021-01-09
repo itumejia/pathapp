@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pathapp/utilities/white_box_carrera.dart';
+import 'file:///C:/Users/ituri/AndroidStudioProjects/pathapp/lib/utilities/components/white_box_carrera.dart';
 
 class RelacionesRating extends StatefulWidget {
 

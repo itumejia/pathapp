@@ -40,7 +40,7 @@ class _HabilidadesScreenState extends State<HabilidadesScreen> {
                 children: [
                   Container(
                     padding: EdgeInsets.all(15),
-                    child: Image.asset('images/player.png'),
+                    child: Image.asset('assets/images/player.png'),
                     width: 140.0,
                     height: 140.0,
                     margin: EdgeInsets.only(bottom: 5.0),
