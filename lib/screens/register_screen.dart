@@ -4,6 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 InputDecoration getEstiloPass2(bool completo, bool coincide){
   if(!completo){
@@ -46,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final controllerPass2=TextEditingController();
 
   final _author=FirebaseAuth.instance;
+  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
 
   @override
   Widget build(BuildContext context) {
@@ -162,6 +164,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       });
 
                       todoChido=true;
+                      eNombre=true;
+                      eApellidos=true;
+                      eEmail=true;
+                      ePass=true;
+                      ePass2=true;
+                      pass2coin=true;
+
 
                       if(nombre==''){
                         todoChido=false;
@@ -216,6 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           print(password);
                           final newUser=await _author.createUserWithEmailAndPassword(email: email, password: password);
                           if(newUser!=null){
+                            await _cloud.doc(email).set({"nombres":nombre,"apellidos":apellidos, "carreras":[], "versatilidad": {}, "prestigio": {},"imp_social": {},"cap_habilidades": {},"cap_personas": {},"personal_fit": {}});
                             print("Jalo chido");
                           }
                         }
