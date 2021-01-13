@@ -4,6 +4,7 @@ import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String id='login_screen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }

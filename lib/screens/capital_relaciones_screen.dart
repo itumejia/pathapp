@@ -5,6 +5,7 @@ import 'package:pathapp/utilities/components/relaciones_rating.dart';
 import 'package:pathapp/utilities/components/white_box_carrera.dart';
 
 class CapitalRelacionesScreen extends StatelessWidget {
+  static String id='cap_relaciones_screen';
   final List<String> carreras;
   CapitalRelacionesScreen({this.carreras});
 

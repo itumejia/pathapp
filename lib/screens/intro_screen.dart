@@ -2,9 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/diamond.dart';
 
-class introScreen extends StatelessWidget {
+class introScreen extends StatefulWidget {
+  static String id='welcome_screen';
+
+  @override
+  _introScreenState createState() => _introScreenState();
+}
+
+class _introScreenState extends State<introScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    new Future.delayed(
+        const Duration(seconds: 3),
+            () => Navigator.pushReplacementNamed(context,sesionScreen.id)
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

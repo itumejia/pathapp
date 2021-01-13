@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,7 @@ InputDecoration getEstiloPass2(bool completo, bool coincide){
 }
 
 class RegisterScreen extends StatefulWidget {
+  static String id='register_screen';
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -31,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String password2='';
 
   bool _saving=false;
+
   bool eNombre=true;
   bool eApellidos=true;
   bool eEmail=true;
@@ -226,6 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           final newUser=await _author.createUserWithEmailAndPassword(email: email, password: password);
                           if(newUser!=null){
                             await _cloud.doc(email).set({"nombres":nombre,"apellidos":apellidos, "carreras":[], "versatilidad": {}, "prestigio": {},"imp_social": {},"cap_habilidades": {},"cap_personas": {},"personal_fit": {}});
+                            Navigator.pushReplacementNamed(context,SeccionesScreen.id); //Cambiar a Introducir Carreras
                             print("Jalo chido");
                           }
                         }
