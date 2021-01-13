@@ -6,9 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utilities/components/diamond.dart';
 
 class sesionScreen extends StatelessWidget {
-  Container containerTop;
-  Container containerBottom;
-
   Widget createRect(
       BuildContext context, Widget leftWidget, Widget rightWidget) {
     return (Container(
