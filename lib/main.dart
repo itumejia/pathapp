@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/prestigio_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
+import 'package:pathapp/screens/areas_estudio_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: prestigioScreen(),
+      home: areasEstudioScreen(),
     );
   }
   //prueba git
