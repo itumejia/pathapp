@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/field_data.dart';
 
 class HabilidadesScreen extends StatefulWidget {
+  static String id='personal_rating_screen';
   @override
   _HabilidadesScreenState createState() => _HabilidadesScreenState();
 }

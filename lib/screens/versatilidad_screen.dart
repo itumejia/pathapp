@@ -6,6 +6,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class versatilidadScreen extends StatefulWidget {
+  static String id='ramas_prestigio_screen';
   @override
   _versatilidadScreenState createState() => _versatilidadScreenState();
 }

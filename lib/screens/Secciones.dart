@@ -7,6 +7,7 @@ import 'package:pathapp/utilities/constants.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class SeccionesScreen extends StatefulWidget {
+  static String id='menu_screen';
   @override
   _SeccionesScreenState createState() => _SeccionesScreenState();
 }

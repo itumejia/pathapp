@@ -3,9 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pathapp/screens/login_screen.dart';
+import 'package:pathapp/screens/register_screen.dart';
 import '../utilities/components/diamond.dart';
 
 class sesionScreen extends StatelessWidget {
+  static String id='sesion_screen';
   Container containerTop;
   Container containerBottom;
 
@@ -64,7 +67,9 @@ class sesionScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
                     child: InkWell(
-                      onTap: () => null,
+                      onTap: (){
+                        Navigator.pushNamed(context,LoginScreen.id);
+                      },
                       child: createRect(
                         context,
                         createDiamond(22),
@@ -82,7 +87,9 @@ class sesionScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
                     child: InkWell(
-                      onTap: () => null,
+                      onTap: (){
+                        Navigator.pushNamed(context,RegisterScreen.id);
+                      },
                       child: createRect(
                         context,
                         Text(
