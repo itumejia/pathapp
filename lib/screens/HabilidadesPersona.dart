@@ -8,6 +8,7 @@ import 'package:pathapp/utilities/models/field_dataH.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HabilidadesPersona extends StatefulWidget {
+  static String id='cap_rating_screen';
   @override
   _HabilidadesPersonaState createState() => _HabilidadesPersonaState();
 }

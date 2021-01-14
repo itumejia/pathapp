@@ -5,6 +5,7 @@ import 'package:pathapp/utilities/components/leftRow.dart';
 import 'package:pathapp/utilities/components/rigthRow.dart';
 
 class Valores extends StatefulWidget {
+  static String id='personal_habilidades_screen';
   @override
   _ValoresState createState() => _ValoresState();
 }
@@ -175,7 +176,7 @@ class _ValoresState extends State<Valores> {
                                 bottom: 0,
                                 child: Container(
                                   padding: EdgeInsets.all(15),
-                                  child: Image.asset('images/player.png'),
+                                  child: Image.asset('assets/images/player.png'),
                                   width: 140.0,
                                   height: 140.0,
                                   margin: EdgeInsets.only(bottom: 5.0),

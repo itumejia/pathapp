@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/field_data.dart';
 
 class HabilidadesScreen extends StatefulWidget {
+  static String id='personal_rating_screen';
   @override
   _HabilidadesScreenState createState() => _HabilidadesScreenState();
 }
@@ -40,7 +41,7 @@ class _HabilidadesScreenState extends State<HabilidadesScreen> {
                 children: [
                   Container(
                     padding: EdgeInsets.all(15),
-                    child: Image.asset('images/player.png'),
+                    child: Image.asset('assets/images/player.png'),
                     width: 140.0,
                     height: 140.0,
                     margin: EdgeInsets.only(bottom: 5.0),
