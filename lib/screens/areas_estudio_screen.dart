@@ -6,6 +6,8 @@ import 'package:pathapp/utilities/constants.dart';
 import '../utilities/components/diamond.dart';
 
 class areasEstudioScreen extends StatefulWidget {
+  static String id='areas_estudio_screen';
+
   @override
   _areasEstudioScreenState createState() => _areasEstudioScreenState();
 }

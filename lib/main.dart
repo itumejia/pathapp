@@ -24,14 +24,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-      initialRoute: introScreen.id,
+    return MaterialApp(
+      initialRoute: areasEstudioScreen.id,
       routes: {
         //Pantallas de inicio:
         introScreen.id: (context)=>introScreen(), //Pantalla de bienvenida
         sesionScreen.id: (context)=>sesionScreen(), // Pantalla Login/ Registrarse
         LoginScreen.id: (context)=>LoginScreen(), //Pantalla de Login
         RegisterScreen.id: (context)=>RegisterScreen(), //Pantalla de Registro
-        //Falta pantalla para introducir carreras
+        areasEstudioScreen.id: (context) => areasEstudioScreen(), //Pantalla para introducir carreras
         SeccionesScreen.id:(context)=> SeccionesScreen(), //Pantalla de menú principal, para escoger test
         //Falta pantalla de resultados
 
