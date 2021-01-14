@@ -12,6 +12,7 @@ import 'package:pathapp/screens/prestigio_screen.dart';
 import 'package:pathapp/screens/register_screen.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
+import 'package:pathapp/screens/areas_estudio_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

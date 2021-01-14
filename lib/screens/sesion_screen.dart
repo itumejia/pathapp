@@ -11,7 +11,6 @@ class sesionScreen extends StatelessWidget {
   static String id='sesion_screen';
   Container containerTop;
   Container containerBottom;
-
   Widget createRect(
       BuildContext context, Widget leftWidget, Widget rightWidget) {
     return (Container(
