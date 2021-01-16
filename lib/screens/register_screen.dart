@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -229,7 +230,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           final newUser=await _author.createUserWithEmailAndPassword(email: email, password: password);
                           if(newUser!=null){
                             await _cloud.doc(email).set({"nombres":nombre,"apellidos":apellidos, "carreras":[], "versatilidad": {}, "prestigio": {},"imp_social": {},"cap_habilidades": {},"cap_personas": {},"personal_fit": {}});
-                            Navigator.pushReplacementNamed(context,SeccionesScreen.id); //Cambiar a Introducir Carreras
+                            Navigator.pushReplacementNamed(context,areasEstudioScreen.id); //Cambiar a Introducir Carreras
                             print("Jalo chido");
                           }
                         }

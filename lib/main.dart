@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: areasEstudioScreen.id,
+      initialRoute: introScreen.id,
       routes: {
         //Pantallas de inicio:
         introScreen.id: (context)=>introScreen(), //Pantalla de bienvenida
