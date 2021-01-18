@@ -20,7 +20,6 @@ class areasEstudioScreen extends StatefulWidget {
 class _areasEstudioScreenState extends State<areasEstudioScreen> {
   User loggedUser;
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
-  String carrera;
   List<String> carrerasLimpio=[];
   bool saving=false;
 
@@ -175,6 +174,7 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: FloatingActionButton(
+              heroTag: null,
               onPressed: () {
                 if(numCarreras>2){
                   setState(() {
@@ -196,6 +196,7 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: FloatingActionButton(
+              heroTag: null,
               onPressed: () {
                 if(numCarreras<4){
                   setState(() {
