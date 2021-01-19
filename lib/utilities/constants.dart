@@ -14,6 +14,7 @@ const kColorMoradoGris = Color(0xFF5A5275);
 const kColorRosa = Color(0xFFF6C2C2);
 const kColorVerdeClaro = Color(0xFFC6DC72);
 const kColorVerdeOscuro = Color(0xFF8BA32B);
+const kColorAzulEfectosFondo = Color(0xFF5C92A3);
 
 const kInputCarreras = InputDecoration(
   hintText: 'Introduce carrera',

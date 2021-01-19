@@ -5,9 +5,9 @@ class roundedContainer extends StatelessWidget {
       {@required this.heightPercentage,
       @required this.widthPercentage,
       this.childContainer});
-  final heightPercentage;
-  final widthPercentage;
-  final childContainer;
+  final double heightPercentage;
+  final double widthPercentage;
+  final Widget childContainer;
 
   @override
   Widget build(BuildContext context) {

@@ -14,6 +14,10 @@ import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
 
+import 'screens/intro_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
