@@ -9,6 +9,7 @@ import '../utilities/components/diamond.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
+import 'package:pathapp/screens/sesion_screen.dart';
 
 class areasEstudioScreen extends StatefulWidget {
   static String id='areas_estudio_screen';
@@ -29,6 +30,9 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
       loggedUser= await author.currentUser;
       if(loggedUser!=null){
         print(loggedUser.email);
+      }
+      else{
+        Navigator.pushReplacementNamed(context,sesionScreen.id);
       }
     }catch(e){
       print(e);
