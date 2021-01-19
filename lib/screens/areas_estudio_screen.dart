@@ -6,7 +6,7 @@ import 'package:pathapp/utilities/constants.dart';
 import '../utilities/components/diamond.dart';
 
 class areasEstudioScreen extends StatefulWidget {
-  static String id='areas_estudio_screen';
+  static String id = 'areas_estudio_screen';
 
   @override
   _areasEstudioScreenState createState() => _areasEstudioScreenState();
@@ -59,7 +59,9 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                         onTap: () => null,
                         child: kCreateRect(
                           context,
-                          createDiamond(22),
+                          diamond(
+                            diamondSize: 0.05,
+                          ),
                           Text(
                             'CONTINUAR',
                             style: GoogleFonts.amaranth(
