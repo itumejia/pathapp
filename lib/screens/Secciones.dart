@@ -23,6 +23,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
   bool saving=false;
 
+  List<dynamic> carreras;
   //Indicadores de tests completados
   bool ramas=false, impacto=false, capital=false, personal =false;
 
@@ -43,6 +44,9 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
   void getInfo()async{
     Map info= await getData(loggedUser.email);
+
+    carreras=info['carreras'];
+
     if(info['versatilidad'].length!=0 || info['prestigio'].length!=0){
       progreso+=16.5;
       if(info['versatilidad'].length!=0 && info['prestigio'].length!=0) {
@@ -69,12 +73,6 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
       personal=true;
       progreso+=17;
     }
-
-
-    print(ramas);
-    print(impacto);
-    print(capital);
-    print(personal);
 
   }
 
