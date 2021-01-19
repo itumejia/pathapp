@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pathapp/screens/Valores.dart';
 import 'package:pathapp/utilities/components/RoundedButton.dart';
 import 'package:pathapp/utilities/components/ReusableCard.dart';
 import 'package:pathapp/utilities/components/CardIcon.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
+import 'package:pathapp/screens/sesion_screen.dart';
 
 class SeccionesScreen extends StatefulWidget {
   static String id='menu_screen';
@@ -13,6 +18,78 @@ class SeccionesScreen extends StatefulWidget {
 }
 
 class _SeccionesScreenState extends State<SeccionesScreen> {
+  User loggedUser;
+  double progreso=0.0;
+  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
+  bool saving=false;
+
+  //Indicadores de tests completados
+  bool ramas=false, impacto=false, capital=false, personal =false;
+
+  void getCurrentUser()async{
+    try{
+      final author= FirebaseAuth.instance;
+      loggedUser= await author.currentUser;
+      if(loggedUser!=null){
+        print(loggedUser.email);
+      }
+      else{
+        Navigator.pushReplacementNamed(context,sesionScreen.id);
+      }
+    }catch(e){
+      print(e);
+    }
+  }
+
+  void getInfo()async{
+    Map info= await getData(loggedUser.email);
+    if(info['versatilidad'].length!=0 || info['prestigio'].length!=0){
+      progreso+=16.5;
+      if(info['versatilidad'].length!=0 && info['prestigio'].length!=0) {
+        progreso+=16.5;
+        ramas = true;
+      }
+    }
+
+
+    if(info['imp_social'].length!=0){
+      impacto=true;
+      progreso+=16.5;
+    }
+
+    if(info['cap_habilidades'].length!=0 || info['cap_personas'].length!=0){
+      progreso+=16.5;
+      if(info['cap_habilidades'].length!=0 && info['cap_personas'].length!=0) {
+        progreso+=16.5;
+        capital = true;
+      }
+    }
+
+    if(info['personal_fit'].length!=0){
+      personal=true;
+      progreso+=17;
+    }
+
+
+    print(ramas);
+    print(impacto);
+    print(capital);
+    print(personal);
+
+  }
+
+  void update()async{
+    await getCurrentUser();
+    await getInfo();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    update();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,18 +136,29 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           animation: true,
                           lineHeight: 20.0,
                           animationDuration: 1000,
-                          percent: 0.8,
-                          center: Text("80.0%"),
+                          percent: progreso/100,
+                          center: Text("${progreso}%"),
                           linearStrokeCap: LinearStrokeCap.roundAll,
                           progressColor: Colors.white,
                         ),
                         SizedBox(
                           height: 5.0,
                         ),
-                        RoundedButton(
-                          titleText: 'CONTINUAR',
-                          colorProperty: Colors.white,
-                          onPressedFunction: (){},
+                        Opacity(
+                          opacity: progreso==100 ? 100:0,
+                          child: RoundedButton(
+                            titleText: 'VER RESULTADOS',
+                            colorProperty: Colors.white,
+                            onPressedFunction: (){
+                              //Condición para saber si el progreso ya está en 100
+                              if(progreso==100){
+                                //Navegar a pantalla de resultados
+
+
+                              }
+
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -94,8 +182,8 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                 children: <Widget>[
                   Expanded(
                     child: ReusableCard(
-                      colore: kColorAzul,
-                      tapFunction: (){},
+                      colore: ramas ? kColorGris : kColorAzul,
+                      tapFunction: ()=>{}, //Ir a navegador de ramas
                       cardChild: CardIcon(
                         nameImage: 'assets/images/light-bulb.png',
                         iconTitle: 'Ramas del conocimiento',
@@ -104,8 +192,8 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                   ),
                   Expanded(
                     child: ReusableCard(
-                      colore: kColorAmarillo,
-                      tapFunction: (){},
+                      colore:  impacto ? kColorGris : kColorAmarillo,
+                      tapFunction: ()=>{}, //Ir a test de problemas del mundo
                       cardChild: CardIcon(
                         nameImage: 'assets/images/world-map.png',
                         iconTitle: 'Problemas del mundo',
@@ -118,8 +206,8 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                 children: <Widget>[
                   Expanded(
                     child: ReusableCard(
-                      colore: kColorNaranja,
-                      tapFunction: (){},
+                      colore:  capital ? kColorGris : kColorNaranja,
+                      tapFunction: ()=>{}, //Ir a navegador de capital
                       cardChild: CardIcon(
                         nameImage: 'assets/images/treasure.png',
                         iconTitle: 'Capital de carrera',
@@ -128,8 +216,8 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                   ),
                   Expanded(
                     child: ReusableCard(
-                      colore: kColorCafe,
-                      tapFunction: (){},
+                      colore:  personal ? kColorGris : kColorCafe,
+                      tapFunction: ()=>Navigator.pushNamed(context, Valores.id),
                       cardChild: CardIcon(
                         nameImage: 'assets/images/paper-plane.png',
                         iconTitle: 'Personal fit',

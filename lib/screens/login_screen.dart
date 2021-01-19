@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -127,10 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Map<String, dynamic> result= await getData(email);
                                 List<dynamic> arrayCarrera = result['carreras'];
                                 //print(result['nombres']);
-                                if(arrayCarrera.length!=0){
-                                  //ir a pantalla de carreras
+                                if(arrayCarrera.length==0){
+                                  Navigator.pushReplacementNamed(context,areasEstudioScreen.id);
                                 }else{
-                                  //ir a pantalla de inicio
+                                  Navigator.pushReplacementNamed(context,SeccionesScreen.id);
                                 }
                               }
                             }
