@@ -5,6 +5,7 @@ import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id='login_screen';
@@ -24,19 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _author=FirebaseAuth.instance;
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
-
-  Future<Map<String, dynamic>> getData(String email) async{
-    Map<String, dynamic> res;
-    final DocumentReference document = _cloud.doc(email);
-    await document
-        .get()
-        .then((DocumentSnapshot documentSnapshot) async{
-      if (documentSnapshot.exists) {
-        res= documentSnapshot.data();
-      }
-    });
-    return res;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (user != null) {
                                 Map<String, dynamic> result= await getData(email);
                                 List<dynamic> arrayCarrera = result['carreras'];
+                                //print(result['nombres']);
                                 if(arrayCarrera.length!=0){
                                   //ir a pantalla de carreras
                                 }else{
