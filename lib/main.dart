@@ -13,6 +13,7 @@ import 'package:pathapp/screens/register_screen.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
+import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,7 +54,10 @@ class MyApp extends StatelessWidget {
 
         //Pantallas de Personal Fit
         Valores.id: (context)=> Valores(), //Pantalla para introducir habilidades de la persona
-        HabilidadesScreen.id: (context)=> HabilidadesScreen() //Pantalla para calificar habilidades
+        HabilidadesScreen.id: (context)=> HabilidadesScreen(), //Pantalla para calificar habilidades
+
+        //Navegadores de test
+        NavegadorCapital_screen.id: (context)=>NavegadorCapital_screen(),
 
       },
     );
