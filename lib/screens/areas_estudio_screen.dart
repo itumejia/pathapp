@@ -11,7 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 
 class areasEstudioScreen extends StatefulWidget {
-  static String id='areas_estudio_screen';
+  static String id = 'areas_estudio_screen';
 
   @override
   _areasEstudioScreenState createState() => _areasEstudioScreenState();

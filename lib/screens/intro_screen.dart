@@ -1,48 +1,55 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/diamond.dart';
+import 'package:pathapp/utilities/constants.dart';
+import 'package:pathapp/utilities/components/fonts.dart';
 
 class introScreen extends StatefulWidget {
-  static String id='welcome_screen';
+  static String id = 'welcome_screen';
 
   @override
   _introScreenState createState() => _introScreenState();
 }
 
 class _introScreenState extends State<introScreen> {
-
   @override
   void initState() {
     super.initState();
-    new Future.delayed(
-        const Duration(seconds: 3),
-            () => Navigator.pushReplacementNamed(context,sesionScreen.id)
-    );
-
+    new Future.delayed(const Duration(seconds: 6),
+        () => Navigator.pushReplacementNamed(context, sesionScreen.id));
   }
 
   @override
   Widget build(BuildContext context) {
+    final double widthScreenPercentage = MediaQuery.of(context).size.width;
+    final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xfb609fb3),
+      backgroundColor: kColorAzulClaro,
       body: Stack(
         children: [
           Center(
-            heightFactor: 1.5,
-            child: SvgPicture.asset(
-              'assets/images/efectosFondo.svg',
-              width: MediaQuery.of(context).size.width * 0.80,
+            child: Padding(
+              padding: EdgeInsets.only(top: heightScreenPercentage * 0.05),
+              child: Column(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/efectosFondo.svg',
+                    //La imagen ocupa el 80% de la pantalla
+                    width: widthScreenPercentage * 0.85,
+                  ),
+                ],
+              ),
             ),
           ),
           Align(
+            //Se coloca la imagen en la parte inferior izquierda
             alignment: Alignment.bottomRight,
             child: SvgPicture.asset(
-              'assets/images/camino.svg',
-              width: MediaQuery.of(context).size.width,
+              'assets/images/caminoIntro.svg',
+              //Ocupa el 100% del ancho de la pantalla
+              width: widthScreenPercentage,
             ),
           ),
           SafeArea(
@@ -50,53 +57,32 @@ class _introScreenState extends State<introScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  //Texto 1 alineado % (sizePercentage)
                   Padding(
-                    padding: const EdgeInsets.only(top: 80),
-                    child: Text(
-                      'You gotta start somewhere...',
-                      style: GoogleFonts.amaranth(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    //Para usar % se elimina const en EdgeInsets
+                    padding:
+                        EdgeInsets.only(top: heightScreenPercentage * 0.13),
+                    child: fontStyleMPlus(
+                        text: 'You gotta start somewhere...',
+                        sizePercentage: 1.85,
+                        color: Colors.white),
                   ),
-                  Text(
-                    'PATH',
-                    style: GoogleFonts.mPlusRounded1c(
-                        color: Colors.white,
-                        fontSize: 65.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 3.0),
-                  ),
+                  fontStyleMPlus(
+                      text: 'PATH',
+                      sizePercentage: 8.0,
+                      color: Colors.white,
+                      letterSpacing: widthScreenPercentage * 0.001),
+                  //Línea para separa debajo del texto
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.60,
-                    height: 1.0,
+                    width: widthScreenPercentage * 0.60,
+                    height: heightScreenPercentage * 0.002,
                     color: Colors.white,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 45),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20.0),
-                        ),
-                      ),
-                      child: Center(
-                        child: createDiamond(22),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 50),
-                    child: SvgPicture.asset(
-                      'assets/images/puertaAzul.svg',
-                      width: MediaQuery.of(context).size.width * 0.13,
+                    padding: EdgeInsets.symmetric(
+                        vertical: heightScreenPercentage * 0.05),
+                    child: diamond(
+                      diamondSize: widthScreenPercentage * 0.07,
                     ),
                   ),
                 ],
