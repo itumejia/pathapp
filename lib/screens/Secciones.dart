@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pathapp/screens/Valores.dart';
@@ -10,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 
 class SeccionesScreen extends StatefulWidget {
   static String id='menu_screen';
@@ -44,6 +47,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
   void getInfo()async{
     Map info= await getData(loggedUser.email);
+    print('getting data');
 
     carreras=info['carreras'];
 
@@ -74,16 +78,25 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
       progreso+=17;
     }
 
+    print(ramas);
+    print(impacto);
+    print(capital);
+    print(personal);
+
   }
 
   void update()async{
     await getCurrentUser();
     await getInfo();
+    setState(() {
+      print('set');
+    });
   }
 
   @override
   void initState() {
     super.initState();
+    print('INIT');
     update();
   }
 
@@ -205,7 +218,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                   Expanded(
                     child: ReusableCard(
                       colore:  capital ? kColorGris : kColorNaranja,
-                      tapFunction: ()=>{}, //Ir a navegador de capital
+                      tapFunction: (){Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavegadorCapital_screen(carreras: carreras),
+                        ),
+                      );
+                      },//Ir a navegador de capital
                       cardChild: CardIcon(
                         nameImage: 'assets/images/treasure.png',
                         iconTitle: 'Capital de carrera',

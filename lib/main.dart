@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
         //Falta pantalla para calificar impacto
 
         //Pantallas de Capital de Carrera
-        //Falta navegador
         CapitalHabilidadesScreen.id: (context)=>CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
         HabilidadesPersona.id: (context)=>HabilidadesPersona(), //Pantalla para calificar habilidades
         CapitalRelacionesScreen.id: (context)=>CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera

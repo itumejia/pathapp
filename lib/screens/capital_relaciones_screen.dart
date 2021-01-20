@@ -10,7 +10,7 @@ class CapitalRelacionesScreen extends StatefulWidget {
   static String id='cap_relaciones_screen';
 
   CapitalRelacionesScreen({@required this.carreras});
-  List<String> carreras=[];
+  List<dynamic> carreras=[];
 
   @override
   _CapitalRelacionesScreenState createState() => _CapitalRelacionesScreenState();
@@ -103,7 +103,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
                 "cap_personas": results,
               });
 
-              Navigator.pushReplacementNamed(context,SeccionesScreen.id);
+              Navigator.pushNamedAndRemoveUntil(context,SeccionesScreen.id,(Route<dynamic> route) => false);
             }
             catch(e){
               print(e);

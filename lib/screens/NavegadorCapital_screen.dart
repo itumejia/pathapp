@@ -4,6 +4,9 @@ import 'package:pathapp/screens/capital_habilidades_screen.dart';
 
 class NavegadorCapital_screen extends StatelessWidget {
 
+  NavegadorCapital_screen({this.carreras});
+
+  final List<dynamic> carreras;
   static String id='nav_capital_screen';
 
   @override
@@ -20,18 +23,18 @@ class NavegadorCapital_screen extends StatelessWidget {
               fontSize: MediaQuery.of(context).size.width*0.2,
             ),
           ),
-          ElevatedButton(
+          FlatButton(
               onPressed: (){
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => CapitalRelacionesScreen(carreras: ['ITC','IRS']),
+                  builder: (context) => CapitalRelacionesScreen(carreras: carreras),
                 ),
                 );
               },
               child: Text("Capital de personas"),
           ),
-          ElevatedButton(
+          FlatButton(
               onPressed: (){
                 Navigator.push(
                   context,
