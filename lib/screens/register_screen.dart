@@ -7,18 +7,8 @@ import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
-
+import 'package:pathapp/utilities/components/textFieldDecoration.dart';
 import '../utilities/constants.dart';
-
-InputDecoration getEstiloPass2(bool completo, bool coincide) {
-  if (!completo) {
-    return kInputDecorationError.copyWith(hintText: "Confirmación Faltante");
-  } else if (!coincide) {
-    return kInputDecorationError.copyWith(hintText: "No coincide");
-  } else {
-    return kInputDecoration.copyWith(hintText: 'Confirmar contraseña');
-  }
-}
 
 class RegisterScreen extends StatefulWidget {
   static String id = 'register_screen';
@@ -57,6 +47,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
+    InputDecoration getEstiloPass2(bool completo, bool coincide) {
+      if (!completo) {
+        return textFieldDecoration("Confirmación faltante",
+            widthScreenPercentage, heightScreenPercentage, Colors.red);
+      } else if (!coincide) {
+        return textFieldDecoration("No coincide", widthScreenPercentage,
+            heightScreenPercentage, Colors.red);
+      } else {
+        return textFieldDecoration("Confirmar contraseña",
+            widthScreenPercentage, heightScreenPercentage, Colors.grey);
+      }
+    }
+
     return Scaffold(
       backgroundColor: kColorMorado,
       body: ModalProgressHUD(
@@ -99,16 +102,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           vertical: heightScreenPercentage * 0.013,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerNombre,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            nombre = value;
-                          },
-                          decoration: eNombre
-                              ? kInputDecoration.copyWith(hintText: 'Nombre')
-                              : kInputDecorationError.copyWith(
-                                  hintText: 'Nombre Faltante'),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerNombre,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              nombre = value;
+                            },
+                            decoration: eNombre
+                                ? textFieldDecoration(
+                                    "Nombre",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.grey)
+                                : textFieldDecoration(
+                                    "Nombre faltante",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.red),
+                          ),
                         ),
                       ),
                       Padding(
@@ -116,16 +130,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           vertical: heightScreenPercentage * 0.013,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerApellidos,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            apellidos = value;
-                          },
-                          decoration: eApellidos
-                              ? kInputDecoration.copyWith(hintText: 'Apellidos')
-                              : kInputDecorationError.copyWith(
-                                  hintText: 'Apellidos Faltantes'),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerApellidos,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              apellidos = value;
+                            },
+                            decoration: eApellidos
+                                ? textFieldDecoration(
+                                    "Apellidos",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.grey)
+                                : textFieldDecoration(
+                                    "Apellidos faltante",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.red),
+                          ),
                         ),
                       ),
                       Padding(
@@ -133,18 +158,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           vertical: heightScreenPercentage * 0.013,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerEmail,
-                          textAlign: TextAlign.center,
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (value) {
-                            email = value;
-                          },
-                          decoration: eEmail
-                              ? kInputDecoration.copyWith(
-                                  hintText: 'Correo electrónico')
-                              : kInputDecorationError.copyWith(
-                                  hintText: 'Correo Faltante'),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerEmail,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                            decoration: eEmail
+                                ? textFieldDecoration(
+                                    "Correo electrónico",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.grey)
+                                : textFieldDecoration(
+                                    "Correo faltante",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.red),
+                          ),
                         ),
                       ),
                       Padding(
@@ -152,18 +187,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           vertical: heightScreenPercentage * 0.013,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerPass,
-                          textAlign: TextAlign.center,
-                          obscureText: true,
-                          onChanged: (value) {
-                            password = value;
-                          },
-                          decoration: ePass
-                              ? kInputDecoration.copyWith(
-                                  hintText: 'Contraseña')
-                              : kInputDecorationError.copyWith(
-                                  hintText: 'Contraseña Faltante'),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerPass,
+                            textAlign: TextAlign.center,
+                            obscureText: true,
+                            onChanged: (value) {
+                              password = value;
+                            },
+                            decoration: ePass
+                                ? textFieldDecoration(
+                                    "Contraseña",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.grey)
+                                : textFieldDecoration(
+                                    "Contraseña faltante",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.red),
+                          ),
                         ),
                       ),
                       Padding(
@@ -171,14 +216,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           vertical: heightScreenPercentage * 0.013,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerPass2,
-                          textAlign: TextAlign.center,
-                          obscureText: true,
-                          onChanged: (value) {
-                            password2 = value;
-                          },
-                          decoration: getEstiloPass2(ePass2, pass2coin),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerPass2,
+                            textAlign: TextAlign.center,
+                            obscureText: true,
+                            onChanged: (value) {
+                              password2 = value;
+                            },
+                            decoration: getEstiloPass2(ePass2, pass2coin),
+                          ),
                         ),
                       ),
                       CountButton(

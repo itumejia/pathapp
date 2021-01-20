@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: introScreen.id,
+      initialRoute: RegisterScreen.id,
       routes: {
         //Pantallas de inicio:
         introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
@@ -46,9 +46,10 @@ class MyApp extends StatelessWidget {
 
         //Ramas del conocimiento:
         //Falta navegador
-        versatilidadScreen.id: (context)=>versatilidadScreen(), //Pantalla de Versatilidad
-        prestigioScreen.id: (context)=>prestigioScreen(), //Pantalla de Prestigio
-
+        versatilidadScreen.id: (context) =>
+            versatilidadScreen(), //Pantalla de Versatilidad
+        prestigioScreen.id: (context) =>
+            prestigioScreen(), //Pantalla de Prestigio
 
         //Pantallas de Impacto Social
         //Falta pantalla para añadir problemas
@@ -63,13 +64,13 @@ class MyApp extends StatelessWidget {
             CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
 
         //Pantallas de Personal Fit
-        Valores.id: (context)=> Valores(), //Pantalla para introducir habilidades de la persona
-        HabilidadesScreen.id: (context)=> HabilidadesScreen(), //Pantalla para calificar habilidades
+        Valores.id: (context) =>
+            Valores(), //Pantalla para introducir habilidades de la persona
+        HabilidadesScreen.id: (context) =>
+            HabilidadesScreen(), //Pantalla para calificar habilidades
 
         //Navegadores de test
-        NavegadorCapital_screen.id: (context)=>NavegadorCapital_screen(),
-
-
+        NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
       },
     );
   }
