@@ -137,20 +137,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             
                             if(eEmail==true && ePass==true){
-                            try{
-                              final user = await _author.signInWithEmailAndPassword(
+                            try {
+                              final user = await _author
+                                  .signInWithEmailAndPassword(
                                   email: email, password: password);
                               if (user != null) {
-                                Map<String, dynamic> result= await getData(email);
+                                Map<String, dynamic> result = await getData(
+                                    email);
                                 List<dynamic> arrayCarrera = result['carreras'];
                                 //print(result['nombres']);
-                                if(arrayCarrera.length==0){
-                                  Navigator.pushReplacementNamed(context,areasEstudioScreen.id);
-                                }else{
-                                  Navigator.pushReplacementNamed(context,SeccionesScreen.id);
-                                  
+                                if (arrayCarrera.length == 0) {
+                                  Navigator.pushReplacementNamed(
+                                      context, areasEstudioScreen.id);
+                                } else {
+                                  Navigator.pushReplacementNamed(
+                                      context, SeccionesScreen.id);
                                 }
-                              } catch (e) {
+                              }
+                            }catch (e) {
                                 print(e);
                               }
                             }
