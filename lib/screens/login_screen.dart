@@ -8,9 +8,12 @@ import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
+import 'package:pathapp/utilities/components/fonts.dart';
+import '../utilities/components/fonts.dart';
+import '../utilities/constants.dart';
 
 class LoginScreen extends StatefulWidget {
-  static String id='login_screen';
+  static String id = 'login_screen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -18,110 +21,122 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
-  bool eEmail=true;
-  bool ePass=true;
-  bool _saving=false;
+  bool eEmail = true;
+  bool ePass = true;
+  bool _saving = false;
 
-  final controllerEmail=TextEditingController();
-  final controllerPass=TextEditingController();
+  final controllerEmail = TextEditingController();
+  final controllerPass = TextEditingController();
 
-  final _author=FirebaseAuth.instance;
-  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
+  final _author = FirebaseAuth.instance;
+  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
 
   @override
   Widget build(BuildContext context) {
+    final double widthScreenPercentage = MediaQuery.of(context).size.width;
+    final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xff493D73),
+      backgroundColor: kColorMorado,
       body: ModalProgressHUD(
         inAsyncCall: _saving,
-        child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            Stack(
-              children: [
-                SvgPicture.asset(
-                  "assets/images/estrellas_fondo.svg",
-                  width: MediaQuery.of(context).size.width,
+        child: ListView(shrinkWrap: true, children: <Widget>[
+          Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: heightScreenPercentage * 0.08),
+                child: SvgPicture.asset(
+                  "assets/images/efectosFondo2.svg",
+                  width: widthScreenPercentage,
                 ),
-                SafeArea(
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: SvgPicture.asset(
-                            "assets/images/libro.svg",
-                            width: 70,
+              ),
+              SafeArea(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: heightScreenPercentage * 0.12),
+                        child: SvgPicture.asset(
+                          "assets/images/libro.svg",
+                          width: widthScreenPercentage * 0.2,
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: heightScreenPercentage * 0.05,
                           ),
+                          child: fontStyleMPlus(
+                            text: 'INICIAR SESIÓN',
+                            sizePercentage: 5,
+                            color: Colors.white,
+                            letterSpacing: widthScreenPercentage * (-0.005),
+                          )),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: heightScreenPercentage * 0.025,
+                          horizontal: widthScreenPercentage * 0.08,
                         ),
-                        SizedBox(
-                          height: 40.0,
+                        child: TextField(
+                          controller: controllerEmail,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (value) {
+                            email = value;
+                          },
+                          decoration: eEmail
+                              ? kInputDecoration.copyWith(
+                                  hintText: 'Correo electrónico')
+                              : kInputDecorationError.copyWith(
+                                  hintText: 'Correo Faltante'),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(
-                            "Iniciar Sesión",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: heightScreenPercentage * 0.025,
+                          horizontal: widthScreenPercentage * 0.08,
                         ),
-
-                        Padding(
-                          padding: const EdgeInsets.all(22.0),
-                          child: TextField(
-                            controller: controllerEmail,
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) {
-                              email=value;
-                            },
-                            decoration: eEmail ? kInputDecoration.copyWith(hintText: 'Correo electrónico') : kInputDecorationError.copyWith(hintText: 'Correo Faltante'),
-                          ),
+                        child: TextField(
+                          controller: controllerPass,
+                          textAlign: TextAlign.center,
+                          obscureText: true,
+                          onChanged: (value) {
+                            password = value;
+                          },
+                          decoration: ePass
+                              ? kInputDecoration.copyWith(
+                                  hintText: 'Contraseña')
+                              : kInputDecorationError.copyWith(
+                                  hintText: 'Contraseña Faltante'),
                         ),
-                        SizedBox(
-                          height: 8.0,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(22.0),
-                          child: TextField(
-                            controller: controllerPass,
-                            textAlign: TextAlign.center,
-                            obscureText: true,
-                            onChanged: (value) {
-                              password=value;
-                            },
-                            decoration: ePass ? kInputDecoration.copyWith(hintText: 'Contraseña') : kInputDecorationError.copyWith(hintText: 'Contraseña Faltante'),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 24.0,
-                        ),
-                        CountButton(text:'Iniciar sesión',color: Colors.lightBlueAccent,function: () async{
-                          setState(() {
-                            _saving=true;
-                          });
-
-                          eEmail=true;
-                          ePass=true;
-
-                          if(email==''){
-                            controllerEmail.clear();
+                      ),
+                      CountButton(
+                          screenHeight: heightScreenPercentage,
+                          screenWidth: widthScreenPercentage,
+                          text: 'Iniciar sesión',
+                          color: kColorAzulEfectosFondo,
+                          function: () async {
                             setState(() {
-                              eEmail=false;
+                              _saving = true;
                             });
-                          }
-                          if(password==''){
-                            controllerPass.clear();
-                            setState(() {
-                              ePass=false;
-                            });
-                          }
 
-                          if(eEmail==true && ePass==true){
+                            eEmail = true;
+                            ePass = true;
+
+                            if (email == '') {
+                              controllerEmail.clear();
+                              setState(() {
+                                eEmail = false;
+                              });
+                            }
+                            if (password == '') {
+                              controllerPass.clear();
+                              setState(() {
+                                ePass = false;
+                              });
+                            }
+                            
+                            if(eEmail==true && ePass==true){
                             try{
                               final user = await _author.signInWithEmailAndPassword(
                                   email: email, password: password);
@@ -133,29 +148,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushReplacementNamed(context,areasEstudioScreen.id);
                                 }else{
                                   Navigator.pushReplacementNamed(context,SeccionesScreen.id);
+                                  
                                 }
+                              } catch (e) {
+                                print(e);
                               }
                             }
-                            catch(e){
-                              print(e);
-                            }
-                          }
 
-                          setState(() {
-                            _saving=false;
-                          });
-                        }),
-                      ],
-                    ),
+                            setState(() {
+                              _saving = false;
+                            });
+                          }),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ]
-        ),
+              ),
+            ],
+          ),
+        ]),
       ),
-
-
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kColorMorado = Color(0xFF493D73);
+const kColorAzulClaro = Color(0xfb609fb3);
 const kColorAzul = Color(0xFF576EF2);
 const kColorAmarillo = Color(0xFFF2B84B);
 const kColorNaranja = Color(0xFFF29544);
@@ -14,6 +15,8 @@ const kColorRosa = Color(0xFFF6C2C2);
 const kColorVerdeClaro = Color(0xFFC6DC72);
 const kColorVerdeOscuro = Color(0xFF8BA32B);
 const kColorGris= Colors.grey;
+const kColorAzulEfectosFondo = Color(0xFF5C92A3);
+
 
 const kInputCarreras = InputDecoration(
   hintText: 'Introduce carrera',
@@ -46,7 +49,6 @@ const kInputDecoration = InputDecoration(
 );
 
 const kInputDecorationError = InputDecoration(
-
   hintText: 'Enter a value',
   fillColor: Colors.white,
   filled: true,
@@ -65,6 +67,7 @@ const kInputDecorationError = InputDecoration(
   ),
 );
 
+//TODO: PASARLO A COMPONENTES
 Widget kCreateRect(
     BuildContext context, Widget leftWidget, Widget rightWidget) {
   return (Container(
@@ -91,4 +94,3 @@ Widget kCreateRect(
     ),
   ));
 }
-
