@@ -14,9 +14,8 @@ const kColorMoradoGris = Color(0xFF5A5275);
 const kColorRosa = Color(0xFFF6C2C2);
 const kColorVerdeClaro = Color(0xFFC6DC72);
 const kColorVerdeOscuro = Color(0xFF8BA32B);
-const kColorGris= Colors.grey;
+const kColorGris = Colors.grey;
 const kColorAzulEfectosFondo = Color(0xFF5C92A3);
-
 
 const kInputCarreras = InputDecoration(
   hintText: 'Introduce carrera',
@@ -25,44 +24,6 @@ const kInputCarreras = InputDecoration(
   hintStyle: TextStyle(color: Colors.grey),
   contentPadding: EdgeInsets.symmetric(vertical: 35),
   border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-);
-
-const kInputDecoration = InputDecoration(
-  hintText: 'Enter a value',
-  fillColor: Colors.white,
-  filled: true,
-  hintStyle: TextStyle(color: Colors.grey),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-);
-
-const kInputDecorationError = InputDecoration(
-  hintText: 'Enter a value',
-  fillColor: Colors.white,
-  filled: true,
-  hintStyle: TextStyle(color: Colors.red),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
