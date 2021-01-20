@@ -13,6 +13,7 @@ import 'package:pathapp/screens/register_screen.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
+import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: introScreen.id,
+      initialRoute: SeccionesScreen.id,
       routes: {
         //Pantallas de inicio:
         introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
@@ -44,10 +45,10 @@ class MyApp extends StatelessWidget {
         //Falta pantalla de resultados
 
         //Ramas del conocimiento:
-        versatilidadScreen.id: (context) =>
-            versatilidadScreen(), //Pantalla de Versatilidad
-        prestigioScreen.id: (context) =>
-            prestigioScreen(), //Pantalla de Prestigio
+        //Falta navegador
+        versatilidadScreen.id: (context)=>versatilidadScreen(), //Pantalla de Versatilidad
+        prestigioScreen.id: (context)=>prestigioScreen(), //Pantalla de Prestigio
+
 
         //Pantallas de Impacto Social
         //Falta pantalla para añadir problemas
@@ -62,10 +63,13 @@ class MyApp extends StatelessWidget {
             CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
 
         //Pantallas de Personal Fit
-        Valores.id: (context) =>
-            Valores(), //Pantalla para introducir habilidades de la persona
-        HabilidadesScreen.id: (context) =>
-            HabilidadesScreen() //Pantalla para calificar habilidades
+        Valores.id: (context)=> Valores(), //Pantalla para introducir habilidades de la persona
+        HabilidadesScreen.id: (context)=> HabilidadesScreen(), //Pantalla para calificar habilidades
+
+        //Navegadores de test
+        NavegadorCapital_screen.id: (context)=>NavegadorCapital_screen(),
+
+
       },
     );
   }
