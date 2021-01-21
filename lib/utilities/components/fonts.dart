@@ -30,11 +30,13 @@ class fontStyleAmaranth extends StatelessWidget {
       {@required this.text,
       @required this.sizePercentage,
       @required this.color,
-      this.letterSpacing});
+      this.letterSpacing,
+      this.textAlign});
   final String text;
   final double sizePercentage;
   final Color color;
   final double letterSpacing;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class fontStyleAmaranth extends StatelessWidget {
           fontSize: ResponsiveFlutter.of(context).fontSize(sizePercentage),
           fontWeight: FontWeight.bold,
           letterSpacing: letterSpacing != null ? letterSpacing : 0),
+      textAlign: textAlign != null ? textAlign : TextAlign.center,
     );
   }
 }
