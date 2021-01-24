@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+const kColorBlancoOpaco = Color(0xffFAF8F8);
+const kColorBlancoBoton = Color(0xffE8E8E8);
 const kColorMorado = Color(0xFF493D73);
 const kColorAzulClaro = Color(0xfb609fb3);
+const kColorAzulMarino = Color(0xff30819b);
 const kColorAzul = Color(0xFF576EF2);
 const kColorAmarillo = Color(0xFFF2B84B);
 const kColorNaranja = Color(0xFFF29544);
@@ -15,4 +18,5 @@ const kColorRosa = Color(0xFFF6C2C2);
 const kColorVerdeClaro = Color(0xFFC6DC72);
 const kColorVerdeOscuro = Color(0xFF8BA32B);
 const kColorGris = Colors.grey;
+const kColorGrisCards = Color(0xff767676);
 const kColorAzulEfectosFondo = Color(0xFF5C92A3);
