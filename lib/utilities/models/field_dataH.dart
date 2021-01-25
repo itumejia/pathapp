@@ -3,7 +3,7 @@ import 'package:pathapp/utilities/models/field.dart';
 import 'dart:collection';
 
 class FieldDataH extends ChangeNotifier{
-  List<Field> _fields=[
+  List<Field> fields=[
     Field(name: 'Perseverante'),
     Field(name: 'Perfeccionista'),
     Field(name: 'Influyente'),
@@ -12,11 +12,11 @@ class FieldDataH extends ChangeNotifier{
   ];
 
   int get taskCount{
-    return _fields.length;
+    return fields.length;
   }
 
-  UnmodifiableListView<Field> get fields{
-    return UnmodifiableListView(_fields);
+  UnmodifiableListView<Field> get fieldsH{
+    return UnmodifiableListView(fields);
   }
 
   void updateField(Field field, int value){
