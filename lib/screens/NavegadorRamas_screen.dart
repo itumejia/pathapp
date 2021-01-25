@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pathapp/screens/capital_relaciones_screen.dart';
 import 'package:pathapp/screens/capital_habilidades_screen.dart';
+import 'package:pathapp/screens/prestigio_screen.dart';
+import 'package:pathapp/screens/versatilidad_screen.dart';
 
-class NavegadorCapital_screen extends StatelessWidget {
+class NavegadorRamas_screen extends StatelessWidget {
 
-  NavegadorCapital_screen({this.carreras});
+  NavegadorRamas_screen({this.carreras});
 
   final List<dynamic> carreras;
-  static String id='nav_capital_screen';
+  static String id='nav_ramas_screen';
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +30,22 @@ class NavegadorCapital_screen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => CapitalRelacionesScreen(carreras: carreras),
+                  builder: (context) => versatilidadScreen(carreras: carreras, versatilidad: true,),
                 ),
                 );
               },
-              child: Text("Capital de personas"),
+              child: Text("Versatilidad"),
           ),
           FlatButton(
               onPressed: (){
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CapitalHabilidadesScreen(carreras:carreras),
+                    builder: (context) => versatilidadScreen(carreras: carreras, versatilidad: false,),
                   ),
                 );
               },
-              child: Text("Capital de habilidades"),
+              child: Text("Prestigio"),
           )
         ],
       ),

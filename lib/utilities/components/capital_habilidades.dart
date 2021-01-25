@@ -4,8 +4,10 @@ import 'white_box_carrera.dart';
 
 class CapitalHabilidadesWidgetLeft extends StatelessWidget {
   final String carrera;
-
-  CapitalHabilidadesWidgetLeft({this.carrera});
+  final TextEditingController controlador1;
+  final TextEditingController controlador2;
+  final TextEditingController controlador3;
+  CapitalHabilidadesWidgetLeft({this.carrera, this.controlador1, this.controlador2, this.controlador3});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,9 @@ class CapitalHabilidadesWidgetLeft extends StatelessWidget {
           width: 200,
           child: Column(
             children: [
-              CajaHabilidad(left: true),
-              CajaHabilidad(left: true),
-              CajaHabilidad(left: true),
+              CajaHabilidad(left: true, controlador: controlador1,),
+              CajaHabilidad(left: true, controlador: controlador2,),
+              CajaHabilidad(left: true, controlador: controlador3,),
             ],
 
           ),
@@ -38,8 +40,10 @@ class CapitalHabilidadesWidgetLeft extends StatelessWidget {
 
 class CapitalHabilidadesWidgetRight extends StatelessWidget {
   final String carrera;
-
-  CapitalHabilidadesWidgetRight({this.carrera});
+  final TextEditingController controlador1;
+  final TextEditingController controlador2;
+  final TextEditingController controlador3;
+  CapitalHabilidadesWidgetRight({this.carrera, this.controlador1, this.controlador2, this.controlador3});
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +61,9 @@ class CapitalHabilidadesWidgetRight extends StatelessWidget {
           width: 200,
           child: Column(
             children: [
-              CajaHabilidad(left: false,),
-              CajaHabilidad(left: false),
-              CajaHabilidad(left: false),
+              CajaHabilidad(left: false, controlador: controlador1,),
+              CajaHabilidad(left: false, controlador: controlador2,),
+              CajaHabilidad(left: false, controlador: controlador3,),
             ],
 
           ),
@@ -72,7 +76,8 @@ class CapitalHabilidadesWidgetRight extends StatelessWidget {
 
 class CajaHabilidad extends StatelessWidget {
   final bool left;
-  CajaHabilidad({@required this.left});
+  final TextEditingController controlador;
+  CajaHabilidad({@required this.left, @required this.controlador});
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +88,7 @@ class CajaHabilidad extends StatelessWidget {
       child: Container(
         height: 30,
         child: TextField(
+          controller: controlador,
           decoration: InputDecoration(
             filled: false,
             border: OutlineInputBorder(
