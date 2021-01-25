@@ -13,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/NavegadorCapital_screen.dart';
+import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 
 class SeccionesScreen extends StatefulWidget {
   static String id='menu_screen';
@@ -194,7 +195,15 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                   Expanded(
                     child: ReusableCard(
                       colore: ramas ? kColorGris : kColorAzul,
-                      tapFunction: ()=>{}, //Ir a navegador de ramas
+                      tapFunction: ()=>{
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:(context)=>NavegadorRamas_screen(carreras:carreras),
+                      ),
+
+                      )
+                      }, //Ir a navegador de ramas
                       cardChild: CardIcon(
                         nameImage: 'assets/images/light-bulb.png',
                         iconTitle: 'Ramas del conocimiento',
