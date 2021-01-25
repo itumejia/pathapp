@@ -39,7 +39,7 @@ class NavegadorCapital_screen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CapitalRelacionesScreen(),
+                    builder: (context) => CapitalHabilidadesScreen(carreras:carreras),
                   ),
                 );
               },

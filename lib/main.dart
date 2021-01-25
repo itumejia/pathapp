@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/screens/HabilidadesPersona.dart';
-import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/Valores.dart';
 import 'package:pathapp/screens/capital_habilidades_screen.dart';
@@ -51,33 +50,35 @@ class MyApp extends StatelessWidget {
               SeccionesScreen(), //Pantalla de menú principal, para escoger test
           //Falta pantalla de resultados
 
-          //Ramas del conocimiento:
-          versatilidadScreen.id: (context)=>versatilidadScreen(), //Pantalla de Versatilidad
-          prestigioScreen.id: (context)=>prestigioScreen(), //Pantalla de Prestigio NOTA: Esta pantalla ya no se ocupa
+        //Ramas del conocimiento:
+        //Falta navegador
+        versatilidadScreen.id: (context) =>
+            versatilidadScreen(), //Pantalla de Versatilidad
+        prestigioScreen.id: (context) =>
+            prestigioScreen(), //Pantalla de Prestigio
 
-          //Pantallas de Impacto Social
-          //Falta pantalla para añadir problemas
-          //Falta pantalla para calificar impacto
+        //Pantallas de Impacto Social
+        //Falta pantalla para añadir problemas
+        //Falta pantalla para calificar impacto
 
-          //Pantallas de Capital de Carrera
-          CapitalHabilidadesScreen.id: (context) =>
-              CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
-          HabilidadesPersona.id: (context) =>
-              HabilidadesPersona(), //Pantalla para calificar habilidades
-          CapitalRelacionesScreen.id: (context) =>
-              CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
+        //Pantallas de Capital de Carrera
+        CapitalHabilidadesScreen.id: (context) =>
+            CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
+        HabilidadesPersona.id: (context) =>
+            HabilidadesPersona(), //Pantalla para calificar habilidades
+        CapitalRelacionesScreen.id: (context) =>
+            CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
 
-          //Pantallas de Personal Fit
-          Valores.id: (context)=> Valores(), //Pantalla para introducir habilidades de la persona
-          HabilidadesScreen.id: (context)=> HabilidadesScreen(), //Pantalla para calificar habilidades
+        //Pantallas de Personal Fit
+        Valores.id: (context) =>
+            Valores(), //Pantalla para introducir habilidades de la persona
+        HabilidadesScreen.id: (context) =>
+            HabilidadesScreen(), //Pantalla para calificar habilidades
 
-          //Navegadores de test
-          NavegadorRamas_screen.id:(context)=>NavegadorRamas_screen(),
-          NavegadorCapital_screen.id: (context)=>NavegadorCapital_screen(),
-
-
-        },
-      ),
+        //Navegadores de test
+        NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
+      },
+    )
     );
   }
 }

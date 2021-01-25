@@ -191,7 +191,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                     promediosPorCarrera[widget.habilidadesCarreras[i].getCarrera()]= widget.habilidadesCarreras[i].getPromedio();
                   }
                   try {
-                    _cloud.doc("d.eduardo.santiago@gmail.com") //Usuario
+                    _cloud.doc(loggedUser.email) //Usuario
                         .update({
                       "cap_habilidades": promediosPorCarrera,
                     });
