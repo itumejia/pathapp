@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+const kColorBlancoOpaco = Color(0xffFAF8F8);
+const kColorBlancoBoton = Color(0xffE8E8E8);
 const kColorMorado = Color(0xFF493D73);
 const kColorAzulClaro = Color(0xfb609fb3);
+const kColorAzulMarino = Color(0xff30819b);
 const kColorAzul = Color(0xFF576EF2);
 const kColorAmarillo = Color(0xFFF2B84B);
 const kColorNaranja = Color(0xFFF29544);
@@ -14,83 +17,6 @@ const kColorMoradoGris = Color(0xFF5A5275);
 const kColorRosa = Color(0xFFF6C2C2);
 const kColorVerdeClaro = Color(0xFFC6DC72);
 const kColorVerdeOscuro = Color(0xFF8BA32B);
-const kColorGris= Colors.grey;
+const kColorGris = Colors.grey;
+const kColorGrisCards = Color(0xff767676);
 const kColorAzulEfectosFondo = Color(0xFF5C92A3);
-
-
-const kInputCarreras = InputDecoration(
-  hintText: 'Introduce carrera',
-  fillColor: Colors.white,
-  filled: true,
-  hintStyle: TextStyle(color: Colors.grey),
-  contentPadding: EdgeInsets.symmetric(vertical: 35),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-);
-
-const kInputDecoration = InputDecoration(
-  hintText: 'Enter a value',
-  fillColor: Colors.white,
-  filled: true,
-  hintStyle: TextStyle(color: Colors.grey),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-);
-
-const kInputDecorationError = InputDecoration(
-  hintText: 'Enter a value',
-  fillColor: Colors.white,
-  filled: true,
-  hintStyle: TextStyle(color: Colors.red),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-);
-
-//TODO: PASARLO A COMPONENTES
-Widget kCreateRect(
-    BuildContext context, Widget leftWidget, Widget rightWidget) {
-  return (Container(
-    width: MediaQuery.of(context).size.width * 0.45,
-    height: MediaQuery.of(context).size.height * 0.06,
-    decoration: BoxDecoration(
-      border: Border.all(
-        color: Colors.white,
-        width: 1.0,
-      ),
-      borderRadius: BorderRadius.all(
-        Radius.circular(20.0),
-      ),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        leftWidget,
-        Container(
-          width: MediaQuery.of(context).size.width * 0.04,
-        ),
-        rightWidget,
-      ],
-    ),
-  ));
-}

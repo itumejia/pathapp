@@ -16,6 +16,8 @@ import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'package:pathapp/screens/about_screen.dart';
+
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
@@ -48,8 +50,10 @@ class MyApp extends StatelessWidget {
               areasEstudioScreen(), //Pantalla para introducir carreras
           SeccionesScreen.id: (context) =>
               SeccionesScreen(), //Pantalla de menú principal, para escoger test
-          //Falta pantalla de resultados
-
+        aboutScreen.id: (context) =>
+            aboutScreen(), //Pantalla de información PATH
+        //Falta pantalla de resultados
+          
         //Ramas del conocimiento:
         //Falta navegador
         versatilidadScreen.id: (context) =>

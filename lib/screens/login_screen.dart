@@ -11,6 +11,7 @@ import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import '../utilities/components/fonts.dart';
 import '../utilities/constants.dart';
+import 'package:pathapp/utilities/components/textFieldDecoration.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -77,18 +78,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           vertical: heightScreenPercentage * 0.025,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerEmail,
-                          textAlign: TextAlign.center,
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (value) {
-                            email = value;
-                          },
-                          decoration: eEmail
-                              ? kInputDecoration.copyWith(
-                                  hintText: 'Correo electrónico')
-                              : kInputDecorationError.copyWith(
-                                  hintText: 'Correo Faltante'),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerEmail,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                            decoration: eEmail
+                                ? textFieldDecoration(
+                                    "Correo electrónico",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.grey)
+                                : textFieldDecoration(
+                                    "Correo faltante",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.red),
+                          ),
                         ),
                       ),
                       Padding(
@@ -96,18 +107,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           vertical: heightScreenPercentage * 0.025,
                           horizontal: widthScreenPercentage * 0.08,
                         ),
-                        child: TextField(
-                          controller: controllerPass,
-                          textAlign: TextAlign.center,
-                          obscureText: true,
-                          onChanged: (value) {
-                            password = value;
-                          },
-                          decoration: ePass
-                              ? kInputDecoration.copyWith(
-                                  hintText: 'Contraseña')
-                              : kInputDecorationError.copyWith(
-                                  hintText: 'Contraseña Faltante'),
+                        child: Container(
+                          height: heightScreenPercentage * 0.06,
+                          width: widthScreenPercentage * 0.8,
+                          child: TextField(
+                            controller: controllerPass,
+                            textAlign: TextAlign.center,
+                            obscureText: true,
+                            onChanged: (value) {
+                              password = value;
+                            },
+                            decoration: ePass
+                                ? textFieldDecoration(
+                                    "Contraseña",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.grey)
+                                : textFieldDecoration(
+                                    "Contraseña faltante",
+                                    widthScreenPercentage,
+                                    heightScreenPercentage,
+                                    Colors.red),
+                          ),
                         ),
                       ),
                       CountButton(
@@ -135,26 +156,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ePass = false;
                               });
                             }
-                            
-                            if(eEmail==true && ePass==true){
-                            try {
-                              final user = await _author
-                                  .signInWithEmailAndPassword(
-                                  email: email, password: password);
-                              if (user != null) {
-                                Map<String, dynamic> result = await getData(
-                                    email);
-                                List<dynamic> arrayCarrera = result['carreras'];
-                                //print(result['nombres']);
-                                if (arrayCarrera.length == 0) {
-                                  Navigator.pushReplacementNamed(
-                                      context, areasEstudioScreen.id);
-                                } else {
-                                  Navigator.pushReplacementNamed(
-                                      context, SeccionesScreen.id);
+
+                            if (eEmail == true && ePass == true) {
+                              try {
+                                final user =
+                                    await _author.signInWithEmailAndPassword(
+                                        email: email, password: password);
+                                if (user != null) {
+                                  Map<String, dynamic> result =
+                                      await getData(email);
+                                  List<dynamic> arrayCarrera =
+                                      result['carreras'];
+                                  //print(result['nombres']);
+                                  if (arrayCarrera.length == 0) {
+                                    Navigator.pushReplacementNamed(
+                                        context, areasEstudioScreen.id);
+                                  } else {
+                                    Navigator.pushReplacementNamed(
+                                        context, SeccionesScreen.id);
+                                  }
                                 }
-                              }
-                            }catch (e) {
+                              } catch (e) {
                                 print(e);
                               }
                             }

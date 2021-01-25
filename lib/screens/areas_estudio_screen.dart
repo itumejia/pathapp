@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/utilities/constants.dart';
@@ -10,6 +9,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:pathapp/utilities/components/fonts.dart';
+import 'package:pathapp/utilities/components/inputCarreras.dart';
+import 'package:pathapp/utilities/components/roundedContainer.dart';
 
 class areasEstudioScreen extends StatefulWidget {
   static String id = 'areas_estudio_screen';
@@ -30,11 +32,10 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
       loggedUser = await author.currentUser;
       if (loggedUser != null) {
         print(loggedUser.email);
+      } else {
+        Navigator.pushReplacementNamed(context, sesionScreen.id);
       }
-      else{
-        Navigator.pushReplacementNamed(context,sesionScreen.id);
-      }
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -66,23 +67,32 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Stack(children: <Widget>[
       Scaffold(
-        backgroundColor: Color(0xfb493d73),
+        backgroundColor: kColorMorado,
         body: ModalProgressHUD(
           inAsyncCall: saving,
           child: ListView(shrinkWrap: true, children: [
             Stack(
               children: [
                 SvgPicture.asset(
-                  'assets/images/fondoCarrera.svg',
-                  width: MediaQuery.of(context).size.width,
+                  'assets/images/efectosFondo2.svg',
+                  width: widthScreenPercentage,
                 ),
                 SafeArea(
                   child: Center(
                     child: Column(
                       children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: heightScreenPercentage * 0.04,
+                              bottom: heightScreenPercentage * 0.015),
+                          child: fontStyleAmaranth(
+                              text: "AGREGA TUS\nCARREAS",
+                              sizePercentage: 4.5,
+                              color: Colors.white),
+                        ),
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.65,
-                          width: MediaQuery.of(context).size.width * 0.65,
+                          height: heightScreenPercentage * 0.52,
+                          width: widthScreenPercentage,
                           child: ListView.builder(
                             itemCount: numCarreras,
                             physics: NeverScrollableScrollPhysics(),
@@ -90,19 +100,70 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                               return Align(
                                 alignment: Alignment.center,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: TextField(
-                                    textAlign: TextAlign.center,
-                                    controller: controladores[index],
-                                    decoration: kInputCarreras,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: heightScreenPercentage * 0.012),
+                                  child: Container(
+                                    width: widthScreenPercentage * 0.6,
+                                    height: heightScreenPercentage * 0.1,
+                                    child: TextField(
+                                      textAlign: TextAlign.center,
+                                      controller: controladores[index],
+                                      decoration:
+                                          inputCarreras(widthScreenPercentage),
+                                    ),
                                   ),
                                 ),
                               );
                             },
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: widthScreenPercentage * 0.03),
+                              child: FloatingActionButton(
+                                heroTag: null,
+                                onPressed: () {
+                                  if (numCarreras > 2) {
+                                    setState(() {
+                                      numCarreras--;
+                                    });
+                                    controladores[numCarreras].clear();
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.remove,
+                                  color: Colors.black,
+                                ),
+                                backgroundColor: Colors.white,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: widthScreenPercentage * 0.03),
+                              child: FloatingActionButton(
+                                heroTag: null,
+                                onPressed: () {
+                                  if (numCarreras < 4) {
+                                    setState(() {
+                                      numCarreras++;
+                                    });
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                                backgroundColor: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),
+                          padding: EdgeInsets.only(
+                              top: heightScreenPercentage * 0.035),
                           child: InkWell(
                             onTap: () {
                               setState(() {
@@ -131,37 +192,28 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                 saving = true;
                               });
                             },
-                            child: kCreateRect(
-                              context,
-                              diamond(
-                                  diamondSize: widthScreenPercentage * 0.07),
-                              Text(
-                                'CONTINUAR',
-                                style: GoogleFonts.amaranth(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 3.0,
-                                ),
+                            child: roundedContainer(
+                              heightPercentage: heightScreenPercentage * 0.06,
+                              widthPercentage: widthScreenPercentage * 0.45,
+                              childContainer: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  diamond(
+                                      diamondSize:
+                                          widthScreenPercentage * 0.05),
+                                  Container(
+                                    width: widthScreenPercentage * 0.04,
+                                  ),
+                                  fontStyleAmaranth(
+                                      text: 'CONTINUAR',
+                                      sizePercentage: 2.1,
+                                      color: Colors.white,
+                                      letterSpacing:
+                                          widthScreenPercentage * 0.001),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                '\nAGREGA TUS\nCARRERAS',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.amaranth(
-                                    color: Colors.white,
-                                    fontSize: 28.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 3.0),
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
@@ -170,49 +222,6 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
               ],
             ),
           ]),
-        ),
-      ),
-      Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              if (numCarreras > 2) {
-                setState(() {
-                  numCarreras--;
-                });
-                controladores[numCarreras].clear();
-              }
-            },
-            child: Icon(
-              Icons.remove,
-              color: Colors.black,
-            ),
-            backgroundColor: Colors.white,
-          ),
-        ),
-      ),
-      Align(
-        alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              if (numCarreras < 4) {
-                setState(() {
-                  numCarreras++;
-                });
-              }
-            },
-            child: Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-            backgroundColor: Colors.white,
-          ),
         ),
       ),
     ]);

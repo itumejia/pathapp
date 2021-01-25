@@ -1,33 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pathapp/utilities/components/fonts.dart';
 
 class CardIcon extends StatelessWidget {
-  CardIcon({@required this.nameImage, this.iconTitle});
+  CardIcon(
+      {@required this.cardColor,
+      @required this.nameImage,
+      this.iconTitle,
+      @required this.screenWidth,
+      @required this.screenHeigth});
+
+  final double screenWidth;
+  final double screenHeigth;
+  final Color cardColor;
   final String nameImage;
   final String iconTitle;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            iconTitle,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(bottom: screenHeigth * 0.015),
+          child: fontStyleMPlus(
+              text: iconTitle, sizePercentage: 1.8, color: Colors.white),
+        ),
+        ColorFiltered(
+          colorFilter: ColorFilter.mode(cardColor, BlendMode.color),
+          child: Image.asset(
+            nameImage,
+            width: screenWidth * 0.3,
+            height: screenHeigth * 0.17,
           ),
-          SizedBox(
-            height: 15.0,
-          ),
-          Image.asset(
-              nameImage,
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
