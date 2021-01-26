@@ -15,6 +15,8 @@ import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:pathapp/screens/about_screen.dart';
+import 'package:pathapp/screens/problemas_del_mundo.dart';
+import 'package:pathapp/screens/impacto_problemas_screen.dart';
 
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
@@ -43,8 +45,8 @@ class MyApp extends StatelessWidget {
             areasEstudioScreen(), //Pantalla para introducir carreras
         SeccionesScreen.id: (context) =>
             SeccionesScreen(), //Pantalla de menú principal, para escoger test
-        aboutScreen.id: (context) =>
-            aboutScreen(), //Pantalla de información PATH
+        aboutScreen.id: (context) => aboutScreen(),
+        //Pantalla de información PATH
         //Falta pantalla de resultados
 
         //Ramas del conocimiento:
@@ -55,8 +57,8 @@ class MyApp extends StatelessWidget {
             prestigioScreen(), //Pantalla de Prestigio
 
         //Pantallas de Impacto Social
-        //Falta pantalla para añadir problemas
-        //Falta pantalla para calificar impacto
+        problemasMundo.id: (context) => problemasMundo(),
+        impactoProblemas.id: (context) => impactoProblemas(),
 
         //Pantallas de Capital de Carrera
         CapitalHabilidadesScreen.id: (context) =>

@@ -20,3 +20,4 @@ const kColorVerdeOscuro = Color(0xFF8BA32B);
 const kColorGris = Colors.grey;
 const kColorGrisCards = Color(0xff767676);
 const kColorAzulEfectosFondo = Color(0xFF5C92A3);
+const kColorUniverso = Color(0xFF272B3E);
