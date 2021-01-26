@@ -16,7 +16,6 @@ import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 
-
 class SeccionesScreen extends StatefulWidget {
   static String id = 'menu_screen';
   @override
@@ -185,68 +184,33 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                     ],
                   ),
                 ),
-                margin: EdgeInsets.all(widthScreenPercentage * 0.03),
-                decoration: BoxDecoration(
-                  color: kColorMorado,
-                  borderRadius:
-                      BorderRadius.circular(widthScreenPercentage * 0.05),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(4, 8),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-
-                  Padding(
-                    padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                    child: Container(
-                      width: widthScreenPercentage * 0.4,
-                      height: heightScreenPercentage * 0.28,
-                      child: ReusableCard(
-                        widthScreen: widthScreenPercentage,
-                        colore: ramas ? kColorGrisCards : kColorAzul,
-                        tapFunction: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:(context)=>NavegadorRamas_screen(carreras:carreras),
-                      ),
-
-                      )
-                        }, //Ir a navegador de ramas
-                        cardChild: CardIcon(
-                          screenHeigth: heightScreenPercentage,
-                          screenWidth: widthScreenPercentage,
-                          cardColor: ramas ? kColorGrisCards : kColorAzul,
-                          nameImage: 'assets/images/light-bulb.png',
-                          iconTitle: 'Ramas del conocimiento',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                    child: Container(
-                      width: widthScreenPercentage * 0.4,
-                      height: heightScreenPercentage * 0.28,
-                      child: ReusableCard(
-                        widthScreen: widthScreenPercentage,
-                        colore: impacto ? kColorGris : kColorAmarillo,
-                        tapFunction: () =>
-                            {}, //Ir a test de problemas del mundo
-                        cardChild: CardIcon(
-                          screenHeigth: heightScreenPercentage,
-                          screenWidth: widthScreenPercentage,
-                          cardColor: impacto ? kColorGrisCards : kColorAmarillo,
-                          nameImage: 'assets/images/world-map.png',
-                          iconTitle: 'Problemas del mundo',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                      child: Container(
+                        width: widthScreenPercentage * 0.4,
+                        height: heightScreenPercentage * 0.28,
+                        child: ReusableCard(
+                          widthScreen: widthScreenPercentage,
+                          colore: ramas ? kColorGrisCards : kColorAzul,
+                          tapFunction: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavegadorRamas_screen(carreras: carreras),
+                              ),
+                            )
+                          }, //Ir a navegador de ramas
+                          cardChild: CardIcon(
+                            screenHeigth: heightScreenPercentage,
+                            screenWidth: widthScreenPercentage,
+                            cardColor: ramas ? kColorGrisCards : kColorAzul,
+                            nameImage: 'assets/images/light-bulb.png',
+                            iconTitle: 'Ramas del conocimiento',
+                          ),
                         ),
                       ),
                     ),
