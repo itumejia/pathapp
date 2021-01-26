@@ -112,7 +112,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
           width: widthScreenPercentage,
           height: heightScreenPercentage,
           child: Padding(
-            padding: EdgeInsets.only(top: heightScreenPercentage * 0.04),
+            padding: EdgeInsets.only(top: heightScreenPercentage * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
