@@ -14,6 +14,8 @@ import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/screens/NavegadorCapital_screen.dart';
+import 'package:provider/provider.dart';
+
 import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 import 'package:pathapp/screens/impacto_problemas_screen.dart';
@@ -21,6 +23,8 @@ import 'package:pathapp/screens/impacto_problemas_screen.dart';
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
+
+import 'utilities/models/versatilidad_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,23 +36,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: SeccionesScreen.id,
-      routes: {
-        //Pantallas de inicio:
-        introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
-        sesionScreen.id: (context) =>
-            sesionScreen(), // Pantalla Login/ Registrarse
-        LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
-        RegisterScreen.id: (context) => RegisterScreen(), //Pantalla de Registro
-        areasEstudioScreen.id: (context) =>
-            areasEstudioScreen(), //Pantalla para introducir carreras
-        SeccionesScreen.id: (context) =>
-            SeccionesScreen(), //Pantalla de menú principal, para escoger test
-        aboutScreen.id: (context) => aboutScreen(),
-        //Pantalla de información PATH
-        //Falta pantalla de resultados
 
+    return ChangeNotifierProvider(
+      create: (context)=>VersatilidadData(),
+      child: MaterialApp(
+        initialRoute: introScreen.id,
+        routes: {
+          //Pantallas de inicio:
+          introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
+          sesionScreen.id: (context) =>
+              sesionScreen(), // Pantalla Login/ Registrarse
+          LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
+          RegisterScreen.id: (context) => RegisterScreen(), //Pantalla de Registro
+          areasEstudioScreen.id: (context) =>
+              areasEstudioScreen(), //Pantalla para introducir carreras
+          SeccionesScreen.id: (context) =>
+              SeccionesScreen(), //Pantalla de menú principal, para escoger test
+        aboutScreen.id: (context) =>
+            aboutScreen(), //Pantalla de información PATH
+        //Falta pantalla de resultados
+          
         //Ramas del conocimiento:
         //Falta navegador
         versatilidadScreen.id: (context) =>
@@ -77,6 +84,7 @@ class MyApp extends StatelessWidget {
         //Navegadores de test
         NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
       },
+    )
     );
   }
 }
