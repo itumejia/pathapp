@@ -8,12 +8,14 @@ class CountButton extends StatelessWidget {
       @required this.function,
       @required this.screenWidth,
       @required this.screenHeight,
-      this.fontSizePercentage});
+      this.fontSizePercentage,
+      this.fontcolor});
   final String text;
   final Color color;
   final Function function;
   final double screenWidth;
   final double screenHeight;
+  final Color fontcolor;
   // es un double, si no se asigna se pone por default en 2%, donde 2% es igual a 2, no a 0.02
   final double fontSizePercentage;
   @override
@@ -31,7 +33,7 @@ class CountButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-                color: Colors.white,
+                color: fontcolor == null ? Colors.white : fontcolor,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSizePercentage == null
                     ? ResponsiveFlutter.of(context).fontSize(2)

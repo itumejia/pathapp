@@ -17,6 +17,8 @@ import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pathapp/screens/about_screen.dart';
+import 'package:pathapp/screens/problemas_del_mundo.dart';
+import 'package:pathapp/screens/impacto_problemas_screen.dart';
 
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
@@ -62,8 +64,8 @@ class MyApp extends StatelessWidget {
             prestigioScreen(), //Pantalla de Prestigio
 
         //Pantallas de Impacto Social
-        //Falta pantalla para añadir problemas
-        //Falta pantalla para calificar impacto
+        problemasMundo.id: (context) => problemasMundo(),
+        impactoProblemas.id: (context) => impactoProblemas(),
 
         //Pantallas de Capital de Carrera
         CapitalHabilidadesScreen.id: (context) =>
