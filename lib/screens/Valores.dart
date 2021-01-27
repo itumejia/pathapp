@@ -1,16 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/components/leftRow.dart';
 import 'package:pathapp/utilities/components/rigthRow.dart';
+import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 
 class Valores extends StatefulWidget {
   static String id='personal_habilidades_screen';
+  Valores({@required this.carreras});
+  List<dynamic> carreras=[];
   @override
   _ValoresState createState() => _ValoresState();
 }
 
 class _ValoresState extends State<Valores> {
+
+  List<TextEditingController> controladores= [TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController(),];
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Contesta por favor"),
+          content: Text(
+              "No has llenado todos los campos, por favor intenta de nuevo"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,14 +49,39 @@ class _ValoresState extends State<Valores> {
         child: FloatingActionButton(
           backgroundColor: Colors.white,
           child: Icon(
-            Icons.arrow_back,
+            Icons.check,
             color: kColorRosa,
             size: 30,
           ),
-          onPressed: () {},
+          onPressed: () {
+            bool completo=true;
+
+
+
+            List<HabilidadesPorCarrera> car=[];
+            for(int i=0; i < widget.carreras.length;i++) {
+              List<HabilidadRating> habilidades=[];
+              for(int i=0; i<controladores.length;i++){
+                if(controladores[i].text==""){
+                  _showDialog(context);
+                  return;
+                }
+                habilidades.add(HabilidadRating(habilidad: controladores[i].text,rating: 0));
+              }
+              car.add(HabilidadesPorCarrera(carrera: widget.carreras[i], habilidadesRating: habilidades));
+            }
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => HabilidadesScreen(habilidadesCarreras: car),
+              ),
+              );
+
+
+          },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
         child: ListView(
             padding: EdgeInsets.zero,
@@ -38,7 +92,9 @@ class _ValoresState extends State<Valores> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                rightRow(circleCont:
+                rightRow(
+                  controlador: controladores[0],
+                  circleCont:
                   Container(
                     height: 60,
                     child: Align(
@@ -57,12 +113,16 @@ class _ValoresState extends State<Valores> {
                     ),
                   ),
                 ),
-                leftRow(circleCont:
+                leftRow(
+                  controlador: controladores[1],
+                  circleCont:
                   Container(
                     height: 60,
                   ),
                 ),
-                rightRow(circleCont:
+                rightRow(
+                  controlador: controladores[2],
+                  circleCont:
                   Container(
                     height: 60,
                     child: Align(
@@ -81,7 +141,9 @@ class _ValoresState extends State<Valores> {
                     ),
                   ),
                 ),
-                leftRow(circleCont:
+                leftRow(
+                  controlador: controladores[3],
+                  circleCont:
                   Container(
                     height: 60,
                     child: Align(
@@ -100,7 +162,9 @@ class _ValoresState extends State<Valores> {
                     ),
                   ),
                 ),
-                    rightRow(circleCont:
+                    rightRow(
+                      controlador: controladores[4],
+                      circleCont:
                       Container(
                         height: 60,
                         child: Align(

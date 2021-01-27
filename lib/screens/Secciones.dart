@@ -249,8 +249,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
                           colore: capital ? kColorGris : kColorNaranja,
-                          tapFunction: () => Navigator.pushNamed(
-                              context, Valores.id), //Ir a navegador de capital
+                          tapFunction: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NavegadorCapital_screen(carreras: carreras),
+                            ),
+                          ), //Ir a navegador de capital
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,
@@ -271,7 +276,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: personal ? kColorGris : kColorCafe,
                           tapFunction: () =>
-                              Navigator.pushNamed(context, Valores.id),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Valores(carreras: carreras),
+                                ),
+                              ),
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,

@@ -44,6 +44,28 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
     }
   }
 
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Contesta por favor"),
+          content: Text(
+              "No has calificado todas las habilidades, por favor intenta de nuevo"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -188,6 +210,15 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                     saving=true;
                   });
                   for(int i=0;i<widget.habilidadesCarreras.length;i++){
+                    if(widget.habilidadesCarreras[i].getFull()==false){
+                      _showDialog(context);
+                      setState(() {
+                        finish=false;
+                        saving=false;
+                      });
+
+                      return;
+                    }
                     promediosPorCarrera[widget.habilidadesCarreras[i].getCarrera()]= widget.habilidadesCarreras[i].getPromedio();
                   }
                   try {
@@ -202,12 +233,12 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                   }
 
                   setState(() {
-                    saving = true;
+                    saving = false;
                   });
                 }
               },
               child: Icon(
-                finish?Icons.check:Icons.arrow_forward_ios,
+                indexCarrera>=widget.habilidadesCarreras.length-1 ?Icons.check:Icons.arrow_forward_ios,
                 color: Colors.black,
               ),
               backgroundColor: Colors.white,

@@ -50,4 +50,14 @@ class HabilidadesPorCarrera{
     }
     return promedio/habilidadesRating.length;
   }
+
+  bool getFull(){
+    for(int i=0;i<habilidadesRating.length;i++){
+      if(habilidadesRating[i].rating==0){
+        return false;
+      }
+    }
+    return true;
+  }
+
 }

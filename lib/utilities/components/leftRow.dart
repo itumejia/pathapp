@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class leftRow extends StatelessWidget {
   final Widget circleCont;
-
-  leftRow({this.circleCont});
+  final TextEditingController controlador;
+  leftRow({this.circleCont, this.controlador});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +16,7 @@ class leftRow extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: controlador,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                   ),
