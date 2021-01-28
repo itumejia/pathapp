@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/utilities/components/textFieldDecoration.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 import '../utilities/constants.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -317,8 +318,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           .id); //Cambiar a Introducir Carreras
                                   print("Jalo chido");
                                 }
-                              } catch (e) {
+                              } on FirebaseAuthException catch (e) {
                                 print(e);
+                                mostrarAlerta(context, "No se pudo realizar registro", e.message);
                               }
                             }
 

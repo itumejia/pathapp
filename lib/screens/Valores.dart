@@ -4,6 +4,7 @@ import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/components/leftRow.dart';
 import 'package:pathapp/utilities/components/rigthRow.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 
 class Valores extends StatefulWidget {
@@ -17,28 +18,6 @@ class Valores extends StatefulWidget {
 class _ValoresState extends State<Valores> {
 
   List<TextEditingController> controladores= [TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController(),];
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Contesta por favor"),
-          content: Text(
-              "No has llenado todos los campos, por favor intenta de nuevo"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +42,7 @@ class _ValoresState extends State<Valores> {
               List<HabilidadRating> habilidades=[];
               for(int i=0; i<controladores.length;i++){
                 if(controladores[i].text==""){
-                  _showDialog(context);
+                  mostrarAlerta(context, "Contesta por favor", "No has llenado todos los campos, por favor intenta de nuevo");
                   return;
                 }
                 habilidades.add(HabilidadRating(habilidad: controladores[i].text,rating: 0));

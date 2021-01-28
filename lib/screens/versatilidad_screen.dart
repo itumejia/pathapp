@@ -7,11 +7,13 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pathapp/utilities/components/backButton.dart';
 import 'package:pathapp/utilities/components/dragContainer.dart';
 import 'package:pathapp/utilities/components/dragTarget.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/versatilidad_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/sesion_screen.dart';
 
 class versatilidadScreen extends StatefulWidget {
   versatilidadScreen({@required this.carreras, @required this.versatilidad});
@@ -34,14 +36,16 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
   bool saving=false;
   Map<String, int> results={};
 
-  void getCurrentUser()async{
-    try{
-      final author= FirebaseAuth.instance;
-      loggedUser= await author.currentUser;
-      if(loggedUser!=null){
+  void getCurrentUser() async {
+    try {
+      final author = FirebaseAuth.instance;
+      loggedUser = await author.currentUser;
+      if (loggedUser != null) {
         print(loggedUser.email);
       }
-    }catch(e){
+    } on FirebaseAuthException catch (e) {
+      mostrarAlerta(context, "Usuario no identificado", e.message );
+      Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
@@ -52,27 +56,6 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
     super.initState();
     Provider.of<VersatilidadData>(context,listen: false).setProv(widget.carreras.length);
     getCurrentUser();
-  }
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Tarea no terminada"),
-          content: Text("Arrastra cada una de las carreras en cada espacio en orden"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Row targets(){
@@ -142,7 +125,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
         onPressed: (){
           if(Provider.of<VersatilidadData>(context,listen: false).getFinalValues.contains("")){
             //Tarea incompleta
-            _showDialog(context);
+            mostrarAlerta(context, "Tarea no terminada", "Arrastra cada una de las carreras en cada espacio en orden");
           }
           else{
             setState(() {
@@ -165,7 +148,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
               Navigator.pushNamedAndRemoveUntil(context,SeccionesScreen.id,(Route<dynamic> route) => false);
             }
             catch(e){
-              print(e);
+              mostrarAlerta(context, "No se pudieron subir los datos", e);
             }
 
             setState(() {

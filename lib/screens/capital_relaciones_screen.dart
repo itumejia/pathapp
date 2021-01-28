@@ -5,6 +5,8 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
+import 'package:pathapp/screens/sesion_screen.dart';
 
 class CapitalRelacionesScreen extends StatefulWidget {
   static String id='cap_relaciones_screen';
@@ -26,14 +28,16 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
 
   Map<String, int> results={};
 
-  void getCurrentUser()async{
-    try{
-      final author= FirebaseAuth.instance;
-      loggedUser= await author.currentUser;
-      if(loggedUser!=null){
+  void getCurrentUser() async {
+    try {
+      final author = FirebaseAuth.instance;
+      loggedUser = await author.currentUser;
+      if (loggedUser != null) {
         print(loggedUser.email);
       }
-    }catch(e){
+    } on FirebaseAuthException catch (e) {
+      mostrarAlerta(context, "Usuario no identificado", e.message );
+      Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
@@ -46,26 +50,6 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
     return widgets;
   }
 
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Califica por favor"),
-          content: Text("No has calificado todas tus carreras, por favor intenta de nuevo"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void initState() {
     super.initState();
@@ -87,7 +71,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
             }
           }
           if(completado==false){
-            _showDialog(context);
+            mostrarAlerta(context, "Califica por favor", "No has calificado todas tus carreras, por favor intenta de nuevo");
           }else{
             setState(() {
               saving=true;
@@ -106,6 +90,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
               Navigator.pushNamedAndRemoveUntil(context,SeccionesScreen.id,(Route<dynamic> route) => false);
             }
             catch(e){
+              mostrarAlerta(context, "No se pudieron subir los datos", e);
               print(e);
             }
 
