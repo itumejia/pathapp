@@ -48,7 +48,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   }
 
   void getInfo() async {
-    Map info = await getData(loggedUser.email);
+    Map info = await getData(context, loggedUser.email);
     print('getting data');
 
     carreras = info['carreras'];

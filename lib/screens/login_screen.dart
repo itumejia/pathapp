@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         email: email, password: password);
                                 if (user != null) {
                                   Map<String, dynamic> result =
-                                      await getData(email);
+                                      await getData(context, email);
                                   List<dynamic> arrayCarrera =
                                       result['carreras'];
                                   //print(result['nombres']);

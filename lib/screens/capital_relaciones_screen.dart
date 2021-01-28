@@ -90,6 +90,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
               Navigator.pushNamedAndRemoveUntil(context,SeccionesScreen.id,(Route<dynamic> route) => false);
             }
             catch(e){
+              mostrarAlerta(context, "No se pudieron subir los datos", e);
               print(e);
             }
 

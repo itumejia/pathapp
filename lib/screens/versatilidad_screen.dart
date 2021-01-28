@@ -148,7 +148,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
               Navigator.pushNamedAndRemoveUntil(context,SeccionesScreen.id,(Route<dynamic> route) => false);
             }
             catch(e){
-              print(e);
+              mostrarAlerta(context, "No se pudieron subir los datos", e);
             }
 
             setState(() {

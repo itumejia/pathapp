@@ -208,7 +208,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                     Navigator.pushReplacementNamed(
                         context, SeccionesScreen.id);
                   } catch (e) {
-                    print(e);
+                    mostrarAlerta(context, "No se pudieron subir los datos", e);
                   }
 
                   setState(() {

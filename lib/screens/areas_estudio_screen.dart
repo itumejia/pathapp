@@ -194,6 +194,7 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                 Navigator.pushReplacementNamed(
                                     context, SeccionesScreen.id);
                               } catch (e) {
+                                mostrarAlerta(context, "No se pudieron subir los datos", e);
                                 print(e);
                               }
 
