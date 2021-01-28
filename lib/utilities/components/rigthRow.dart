@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class rightRow extends StatelessWidget {
   final Widget circleCont;
+  final TextEditingController controlador;
 
-  rightRow({this.circleCont});
+  rightRow({this.circleCont, this.controlador});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class rightRow extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: controlador,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                   ),

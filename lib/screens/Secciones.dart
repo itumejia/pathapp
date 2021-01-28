@@ -15,6 +15,7 @@ import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 
 class SeccionesScreen extends StatefulWidget {
   static String id = 'menu_screen';
@@ -38,16 +39,16 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
       loggedUser = await author.currentUser;
       if (loggedUser != null) {
         print(loggedUser.email);
-      } else {
-        Navigator.pushReplacementNamed(context, sesionScreen.id);
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      mostrarAlerta(context, "Usuario no identificado", e.message );
+      Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
 
   void getInfo() async {
-    Map info = await getData(loggedUser.email);
+    Map info = await getData(context, loggedUser.email);
     print('getting data');
 
     carreras = info['carreras'];
@@ -112,7 +113,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
           width: widthScreenPercentage,
           height: heightScreenPercentage,
           child: Padding(
-            padding: EdgeInsets.only(top: heightScreenPercentage * 0.04),
+            padding: EdgeInsets.only(top: heightScreenPercentage * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -249,8 +250,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
                           colore: capital ? kColorGris : kColorNaranja,
-                          tapFunction: () => Navigator.pushNamed(
-                              context, Valores.id), //Ir a navegador de capital
+                          tapFunction: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NavegadorCapital_screen(carreras: carreras),
+                            ),
+                          ), //Ir a navegador de capital
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,
@@ -271,7 +277,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: personal ? kColorGris : kColorCafe,
                           tapFunction: () =>
-                              Navigator.pushNamed(context, Valores.id),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Valores(carreras: carreras),
+                                ),
+                              ),
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,

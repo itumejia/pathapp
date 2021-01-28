@@ -10,30 +10,25 @@ import '../utilities/components/roundedContainer.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/components/textFieldProblemas.dart';
 import 'package:pathapp/screens/impacto_problemas_screen.dart';
+import 'package:pathapp/utilities/models/ProblemasStructure.dart';
 
 class problemasMundo extends StatefulWidget {
   static String id = 'problemas_mundo_screen';
+
+  problemasMundo({@required this.carreras});
+  List<dynamic> carreras=[];
+
   @override
   _problemasMundoState createState() => _problemasMundoState();
 }
 
 class _problemasMundoState extends State<problemasMundo> {
-  final controllerp1 = TextEditingController();
-  final controllerp2 = TextEditingController();
-  final controllerp3 = TextEditingController();
-  final controllerp4 = TextEditingController();
-  final controllerp5 = TextEditingController();
-  String p1String;
-  String p2String;
-  String p3String;
-  String p4String;
-  String p5String;
+
+  final List<TextEditingController> controladores= List.filled(4, TextEditingController());
   bool p1bool = true;
   bool p2bool = true;
   bool p3bool = true;
   bool p4bool = true;
-  bool p5bool = true;
-  bool _saving = false;
   bool todoChido = true;
   @override
   Widget build(BuildContext context) {
@@ -139,12 +134,9 @@ class _problemasMundoState extends State<problemasMundo> {
                                   height: heightScreenPercentage * 0.06,
                                   width: widthScreenPercentage * 0.56,
                                   child: TextField(
-                                    controller: controllerp1,
+                                    controller: controladores[0],
                                     textAlign: TextAlign.start,
                                     keyboardType: TextInputType.text,
-                                    onChanged: (value) {
-                                      p1String = value;
-                                    },
                                     decoration: p1bool
                                         ? textFieldProblemas(
                                             "Introduce el primer problema",
@@ -181,12 +173,9 @@ class _problemasMundoState extends State<problemasMundo> {
                                   height: heightScreenPercentage * 0.06,
                                   width: widthScreenPercentage * 0.56,
                                   child: TextField(
-                                    controller: controllerp2,
+                                    controller: controladores[1],
                                     textAlign: TextAlign.start,
                                     keyboardType: TextInputType.text,
-                                    onChanged: (value) {
-                                      p2String = value;
-                                    },
                                     decoration: p2bool
                                         ? textFieldProblemas(
                                             "Introduce el segundo problema",
@@ -223,12 +212,9 @@ class _problemasMundoState extends State<problemasMundo> {
                                   height: heightScreenPercentage * 0.06,
                                   width: widthScreenPercentage * 0.56,
                                   child: TextField(
-                                    controller: controllerp3,
+                                    controller: controladores[2],
                                     textAlign: TextAlign.start,
                                     keyboardType: TextInputType.text,
-                                    onChanged: (value) {
-                                      p3String = value;
-                                    },
                                     decoration: p3bool
                                         ? textFieldProblemas(
                                             "Introduce el tercer problema",
@@ -265,12 +251,9 @@ class _problemasMundoState extends State<problemasMundo> {
                                   height: heightScreenPercentage * 0.06,
                                   width: widthScreenPercentage * 0.56,
                                   child: TextField(
-                                    controller: controllerp4,
+                                    controller: controladores[3],
                                     textAlign: TextAlign.start,
                                     keyboardType: TextInputType.text,
-                                    onChanged: (value) {
-                                      p4String = value;
-                                    },
                                     decoration: p4bool
                                         ? textFieldProblemas(
                                             "Introduce el cuarto problema",
@@ -300,46 +283,61 @@ class _problemasMundoState extends State<problemasMundo> {
                       text: 'CONTINUAR',
                       color: kColorBlancoOpaco,
                       fontcolor: kColorUniverso,
-                      function: () async {
-                        setState(() {
-                          _saving = true;
-                        });
+                      function: () {
+
                         p1bool = true;
                         p2bool = true;
                         p3bool = true;
                         p4bool = true;
                         todoChido = true;
-                        if (p1String == null) {
+
+                        if (controladores[0].text == "") {
                           todoChido = false;
-                          controllerp1.clear();
+                          controladores[0].clear();
                           setState(() {
                             p1bool = false;
                           });
                         }
-                        if (p2String == null) {
+                        if (controladores[1].text == "") {
                           todoChido = false;
-                          controllerp2.clear();
+                          controladores[1].clear();
                           setState(() {
                             p2bool = false;
                           });
                         }
-                        if (p3String == null) {
+                        if (controladores[2].text == "") {
                           todoChido = false;
-                          controllerp3.clear();
+                          controladores[2].clear();
                           setState(() {
                             p3bool = false;
                           });
                         }
-                        if (p4String == null) {
+                        if (controladores[3].text == "") {
                           todoChido = false;
-                          controllerp4.clear();
+                          controladores[3].clear();
                           setState(() {
                             p4bool = false;
                           });
                         }
                         if (todoChido) {
-                          Navigator.pushReplacementNamed(
-                              context, impactoProblemas.id);
+
+                          List<CarrerasPorProblema> problemas=[];
+
+                          for(int i=0; i<controladores.length;i++ ){
+                            List<CarreraRating> carrerasRating=[];
+                            for(int j=0; j<widget.carreras.length;j++){
+                              carrerasRating.add(CarreraRating(carrera: widget.carreras[j], rating:0));
+                            }
+                            problemas.add(CarrerasPorProblema(problema: controladores[i].text, carrerasRating: carrerasRating));
+                          }
+
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => HabilidadesPersona(carrerasProblemas: problemas),
+                          //   ),
+                          // );
                         }
                       },
                     ),

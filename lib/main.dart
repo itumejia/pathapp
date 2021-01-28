@@ -36,54 +36,55 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
-        create: (context) => VersatilidadData(),
-        child: MaterialApp(
-          initialRoute: SeccionesScreen.id,
-          routes: {
-            //Pantallas de inicio:
-            introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
-            sesionScreen.id: (context) =>
-                sesionScreen(), // Pantalla Login/ Registrarse
-            LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
-            RegisterScreen.id: (context) =>
-                RegisterScreen(), //Pantalla de Registro
-            areasEstudioScreen.id: (context) =>
-                areasEstudioScreen(), //Pantalla para introducir carreras
-            SeccionesScreen.id: (context) =>
-                SeccionesScreen(), //Pantalla de menú principal, para escoger test
-            aboutScreen.id: (context) =>
-                aboutScreen(), //Pantalla de información PATH
-            //Falta pantalla de resultados
+      create: (context)=>VersatilidadData(),
+      child: MaterialApp(
+        initialRoute: sesionScreen.id,
+        routes: {
+          //Pantallas de inicio:
+          introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
+          sesionScreen.id: (context) =>
+              sesionScreen(), // Pantalla Login/ Registrarse
+          LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
+          RegisterScreen.id: (context) => RegisterScreen(), //Pantalla de Registro
+          areasEstudioScreen.id: (context) =>
+              areasEstudioScreen(), //Pantalla para introducir carreras
+          SeccionesScreen.id: (context) =>
+              SeccionesScreen(), //Pantalla de menú principal, para escoger test
+        aboutScreen.id: (context) =>
+            aboutScreen(), //Pantalla de información PATH
+        //Falta pantalla de resultados
+          
+        //Ramas del conocimiento:
+        //Falta navegador
+        versatilidadScreen.id: (context) =>
+            versatilidadScreen(), //Pantalla de Versatilidad
+        prestigioScreen.id: (context) =>
+            prestigioScreen(), //Pantalla de Prestigio
 
-            //Ramas del conocimiento:
-            //Falta navegador
-            versatilidadScreen.id: (context) =>
-                versatilidadScreen(), //Pantalla de Versatilidad
-            prestigioScreen.id: (context) =>
-                prestigioScreen(), //Pantalla de Prestigio
+        //Pantallas de Impacto Social
+        problemasMundo.id: (context) => problemasMundo(),
+        impactoProblemas.id: (context) => impactoProblemas(),
 
-            //Pantallas de Impacto Social
-            problemasMundo.id: (context) => problemasMundo(),
-            impactoProblemas.id: (context) => impactoProblemas(),
+        //Pantallas de Capital de Carrera
+        CapitalHabilidadesScreen.id: (context) =>
+            CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
+        HabilidadesPersona.id: (context) =>
+            HabilidadesPersona(), //Pantalla para calificar habilidades
+        CapitalRelacionesScreen.id: (context) =>
+            CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
 
-            //Pantallas de Capital de Carrera
-            CapitalHabilidadesScreen.id: (context) =>
-                CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
-            HabilidadesPersona.id: (context) =>
-                HabilidadesPersona(), //Pantalla para calificar habilidades
-            CapitalRelacionesScreen.id: (context) =>
-                CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
+        //Pantallas de Personal Fit
+        Valores.id: (context) =>
+            Valores(), //Pantalla para introducir habilidades de la persona
+        HabilidadesScreen.id: (context) =>
+            HabilidadesScreen(), //Pantalla para calificar habilidades
 
-            //Pantallas de Personal Fit
-            Valores.id: (context) =>
-                Valores(), //Pantalla para introducir habilidades de la persona
-            HabilidadesScreen.id: (context) =>
-                HabilidadesScreen(), //Pantalla para calificar habilidades
-
-            //Navegadores de test
-            NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
-          },
-        ));
+        //Navegadores de test
+        NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
+      },
+    )
+    );
   }
 }
