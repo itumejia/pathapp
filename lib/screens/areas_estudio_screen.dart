@@ -12,6 +12,7 @@ import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/utilities/components/inputCarreras.dart';
 import 'package:pathapp/utilities/components/roundedContainer.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 
 class areasEstudioScreen extends StatefulWidget {
   static String id = 'areas_estudio_screen';
@@ -32,10 +33,10 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
       loggedUser = await author.currentUser;
       if (loggedUser != null) {
         print(loggedUser.email);
-      } else {
-        Navigator.pushReplacementNamed(context, sesionScreen.id);
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      mostrarAlerta(context, "Usuario no identificado", e.message );
+      Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
@@ -174,6 +175,14 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                 if (controladores[i].text != "") {
                                   carrerasLimpio.add(controladores[i].text);
                                 }
+                              }
+
+                              if(carrerasLimpio.length<numCarreras){
+                                mostrarAlerta(context, "Datos faltantes", "Llena todos los espacios correspondientes a tus carreras de interés");
+                                setState(() {
+                                  saving = false;
+                                });
+                                return;
                               }
 
                               try {

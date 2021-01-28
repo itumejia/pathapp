@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pathapp/utilities/components/instruction_box_widget.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/components/rating_row.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,42 +30,20 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
   Map<String, double> promediosPorCarrera={};
-  void getCurrentUser()async{
-    try{
-      final author= FirebaseAuth.instance;
-      loggedUser= await author.currentUser;
-      if(loggedUser!=null){
+  void getCurrentUser() async {
+    try {
+      final author = FirebaseAuth.instance;
+      loggedUser = await author.currentUser;
+      if (loggedUser != null) {
         print(loggedUser.email);
       }
-      else{
-        Navigator.pushReplacementNamed(context,sesionScreen.id);
-      }
-    }catch(e){
+    } on FirebaseAuthException catch (e) {
+      mostrarAlerta(context, "Usuario no identificado", e.message );
+      Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
 
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Contesta por favor"),
-          content: Text(
-              "No has calificado todas las habilidades, por favor intenta de nuevo"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   void initState() {
@@ -211,7 +190,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                   });
                   for(int i=0;i<widget.habilidadesCarreras.length;i++){
                     if(widget.habilidadesCarreras[i].getFull()==false){
-                      _showDialog(context);
+                      mostrarAlerta(context, "Contesta por favor", "No has calificado todas las habilidades, por favor intenta de nuevo");
                       setState(() {
                         finish=false;
                         saving=false;

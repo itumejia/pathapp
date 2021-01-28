@@ -7,6 +7,7 @@ import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import '../utilities/components/fonts.dart';
@@ -176,8 +177,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context, SeccionesScreen.id);
                                   }
                                 }
-                              } catch (e) {
-                                print(e);
+                              } on FirebaseAuthException catch (e) {
+                                mostrarAlerta(context, "No se pudo iniciar sesión", e.message);
                               }
                             }
 

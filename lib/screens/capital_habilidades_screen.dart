@@ -3,6 +3,7 @@ import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/utilities/components/capital_habilidades.dart';
 import 'package:pathapp/utilities/components/instruction_box_widget2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 import 'package:pathapp/screens/HabilidadesPersona.dart';
 
@@ -14,28 +15,6 @@ class CapitalHabilidadesScreen extends StatelessWidget {
 
   final List<List<TextEditingController>> matrizControladores = [];
   final List<HabilidadesPorCarrera> habCarreras = [];
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Contesta por favor"),
-          content: Text(
-              "No has calificado todos los campos, por favor intenta de nuevo"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void createControladores() {
     for (int i = 0; i < carreras.length; i++) {
@@ -93,7 +72,7 @@ class CapitalHabilidadesScreen extends StatelessWidget {
 
 
           if(completo==false){
-            _showDialog(context);
+            mostrarAlerta(context,"Contesta por favor", "No has calificado todos los campos, por favor intenta de nuevo");
           }else{
             for(int i=0;i<carreras.length;i++) {
               List<HabilidadRating> habilidadesRatingList = [];
