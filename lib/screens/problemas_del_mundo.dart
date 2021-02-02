@@ -16,15 +16,15 @@ class problemasMundo extends StatefulWidget {
   static String id = 'problemas_mundo_screen';
 
   problemasMundo({@required this.carreras});
-  List<dynamic> carreras=[];
+  List<dynamic> carreras = [];
 
   @override
   _problemasMundoState createState() => _problemasMundoState();
 }
 
 class _problemasMundoState extends State<problemasMundo> {
-
-  final List<TextEditingController> controladores= List.filled(4, TextEditingController());
+  final List<TextEditingController> controladores =
+      List.filled(4, TextEditingController());
   bool p1bool = true;
   bool p2bool = true;
   bool p3bool = true;
@@ -284,7 +284,6 @@ class _problemasMundoState extends State<problemasMundo> {
                       color: kColorBlancoOpaco,
                       fontcolor: kColorUniverso,
                       function: () {
-
                         p1bool = true;
                         p2bool = true;
                         p3bool = true;
@@ -320,17 +319,18 @@ class _problemasMundoState extends State<problemasMundo> {
                           });
                         }
                         if (todoChido) {
+                          List<CarrerasPorProblema> problemas = [];
 
-                          List<CarrerasPorProblema> problemas=[];
-
-                          for(int i=0; i<controladores.length;i++ ){
-                            List<CarreraRating> carrerasRating=[];
-                            for(int j=0; j<widget.carreras.length;j++){
-                              carrerasRating.add(CarreraRating(carrera: widget.carreras[j], rating:0));
+                          for (int i = 0; i < controladores.length; i++) {
+                            List<CarreraRating> carrerasRating = [];
+                            for (int j = 0; j < widget.carreras.length; j++) {
+                              carrerasRating.add(CarreraRating(
+                                  carrera: widget.carreras[j], rating: 0));
                             }
-                            problemas.add(CarrerasPorProblema(problema: controladores[i].text, carrerasRating: carrerasRating));
+                            problemas.add(CarrerasPorProblema(
+                                problema: controladores[i].text,
+                                carrerasRating: carrerasRating));
                           }
-
 
                           // Navigator.push(
                           //   context,
