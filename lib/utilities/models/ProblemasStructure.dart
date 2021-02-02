@@ -35,8 +35,16 @@ class CarrerasPorProblema{
     return carrerasRating[indexHabilidad];
   }
 
+  int getNumCarreras(){
+    return carrerasRating.length;
+  }
+
   String getProblema(){
     return problema;
+  }
+
+  List<CarreraRating> getAllCarreras(){
+    return carrerasRating;
   }
 
   void printHabCar(){

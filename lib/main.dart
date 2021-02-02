@@ -37,31 +37,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => VersatilidadData(),
-        child: MaterialApp(
-          initialRoute: SeccionesScreen.id,
-          routes: {
-            //Pantallas de inicio:
-            introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
-            sesionScreen.id: (context) =>
-                sesionScreen(), // Pantalla Login/ Registrarse
-            LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
-            RegisterScreen.id: (context) =>
-                RegisterScreen(), //Pantalla de Registro
-            areasEstudioScreen.id: (context) =>
-                areasEstudioScreen(), //Pantalla para introducir carreras
-            SeccionesScreen.id: (context) =>
-                SeccionesScreen(), //Pantalla de menú principal, para escoger test
-            aboutScreen.id: (context) =>
-                aboutScreen(), //Pantalla de información PATH
-            //Falta pantalla de resultados
+      create: (context)=>VersatilidadData(),
+      child: MaterialApp(
+        initialRoute: introScreen.id,
+        routes: {
+          //Pantallas de inicio:
+          introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
+          sesionScreen.id: (context) =>
+              sesionScreen(), // Pantalla Login/ Registrarse
+          LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
+          RegisterScreen.id: (context) => RegisterScreen(), //Pantalla de Registro
+          areasEstudioScreen.id: (context) =>
+              areasEstudioScreen(), //Pantalla para introducir carreras
+          SeccionesScreen.id: (context) =>
+              SeccionesScreen(), //Pantalla de menú principal, para escoger test
+        aboutScreen.id: (context) =>
+            aboutScreen(), //Pantalla de información PATH
+        //Falta pantalla de resultados
+          
+        //Ramas del conocimiento:
+        //Falta navegador
+        versatilidadScreen.id: (context) =>
+            versatilidadScreen(), //Pantalla de Versatilidad
+        prestigioScreen.id: (context) =>
+            prestigioScreen(), //Pantalla de Prestigio
 
-            //Ramas del conocimiento:
-            //Falta navegador
-            versatilidadScreen.id: (context) =>
-                versatilidadScreen(), //Pantalla de Versatilidad
-            prestigioScreen.id: (context) =>
-                prestigioScreen(), //Pantalla de Prestigio
 
             //Pantallas de Impacto Social
             problemasMundo.id: (context) => problemasMundo(),
