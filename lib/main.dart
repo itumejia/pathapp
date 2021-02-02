@@ -15,7 +15,7 @@ import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:provider/provider.dart';
-
+import 'package:pathapp/screens/resultados.dart';
 import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 import 'package:pathapp/screens/impacto_problemas_screen.dart';
@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
       create: (context)=>VersatilidadData(),
       child: MaterialApp(
@@ -63,28 +62,30 @@ class MyApp extends StatelessWidget {
         prestigioScreen.id: (context) =>
             prestigioScreen(), //Pantalla de Prestigio
 
-        //Pantallas de Impacto Social
-        problemasMundo.id: (context) => problemasMundo(),
-        impactoProblemas.id: (context) => impactoProblemas(),
 
-        //Pantallas de Capital de Carrera
-        CapitalHabilidadesScreen.id: (context) =>
-            CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
-        HabilidadesPersona.id: (context) =>
-            HabilidadesPersona(), //Pantalla para calificar habilidades
-        CapitalRelacionesScreen.id: (context) =>
-            CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
+            //Pantallas de Impacto Social
+            problemasMundo.id: (context) => problemasMundo(),
+            impactoProblemas.id: (context) => impactoProblemas(),
 
-        //Pantallas de Personal Fit
-        Valores.id: (context) =>
-            Valores(), //Pantalla para introducir habilidades de la persona
-        HabilidadesScreen.id: (context) =>
-            HabilidadesScreen(), //Pantalla para calificar habilidades
+            //Pantallas de Capital de Carrera
+            CapitalHabilidadesScreen.id: (context) =>
+                CapitalHabilidadesScreen(), //Pantalla para introducir qué habilidades te gustaría aprender
+            HabilidadesPersona.id: (context) =>
+                HabilidadesPersona(), //Pantalla para calificar habilidades
+            CapitalRelacionesScreen.id: (context) =>
+                CapitalRelacionesScreen(), //Pantalla para calificar relaciones por carrera
 
-        //Navegadores de test
-        NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
-      },
-    )
-    );
+            //Pantallas de Personal Fit
+            Valores.id: (context) =>
+                Valores(), //Pantalla para introducir habilidades de la persona
+            HabilidadesScreen.id: (context) =>
+                HabilidadesScreen(), //Pantalla para calificar habilidades
+
+            //Navegadores de test
+            NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
+            //Navegador de resultados
+            resultadosScreen.id: (context) => resultadosScreen(),
+          },
+        ));
   }
 }

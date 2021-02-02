@@ -16,6 +16,7 @@ import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
+import 'package:pathapp/screens/resultados.dart';
 
 class SeccionesScreen extends StatefulWidget {
   static String id = 'menu_screen';
@@ -25,7 +26,7 @@ class SeccionesScreen extends StatefulWidget {
 
 class _SeccionesScreenState extends State<SeccionesScreen> {
   User loggedUser;
-  double progreso = 0.0;
+  double progreso = 0;
   final _cloud = FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
 
@@ -41,7 +42,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
         print(loggedUser.email);
       }
     } on FirebaseAuthException catch (e) {
-      mostrarAlerta(context, "Usuario no identificado", e.message );
+      mostrarAlerta(context, "Usuario no identificado", e.message);
       Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
@@ -154,7 +155,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           ),
                         ),
                         Opacity(
-                          opacity: progreso == 100 ? 100 : 0,
+                          opacity: progreso == 100 ? 1 : 0,
                           child: RoundedButton(
                             screenHeight: heightScreenPercentage,
                             titleText: 'VER RESULTADOS',
@@ -162,6 +163,8 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                             onPressedFunction: () {
                               //Condición para saber si el progreso ya está en 100
                               if (progreso == 100) {
+                                Navigator.pushNamed(
+                                    context, resultadosScreen.id);
                                 //Navegar a pantalla de resultados
                               }
                             },
@@ -282,14 +285,12 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
                           colore: personal ? kColorGris : kColorCafe,
-                          tapFunction: () =>
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Valores(carreras: carreras),
-                                ),
-                              ),
+                          tapFunction: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Valores(carreras: carreras),
+                            ),
+                          ),
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,

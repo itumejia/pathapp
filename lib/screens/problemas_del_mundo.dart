@@ -16,7 +16,7 @@ class problemasMundo extends StatefulWidget {
   static String id = 'problemas_mundo_screen';
 
   problemasMundo({@required this.carreras});
-  List<dynamic> carreras=[];
+  List<dynamic> carreras = [];
 
   @override
   _problemasMundoState createState() => _problemasMundoState();
@@ -290,9 +290,6 @@ class _problemasMundoState extends State<problemasMundo> {
                       color: kColorBlancoOpaco,
                       fontcolor: kColorUniverso,
                       function: () {
-                        for(int i=0;i<controladores.length;i++){
-                          print(controladores[i].text);
-                        }
                         p1bool = true;
                         p2bool = true;
                         p3bool = true;
@@ -328,23 +325,25 @@ class _problemasMundoState extends State<problemasMundo> {
                           });
                         }
                         if (todoChido) {
+                          List<CarrerasPorProblema> problemas = [];
 
-                          List<CarrerasPorProblema> problemas=[];
-
-                          for(int i=0; i<controladores.length;i++ ){
-                            List<CarreraRating> carrerasRating=[];
-                            for(int j=0; j<widget.carreras.length;j++){
-                              carrerasRating.add(CarreraRating(carrera: widget.carreras[j], rating:0));
+                          for (int i = 0; i < controladores.length; i++) {
+                            List<CarreraRating> carrerasRating = [];
+                            for (int j = 0; j < widget.carreras.length; j++) {
+                              carrerasRating.add(CarreraRating(
+                                  carrera: widget.carreras[j], rating: 0));
                             }
-                            problemas.add(CarrerasPorProblema(problema: controladores[i].text, carrerasRating: carrerasRating));
+                            problemas.add(CarrerasPorProblema(
+                                problema: controladores[i].text,
+                                carrerasRating: carrerasRating));
                           }
-
                           Navigator.push(
                              context,
                              MaterialPageRoute(
                                builder: (context) => impactoProblemas(problemas: problemas),
                              ),
                           );
+
                         }
                       },
                     ),
