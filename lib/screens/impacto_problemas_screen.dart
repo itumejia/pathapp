@@ -148,7 +148,7 @@ class _impactoProblemasState extends State<impactoProblemas> {
                           EdgeInsets.only(top: heightScreenPercentage * 0.21),
                       child: Container(
                         width: widthScreenPercentage * 0.85,
-                        height: heightScreenPercentage * 0.5,
+                        height: heightScreenPercentage * 0.55,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -191,7 +191,7 @@ class _impactoProblemasState extends State<impactoProblemas> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.only(top: heightScreenPercentage * 0.07),
+                          EdgeInsets.only(top: heightScreenPercentage * 0.025),
                       child: CountButton(
                         screenWidth: widthScreenPercentage,
                         screenHeight: heightScreenPercentage,
