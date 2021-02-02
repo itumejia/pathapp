@@ -224,7 +224,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: impacto ? kColorGris : kColorAmarillo,
                           tapFunction: () {
-                            Navigator.pushNamed(context, problemasMundo.id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                 problemasMundo(carreras: carreras),
+                              ),
+                            );
                           }, //Ir a test de problemas del mundo
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,

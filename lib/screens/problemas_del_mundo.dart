@@ -24,7 +24,13 @@ class problemasMundo extends StatefulWidget {
 
 class _problemasMundoState extends State<problemasMundo> {
 
-  final List<TextEditingController> controladores= List.filled(4, TextEditingController());
+  final List<TextEditingController> controladores= [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
   bool p1bool = true;
   bool p2bool = true;
   bool p3bool = true;
@@ -284,7 +290,9 @@ class _problemasMundoState extends State<problemasMundo> {
                       color: kColorBlancoOpaco,
                       fontcolor: kColorUniverso,
                       function: () {
-
+                        for(int i=0;i<controladores.length;i++){
+                          print(controladores[i].text);
+                        }
                         p1bool = true;
                         p2bool = true;
                         p3bool = true;
@@ -331,13 +339,12 @@ class _problemasMundoState extends State<problemasMundo> {
                             problemas.add(CarrerasPorProblema(problema: controladores[i].text, carrerasRating: carrerasRating));
                           }
 
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => HabilidadesPersona(carrerasProblemas: problemas),
-                          //   ),
-                          // );
+                          Navigator.push(
+                             context,
+                             MaterialPageRoute(
+                               builder: (context) => impactoProblemas(problemas: problemas),
+                             ),
+                          );
                         }
                       },
                     ),
