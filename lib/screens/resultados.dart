@@ -8,14 +8,55 @@ import 'package:pathapp/utilities/components/backButton.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
+import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pathapp/utilities/functions/alerta.dart';
+import 'package:pathapp/screens/sesion_screen.dart';
 
 class resultadosScreen extends StatefulWidget {
   static String id = 'resultados_screen';
+
   @override
   _resultadosScreenState createState() => _resultadosScreenState();
 }
 
+
 class _resultadosScreenState extends State<resultadosScreen> {
+  Map<String, dynamic> datos={};
+  User loggedUser;
+  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
+  bool saving = false;
+
+  void getCurrentUser() async {
+    try {
+      final author = FirebaseAuth.instance;
+      loggedUser = await author.currentUser;
+      if (loggedUser != null) {
+        print(loggedUser.email);
+      }
+    } on FirebaseAuthException catch (e) {
+      mostrarAlerta(context, "Usuario no identificado", e.message );
+      Navigator.pushReplacementNamed(context, sesionScreen.id);
+      print(e);
+    }
+  }
+
+  void update() async {
+    await getCurrentUser();
+    datos= await getData(context, loggedUser.email);
+    setState(() {
+      print(datos["cap_personas"]);
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    print('INIT');
+    update();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
