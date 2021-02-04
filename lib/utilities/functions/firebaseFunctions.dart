@@ -4,22 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'alerta.dart';
 
-
-
-Future<User> getCurrentUser()async{
-  try{
-    final author= FirebaseAuth.instance;
-    final user= await author.currentUser;
-    if(user!=null){
-      print(user.email);
-    }
-    return user;
-  }catch(e){
-    print(e);
-    return null;
-  }
-}
-
 Future<Map<String, dynamic>> getData(BuildContext context, String email) async{
   Map<String, dynamic> res=null;
   try {

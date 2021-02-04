@@ -242,7 +242,7 @@ class _HabilidadesScreenState extends State<HabilidadesScreen> {
 
                       return;
                     }
-                    promediosPorCarrera[widget.habilidadesCarreras[i].getCarrera()]= widget.habilidadesCarreras[i].getPromedio();
+                    promediosPorCarrera[widget.habilidadesCarreras[i].getCarrera()]= (widget.habilidadesCarreras[i].getPromedio())*20;
                   }
                   try {
                     _cloud.doc(loggedUser.email) //Usuario

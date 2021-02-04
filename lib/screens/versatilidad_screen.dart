@@ -29,12 +29,12 @@ class versatilidadScreen extends StatefulWidget {
 
 class _versatilidadScreenState extends State<versatilidadScreen> {
 
-  List<int> calificaciones=[100,80,50,0];
+  List<double> calificaciones=[100,80,50,0];
 
   User loggedUser;
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
   bool saving=false;
-  Map<String, int> results={};
+  Map<String, double> results={};
 
   void getCurrentUser() async {
     try {

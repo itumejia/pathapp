@@ -64,7 +64,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
     if (info['imp_social'].length != 0) {
       impacto = true;
-      progreso += 16.5;
+      progreso += 17;
     }
 
     if (info['cap_habilidades'].length != 0 ||
