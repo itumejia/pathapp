@@ -77,7 +77,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
               saving=true;
             });
             for (int i = 0; i < RatingWidgets.length; i++) {
-              results[RatingWidgets[i].carrera]=RatingWidgets[i].rating;
+              results[RatingWidgets[i].carrera]=RatingWidgets[i].rating*20;
             }
             print(results);
             try {
