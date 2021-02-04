@@ -8,6 +8,11 @@ import 'package:pathapp/utilities/components/backButton.dart';
 
 class aboutScreen extends StatelessWidget {
   static String id = 'about_screen';
+  final String titulo;
+  final String cuerpo;
+
+  aboutScreen({this.titulo,this.cuerpo});
+
   @override
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
@@ -26,7 +31,7 @@ class aboutScreen extends StatelessWidget {
           ),
           backButton(
               on_pressed: () {
-                Navigator.pushReplacementNamed(context, SeccionesScreen.id);
+                Navigator.pop(context);
               },
               screenWidth: widthScreenPercentage),
           SafeArea(
@@ -55,7 +60,7 @@ class aboutScreen extends StatelessWidget {
                       padding:
                           EdgeInsets.only(top: heightScreenPercentage * 0.035),
                       child: fontStyleMPlus(
-                          text: "¿Qué es esto?",
+                          text: titulo,
                           sizePercentage: 3.5,
                           color: kColorAzulMarino),
                     ),
@@ -83,8 +88,7 @@ class aboutScreen extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(widthScreenPercentage * 0.045),
                         child: fontStyleMPlus(
-                            text:
-                                "El camino es complicado, todos hemos tropezado pero ante la adversidad, hay que volver a empezar… Es el comienzo todo estará mejor, ¡ponte nuevo, ponte Nuevo León!",
+                            text: cuerpo,
                             sizePercentage: 2,
                             textAlign: TextAlign.justify,
                             color: kColorAzulMarino),

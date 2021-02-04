@@ -314,7 +314,15 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         child: RawMaterialButton(
                           elevation: 10,
                           onPressed: () {
-                            Navigator.pushNamed(context, aboutScreen.id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => aboutScreen(
+                                    titulo: "¿Qué es esto?",
+                                  cuerpo: "El camino es complicado, todos hemos tropezado pero ante la adversidad, y una decisión como  lo es decidir el futuro de tu carrera profesional, puede ser muy complicado. PATH te ayudará a tomar la mejor decisión al reflexionar sobre todos los distintos aspectos que la involucran.",
+                                ),
+                              ),
+                            );
                           },
                           fillColor: kColorBlancoBoton,
                           child: Icon(
