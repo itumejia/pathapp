@@ -226,7 +226,7 @@ class _impactoProblemasState extends State<impactoProblemas> {
                                 }
                               }
                               promediosPorCarrera.forEach((k, v){
-                                promediosPorCarrera[k]=v/widget.problemas.length;
+                                promediosPorCarrera[k]=(v/widget.problemas.length)*20;
                               });
                               try {
                                 _cloud.doc(loggedUser.email) //Usuario

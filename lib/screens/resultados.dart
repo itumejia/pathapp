@@ -14,6 +14,43 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 
+class CarreraRes{
+  String carrera;
+  double resultado;
+
+  String getCarrera(){
+    return carrera;
+  }
+
+  double getResultado(){
+    return resultado;
+  }
+
+
+  CarreraRes(this.carrera, this.resultado);
+}
+
+class TestData{
+  String test;
+  List<CarreraRes> puntajes=[];
+
+  TestData(this.test);
+
+  void addCarrera(String carrera, double puntaje){
+    puntajes.add(CarreraRes(carrera, puntaje));
+  }
+
+  void printPuntajes(){
+    print(test);
+    for(int i=0;i<puntajes.length;i++){
+      print("Carrera: ${puntajes[i].getCarrera()}, Resultado: ${puntajes[i].getResultado()}");
+    }
+  }
+
+}
+
+
+
 class resultadosScreen extends StatefulWidget {
   static String id = 'resultados_screen';
 
@@ -27,6 +64,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
   User loggedUser;
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
+  List<dynamic> procesado;
 
   void getCurrentUser() async {
     try {
@@ -42,12 +80,56 @@ class _resultadosScreenState extends State<resultadosScreen> {
     }
   }
 
+
+
+
+  List<dynamic> procesar(Map<String, dynamic> data){
+    Map<String, double> pastel={};
+    List<TestData> barras=[TestData("Ramas del Conocimiento: Versatilidad"),TestData("Ramas del Conocimiento: Prestigio"),TestData("Capital de Carrera: Habilidades"),TestData("Capital de Carrera: Personas"),TestData("Impacto Social"), TestData("Personal Fit")];
+    for(int i=0; i<data['carreras'].length;i++){
+
+      double aux;
+      String carrera=data['carreras'][i];
+      double aux2=data["cap_habilidades"][carrera].toDouble();
+      barras[2].addCarrera(carrera, aux2);
+
+      aux=data["cap_personas"][carrera].toDouble();
+      barras[3].addCarrera(carrera, aux);
+
+      double ramas=(aux2+aux)/2;
+
+      aux2=data["prestigio"][carrera].toDouble();
+      barras[1].addCarrera(carrera, aux2);
+
+      aux=data["versatilidad"][carrera].toDouble();
+      barras[0].addCarrera(carrera, aux);
+
+      double capital=(aux2+aux)/2;
+
+      aux=data["imp_social"][carrera].toDouble();
+      barras[4].addCarrera(carrera, aux);
+
+      aux2=data["personal_fit"][carrera].toDouble();
+      barras[5].addCarrera(carrera, aux2);
+
+      pastel[carrera]=ramas+capital+aux+aux2;
+    }
+
+    return [pastel, barras];
+
+  }
+
   void update() async {
     await getCurrentUser();
     datos= await getData(context, loggedUser.email);
-    setState(() {
-      print(datos["cap_personas"]);
-    });
+    // setState(() {
+    //   print(datos["cap_personas"]);
+    // });
+    procesado= procesar(datos);
+    print(procesado[0]);
+    for(int i =0; i<procesado[1].length; i++){
+      procesado[1][i].printPuntajes();
+    }
   }
 
   @override
