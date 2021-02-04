@@ -57,10 +57,156 @@ class _resultadosScreenState extends State<resultadosScreen> {
     update();
   }
 
+  //GRÁFICAS---------------------------
+  //CIRCULAR---------------------------
+  List<Color> colorList=[
+    Color(0xFF576EF2),
+    Color(0xFFF2B84B),
+    Color(0xFFF29544),
+    Color(0xFFBF7E78),
+  ];
+
+  Map<String, double> dataCircular = {
+    "ITC": 100,
+    "IRS": 50,
+    "IBT": 150,
+    "LAD": 200,
+  };
+
+  //BARRAS----------------------------
+  Widget buildChart(TestData data){
+    int maxValue=data.carreras[0].puntaje;
+    for(int i=0;i<data.carreras.length;i++){
+      if(data.carreras[i].puntaje>maxValue){
+        maxValue=data.carreras[i].puntaje;
+      }
+    }
+
+    List<BarChartGroupData> barrasChart=[];
+
+    void cleanData(int index, int value, Color colore){
+      if(value>0){
+        barrasChart.add(BarChartGroupData(
+          x: index,
+          barRods: [
+            BarChartRodData(
+              y: value.toDouble(),
+              colors: [colore],
+              width: MediaQuery.of(context).size.width*0.1,
+              borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width*0.02)),
+            )
+          ],
+          showingTooltipIndicators: [0],
+        )
+        );
+      }
+    }
+
+    for(int i=0;i<data.carreras.length;i++){
+      cleanData(i, data.carreras[i].puntaje, colorList[i]);
+    }
+
+
+    return BarChart(
+      BarChartData(
+        alignment: BarChartAlignment.spaceAround,
+        maxY: (maxValue*1.3).roundToDouble(), //Valor máximo en y (AJUSTAR)
+        barTouchData: BarTouchData(
+          enabled: false,
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.transparent,
+            tooltipPadding: const EdgeInsets.all(0),
+            tooltipBottomMargin: 8, //Espacio de valores de arriba con barras
+            getTooltipItem: (
+                BarChartGroupData group,
+                int groupIndex,
+                BarChartRodData rod,
+                int rodIndex,
+                ) {
+              return BarTooltipItem( //Estilo de los números de arriba
+                rod.y.round().toString(),
+                GoogleFonts.adventPro(
+                    fontSize: MediaQuery.of(context).size.height*0.03,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black
+                ),
+              );
+            },
+          ),
+        ),
+        titlesData: FlTitlesData(
+          show: true,
+          bottomTitles: SideTitles( //Estilo de los títulos de las columnas
+            showTitles: true,
+            getTextStyles: (value) => const TextStyle(
+              color: Color(0xff7589a2),
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+            margin: 10,
+            getTitles: (double value) {
+              switch (value.toInt()) {
+                case 0:
+                  if(data.carreras[0].carrera.length>5){
+                    return data.carreras[0].carrera.substring(0,4)+"...";
+                  }
+                  return data.carreras[0].carrera;
+                case 1:
+                  if(data.carreras[1].carrera.length>5){
+                    return data.carreras[1].carrera.substring(0,4)+"...";
+                  }
+                  return data.carreras[1].carrera;
+                case 2:
+                  if(data.carreras.length>=3){
+                    if(data.carreras[2].carrera.length>5){
+                      return data.carreras[2].carrera.substring(0,4)+"...";
+                    }
+                    return data.carreras[2].carrera;
+                  }else{
+                    break;
+                  }
+                 return '';
+                  case 3:
+                if(data.carreras.length==4){
+                  if(data.carreras[3].carrera.length>5){
+                    return data.carreras[3].carrera.substring(0,4)+"...";
+                  }
+                  return data.carreras[3].carrera;
+                }else{
+                  break;
+                }
+                return '';
+                default:
+                  return '';
+              }
+            },
+          ),
+          leftTitles: SideTitles(
+            showTitles: true,
+            interval: (maxValue/4).roundToDouble(),
+            reservedSize: 20, //Espacio reservado para la barra lateral de escala
+          ),
+        ),
+        borderData: FlBorderData( //Marco que encierra las barras
+          show: false,
+        ),
+        barGroups: barrasChart,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
+    List<TestData> tests=[
+      TestData(name: "Prueba 1"),
+      TestData(name: "Prueba 2"),
+      TestData(name: "Prueba 3"),
+      TestData(name: "Prueba 4"),
+      TestData(name: "Prueba 5"),
+      TestData(name: "Prueba 6"),
+    ];
     return Scaffold(
       backgroundColor: kColorBlancoOpaco,
       body: SafeArea(
@@ -151,7 +297,34 @@ class _resultadosScreenState extends State<resultadosScreen> {
                       Container(
                           width: 0.8 * widthScreenPercentage,
                           height: 0.5 * heightScreenPercentage,
-                          color: Colors.black),
+                        child: circularChart.PieChart(
+                          dataMap: dataCircular,
+                          animationDuration: Duration(seconds: 2),
+                          chartLegendSpacing: 32,
+                          colorList: colorList,
+                          legendOptions: circularChart.LegendOptions(
+                            showLegendsInRow: true,
+                            legendPosition: circularChart.LegendPosition.bottom,
+                            showLegends: true,
+                            legendShape: BoxShape.circle,
+                            legendTextStyle: GoogleFonts.adventPro(
+                              fontSize: 20,
+                            ),
+                          ),
+                          chartValuesOptions: circularChart.ChartValuesOptions(
+                            showChartValueBackground: true,
+                            showChartValues: true,
+                            showChartValuesInPercentage: true,
+                            showChartValuesOutside: false,
+                            chartValueStyle: GoogleFonts.adventPro(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black
+                            ),
+                          ),
+                        ),
+                          ),
+                      SizedBox(height: 0.05 * heightScreenPercentage,),
                       Container(
                         width: 0.8 * widthScreenPercentage,
                         height: 0.5 * heightScreenPercentage,
@@ -161,32 +334,127 @@ class _resultadosScreenState extends State<resultadosScreen> {
                             Container(
                               width: 0.8 * widthScreenPercentage,
                               height: 0.5 * heightScreenPercentage,
-                              color: Colors.blue,
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                      tests[0].name,
+                                      style: GoogleFonts.adventPro(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black
+                                      ),
+                                  ),
+                                  Container(
+                                    width: 0.7 * widthScreenPercentage,
+                                    height: 0.4 * heightScreenPercentage,
+                                    child: buildChart(tests[0]),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
                               width: 0.8 * widthScreenPercentage,
                               height: 0.5 * heightScreenPercentage,
-                              color: Colors.red,
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    tests[1].name,
+                                    style: GoogleFonts.adventPro(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 0.7 * widthScreenPercentage,
+                                    height: 0.4 * heightScreenPercentage,
+                                    child: buildChart(tests[1]),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
                               width: 0.8 * widthScreenPercentage,
                               height: 0.5 * heightScreenPercentage,
-                              color: Colors.purple,
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    tests[2].name,
+                                    style: GoogleFonts.adventPro(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 0.7 * widthScreenPercentage,
+                                    height: 0.4 * heightScreenPercentage,
+                                    child: buildChart(tests[2]),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
                               width: 0.8 * widthScreenPercentage,
                               height: 0.5 * heightScreenPercentage,
-                              color: Colors.green,
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                      tests[3].name,
+                                      style: GoogleFonts.adventPro(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black
+                                      ),
+                                  ),
+                                  Container(
+                                    width: 0.7 * widthScreenPercentage,
+                                    height: 0.4 * heightScreenPercentage,
+                                    child: buildChart(tests[3]),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
                               width: 0.8 * widthScreenPercentage,
                               height: 0.5 * heightScreenPercentage,
-                              color: Colors.yellow,
-                              child: Center(
-                                child: fontStyleAmaticSC(
-                                    text: 'Chinga tu madre ituriel',
-                                    sizePercentage: 5,
-                                    color: Colors.black),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                      tests[4].name,
+                                    style: GoogleFonts.adventPro(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 0.7 * widthScreenPercentage,
+                                    height: 0.4 * heightScreenPercentage,
+                                    child: buildChart(tests[4]),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 0.8 * widthScreenPercentage,
+                              height: 0.5 * heightScreenPercentage,
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                      tests[5].name,
+                                    style: GoogleFonts.adventPro(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 0.7 * widthScreenPercentage,
+                                    height: 0.4 * heightScreenPercentage,
+                                    child: buildChart(tests[5]),
+                                  )
+                                ],
                               ),
                             ),
                           ],
@@ -202,4 +470,23 @@ class _resultadosScreenState extends State<resultadosScreen> {
       ),
     );
   }
+}
+
+class TestData{
+  String name;
+  List<Carrera> carreras=[
+    Carrera(carrera: "ITC", puntaje: 87),
+    Carrera(carrera: "IRS", puntaje: 100),
+    Carrera(carrera: "IMT", puntaje: 120),
+    Carrera(carrera: "IPO", puntaje: 200),
+  ];
+
+  TestData({this.name});
+}
+
+class Carrera{
+  String carrera;
+  int puntaje;
+
+  Carrera({this.carrera, this.puntaje});
 }
