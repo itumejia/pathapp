@@ -9,10 +9,13 @@ import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/components/RoundedButton.dart';
 
 class NavegadorRamas_screen extends StatelessWidget {
-  NavegadorRamas_screen({this.carreras});
+
+  NavegadorRamas_screen({this.carreras,this.versatilidad,this.prestigio});
 
   final List<dynamic> carreras;
-  static String id = 'nav_ramas_screen';
+  final bool versatilidad, prestigio;
+  static String id='nav_ramas_screen';
+
 
   @override
   Widget build(BuildContext context) {

@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+
         create: (context) => VersatilidadData(),
         child: MaterialApp(
           initialRoute: SeccionesScreen.id,
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
             aboutScreen.id: (context) =>
                 aboutScreen(), //Pantalla de información PATH
             //Falta pantalla de resultados
-
+            
             //Ramas del conocimiento:
             NavegadorRamas_screen.id: (context) => NavegadorRamas_screen(),
             versatilidadScreen.id: (context) =>
