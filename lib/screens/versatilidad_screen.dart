@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/versatilidad_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 
@@ -20,8 +21,7 @@ class versatilidadScreen extends StatefulWidget {
   List<dynamic> carreras;
   bool versatilidad;
 
-  static String id='ramas_versatilidad_screen';
-
+  static String id = 'ramas_versatilidad_screen';
 
   @override
   _versatilidadScreenState createState() => _versatilidadScreenState();
@@ -29,7 +29,7 @@ class versatilidadScreen extends StatefulWidget {
 
 class _versatilidadScreenState extends State<versatilidadScreen> {
 
-  List<double> calificaciones=[100,80,50,0];
+  List<double> calificaciones=[100,80,50,10];
 
   User loggedUser;
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
@@ -44,117 +44,127 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
         print(loggedUser.email);
       }
     } on FirebaseAuthException catch (e) {
-      mostrarAlerta(context, "Usuario no identificado", e.message );
+      mostrarAlerta(context, "Usuario no identificado", e.message);
       Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
 
-
   @override
   void initState() {
     super.initState();
-    Provider.of<VersatilidadData>(context,listen: false).setProv(widget.carreras.length);
+    Provider.of<VersatilidadData>(context, listen: false)
+        .setProv(widget.carreras.length);
     getCurrentUser();
   }
 
-  Row targets(){
-    int counter=-1;
-    int rowCounter=0;
-    List columns=[];
+  Row targets() {
+    int counter = -1;
+    int rowCounter = 0;
+    List columns = [];
     print(widget.carreras.length);
-    for(int i=0; i<widget.carreras.length; i++) {
+    for (int i = 0; i < widget.carreras.length; i++) {
       if (i % 2 == 0) {
         counter++;
         columns.add([
-          DragTargetCarrera(numPrestigio: i+1,)
+          DragTargetCarrera(
+            numPrestigio: i + 1,
+          )
         ]);
-      }
-      else {
-        columns[counter].add(
-            DragTargetCarrera(numPrestigio: i+1,)
-        );
+      } else {
+        columns[counter].add(DragTargetCarrera(
+          numPrestigio: i + 1,
+        ));
       }
     }
 
-      List<Widget> columnsFinal=[];
-      for(int i=0;i<columns.length;i++){
-        columnsFinal.add(
-          Column(children: columns[i],)
-        );
-      }
-      return Row(children: columnsFinal,);
+    List<Widget> columnsFinal = [];
+    for (int i = 0; i < columns.length; i++) {
+      columnsFinal.add(Column(
+        children: columns[i],
+      ));
+    }
+    return Row(
+      children: columnsFinal,
+    );
   }
 
-  Row contCarreras(){
-    int counter=-1;
-    int rowCounter=0;
-    List columns=[];
-    for(int i=0; i<widget.carreras.length; i++) {
+  Row contCarreras() {
+    int counter = -1;
+    int rowCounter = 0;
+    List columns = [];
+    for (int i = 0; i < widget.carreras.length; i++) {
       if (i % 2 == 0) {
         counter++;
         columns.add([
           dragContainer(carrera: widget.carreras[i]),
         ]);
-      }
-      else {
+      } else {
         columns[counter].add(
           dragContainer(carrera: widget.carreras[i]),
         );
       }
     }
 
-    List<Widget> columnsFinal=[];
-    for(int i=0;i<columns.length;i++){
-      columnsFinal.add(
-          Column(children: columns[i],)
-      );
+    List<Widget> columnsFinal = [];
+    for (int i = 0; i < columns.length; i++) {
+      columnsFinal.add(Column(
+        children: columns[i],
+      ));
     }
-    return Row(children: columnsFinal,);
+    return Row(
+      children: columnsFinal,
+    );
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
+    final double widthScreenPercentage = MediaQuery.of(context).size.width;
+    final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check, color: Colors.white,),
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+        ),
         backgroundColor: Colors.black,
-        onPressed: (){
-          if(Provider.of<VersatilidadData>(context,listen: false).getFinalValues.contains("")){
+        onPressed: () {
+          if (Provider.of<VersatilidadData>(context, listen: false)
+              .getFinalValues
+              .contains("")) {
             //Tarea incompleta
-            mostrarAlerta(context, "Tarea no terminada", "Arrastra cada una de las carreras en cada espacio en orden");
-          }
-          else{
+            mostrarAlerta(context, "Tarea no terminada",
+                "Arrastra cada una de las carreras en cada espacio en orden");
+          } else {
             setState(() {
-              saving=true;
+              saving = true;
             });
 
-            for(int i=0;i<widget.carreras.length;i++){
-              results[Provider.of<VersatilidadData>(context,listen: false).getFinalValues[i]]=calificaciones[i];
+            for (int i = 0; i < widget.carreras.length; i++) {
+              results[Provider.of<VersatilidadData>(context, listen: false)
+                  .getFinalValues[i]] = calificaciones[i];
             }
 
             print(results);
 
             try {
-
-
               widget.versatilidad
-                  ? _cloud.doc(loggedUser.email).update({"versatilidad": results,})
-              : _cloud.doc(loggedUser.email).update({"prestigio": results,});
+                  ? _cloud.doc(loggedUser.email).update({
+                      "versatilidad": results,
+                    })
+                  : _cloud.doc(loggedUser.email).update({
+                      "prestigio": results,
+                    });
 
-              Navigator.pushNamedAndRemoveUntil(context,SeccionesScreen.id,(Route<dynamic> route) => false);
-            }
-            catch(e){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, SeccionesScreen.id, (Route<dynamic> route) => false);
+            } catch (e) {
               mostrarAlerta(context, "No se pudieron subir los datos", e);
             }
 
             setState(() {
-              saving=false;
+              saving = false;
             });
-
           }
 
           //print(Provider.of<VersatilidadData>(context,listen: false).getFinalValues);
@@ -165,11 +175,16 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
         inAsyncCall: saving,
         child: Stack(
           children: [
+            backButton(
+                on_pressed: () {
+                  Navigator.pop(context);
+                },
+                screenWidth: widthScreenPercentage),
             Align(
               alignment: Alignment.bottomRight,
               child: SvgPicture.asset(
                 'assets/images/versatilidad.svg',
-                width: MediaQuery.of(context).size.width,
+                width: widthScreenPercentage,
               ),
             ),
             Align(
@@ -221,52 +236,28 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
               ),
             ),
             SafeArea(
-              child: Column(
-                children: [
-                  targets(),
-                  contCarreras(),
-                  FlatButton(
-                    child: Text('RESET'),
-                    onPressed: (){
-                      Provider.of<VersatilidadData>(context,listen: false).reset();
-                      setState(() {});
-                    },
-                  )
-                ],
+              child: Padding(
+                padding: EdgeInsets.only(top: heightScreenPercentage * 0.08),
+                child: Column(
+                  children: [
+                    targets(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: heightScreenPercentage * 0.05,
+                          horizontal: widthScreenPercentage * 0.03),
+                      child: contCarreras(),
+                    ),
+                    FlatButton(
+                      child: Text('RESET'),
+                      onPressed: () {
+                        Provider.of<VersatilidadData>(context, listen: false)
+                            .reset();
+                        setState(() {});
+                      },
+                    )
+                  ],
+                ),
               ),
-                //Row(
-                // children: [
-                //   Column(
-                //     children: [
-                //       backButton(),
-                //       groupContainers(1),
-                //       groupContainers(2),
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(vertical: 10.0),
-                //         child: dragContainers(carrerasContainers('ITC')),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(vertical: 10.0),
-                //         child: dragContainers(carrerasContainers('LAEFT')),
-                //       ),
-                //     ],
-                //   ),
-                //   Column(
-                //     children: [
-                //       groupContainers(3),
-                //       groupContainers(4),
-                //       Padding(
-                //         padding: const EdgeInsets.only(top: 60.0),
-                //         child: dragContainers(carrerasContainers('LCPF')),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(vertical: 20.0),
-                //         child: dragContainers(carrerasContainers('IRS')),
-                //       ),
-                //     ],
-                //   )
-                // ],
-              //),
             ),
           ],
         ),
@@ -274,10 +265,3 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
     );
   }
 }
-
-
-
-
-
-
-

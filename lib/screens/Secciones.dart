@@ -249,7 +249,6 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: impacto ? kColorGris : kColorAmarillo,
                           tapFunction: () {
-
                             if(impacto){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
                                 Navigator.pop(context);
@@ -270,6 +269,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 ),
                               );
                             }
+
                           }, //Ir a test de problemas del mundo
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
@@ -317,6 +317,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               );
                             }
                           }, //Ir a navegador de capital
+
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,
@@ -335,6 +336,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
+
                           colore: personal ? kColorGris : kColorCafe,
                           tapFunction: (){
                             if(personal){
@@ -358,10 +360,11 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               );
                             }
                           },
+
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,
-                            cardColor: personal ? kColorGris : kColorCafe,
+                            cardColor: personal ? kColorGrisCards : kColorCafe,
                             nameImage: 'assets/images/paper-plane.png',
                             iconTitle: 'Personal fit',
                           ),
