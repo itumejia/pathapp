@@ -4,9 +4,10 @@ import 'package:pathapp/screens/capital_habilidades_screen.dart';
 
 class NavegadorCapital_screen extends StatelessWidget {
 
-  NavegadorCapital_screen({this.carreras});
+  NavegadorCapital_screen({this.carreras,this.habildades,this.relaciones});
 
   final List<dynamic> carreras;
+  final bool habildades, relaciones;
   static String id='nav_capital_screen';
 
   @override

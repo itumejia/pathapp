@@ -6,9 +6,10 @@ import 'package:pathapp/screens/versatilidad_screen.dart';
 
 class NavegadorRamas_screen extends StatelessWidget {
 
-  NavegadorRamas_screen({this.carreras});
+  NavegadorRamas_screen({this.carreras,this.versatilidad,this.prestigio});
 
   final List<dynamic> carreras;
+  final bool versatilidad, prestigio;
   static String id='nav_ramas_screen';
 
   @override
