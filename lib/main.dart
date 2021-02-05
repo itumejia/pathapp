@@ -19,6 +19,7 @@ import 'package:pathapp/screens/resultados.dart';
 import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 import 'package:pathapp/screens/impacto_problemas_screen.dart';
+import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
@@ -37,31 +38,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=>VersatilidadData(),
-      child: MaterialApp(
-        initialRoute: introScreen.id,
-        routes: {
-          //Pantallas de inicio:
-          introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
-          sesionScreen.id: (context) =>
-              sesionScreen(), // Pantalla Login/ Registrarse
-          LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
-          RegisterScreen.id: (context) => RegisterScreen(), //Pantalla de Registro
-          areasEstudioScreen.id: (context) =>
-              areasEstudioScreen(), //Pantalla para introducir carreras
-          SeccionesScreen.id: (context) =>
-              SeccionesScreen(), //Pantalla de menú principal, para escoger test
-        aboutScreen.id: (context) =>
-            aboutScreen(), //Pantalla de información PATH
-        //Falta pantalla de resultados
-          
-        //Ramas del conocimiento:
-        //Falta navegador
-        versatilidadScreen.id: (context) =>
-            versatilidadScreen(), //Pantalla de Versatilidad
-        prestigioScreen.id: (context) =>
-            prestigioScreen(), //Pantalla de Prestigio
+        create: (context) => VersatilidadData(),
+        child: MaterialApp(
+          initialRoute: SeccionesScreen.id,
+          routes: {
+            //Pantallas de inicio:
+            introScreen.id: (context) => introScreen(), //Pantalla de bienvenida
+            sesionScreen.id: (context) =>
+                sesionScreen(), // Pantalla Login/ Registrarse
+            LoginScreen.id: (context) => LoginScreen(), //Pantalla de Login
+            RegisterScreen.id: (context) =>
+                RegisterScreen(), //Pantalla de Registro
+            areasEstudioScreen.id: (context) =>
+                areasEstudioScreen(), //Pantalla para introducir carreras
+            SeccionesScreen.id: (context) =>
+                SeccionesScreen(), //Pantalla de menú principal, para escoger test
+            aboutScreen.id: (context) =>
+                aboutScreen(), //Pantalla de información PATH
+            //Falta pantalla de resultados
 
+            //Ramas del conocimiento:
+            NavegadorRamas_screen.id: (context) => NavegadorRamas_screen(),
+            versatilidadScreen.id: (context) =>
+                versatilidadScreen(), //Pantalla de Versatilidad
+            prestigioScreen.id: (context) =>
+                prestigioScreen(), //Pantalla de Prestigio
 
             //Pantallas de Impacto Social
             problemasMundo.id: (context) => problemasMundo(),
