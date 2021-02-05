@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CardIcon extends StatelessWidget {
   CardIcon(

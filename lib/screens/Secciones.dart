@@ -231,7 +231,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                 problemasMundo(carreras: carreras),
+                                    problemasMundo(carreras: carreras),
                               ),
                             );
                           }, //Ir a test de problemas del mundo
@@ -258,7 +258,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
-                          colore: capital ? kColorGris : kColorNaranja,
+                          colore: capital ? kColorGrisCards : kColorNaranja,
                           tapFunction: () => Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -284,7 +284,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
-                          colore: personal ? kColorGris : kColorCafe,
+                          colore: personal ? kColorGrisCards : kColorCafe,
                           tapFunction: () => Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -294,7 +294,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,
-                            cardColor: personal ? kColorGris : kColorCafe,
+                            cardColor: personal ? kColorGrisCards : kColorCafe,
                             nameImage: 'assets/images/paper-plane.png',
                             iconTitle: 'Personal fit',
                           ),
