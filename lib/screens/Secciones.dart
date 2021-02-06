@@ -216,7 +216,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras, versatilidad: versatilidad, prestigio: prestigio),
+                                      NavegadorRamas_screen(carreras: carreras, test1: versatilidad, test2: prestigio, ramas: true),
                                 ),
                               );})
                             }
@@ -225,7 +225,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,versatilidad: versatilidad, prestigio: prestigio),
+                                      NavegadorRamas_screen(carreras: carreras,test1: versatilidad, test2: prestigio, ramas: true),
                                 ),
                               )
                             }
@@ -247,7 +247,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
-                          colore: impacto ? kColorGris : kColorAmarillo,
+                          colore: impacto ? kColorGrisCards : kColorAmarillo,
                           tapFunction: () {
                             if(impacto){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
@@ -294,7 +294,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
-                          colore: capital ? kColorGris : kColorNaranja,
+                          colore: capital ? kColorGrisCards : kColorNaranja,
                           tapFunction: () {
                             if(capital){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
@@ -303,7 +303,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavegadorCapital_screen(carreras: carreras, habildades: cap_hab,relaciones: cap_rel,),
+                                      NavegadorRamas_screen(carreras: carreras,test1: cap_hab, test2: cap_rel, ramas: false),
                                 ),
                               );});
                             }
@@ -312,7 +312,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavegadorCapital_screen(carreras: carreras, habildades: cap_hab,relaciones: cap_rel,),
+                                      NavegadorRamas_screen(carreras: carreras,test1: cap_hab, test2: cap_rel, ramas: false),
                                 ),
                               );
                             }
@@ -337,7 +337,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
 
-                          colore: personal ? kColorGris : kColorCafe,
+                          colore: personal ? kColorGrisCards : kColorCafe,
                           tapFunction: (){
                             if(personal){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
