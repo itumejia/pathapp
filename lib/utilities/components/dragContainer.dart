@@ -1,75 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/versatilidad_data.dart';
+import 'package:pathapp/utilities/components/fonts.dart';
 
 class dragContainer extends StatelessWidget {
-
-  dragContainer({this.carrera});
+  dragContainer(
+      {this.carrera, @required this.screenWidth, @required this.screenHeight});
   final carrera;
-
-
+  final double screenWidth;
+  final double screenHeight;
 
   @override
   Widget build(BuildContext context) {
-
-    bool checkIfUsed(String carrera){
+    bool checkIfUsed(String carrera) {
       print('executing');
-      List<String> used=Provider.of<VersatilidadData>(context).getFinalValues;
+      List<String> used = Provider.of<VersatilidadData>(context).getFinalValues;
       return used.contains(carrera);
     }
 
-
-    return checkIfUsed(carrera) ?
-      Container()
+    return checkIfUsed(carrera)
+        ? Container()
         : Container(
-      width: MediaQuery.of(context).size.width * .38,
-      height: MediaQuery.of(context).size.height * .085,
-      child: Draggable<String>(
-        data: carrera,
-        feedback: carreraContainer(carrera: carrera),
-        child: carreraContainer(carrera: carrera),
-        childWhenDragging: Container(),
-      ),
-    );
+            width: screenWidth * .5,
+            height: screenHeight * .11,
+            child: Draggable<String>(
+              data: carrera,
+              feedback: carreraContainer(
+                  carrera: carrera,
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth),
+              child: carreraContainer(
+                  carrera: carrera,
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth),
+              childWhenDragging: Container(),
+            ),
+          );
   }
 }
 
 class carreraContainer extends StatelessWidget {
-
-  carreraContainer({this.carrera});
+  carreraContainer({this.carrera, this.screenWidth, this.screenHeight});
   final String carrera;
+  final double screenWidth;
+  final double screenHeight;
 
   @override
   Widget build(BuildContext context) {
-    return Align(alignment: Alignment.center,
+    return Center(
       child: Container(
-      padding: EdgeInsets.all(6),
-      width: MediaQuery.of(context).size.width * .38,
-      height: MediaQuery.of(context).size.height * .085,
-      child: Center(
-        child: Text(
-          '$carrera',
-          style: GoogleFonts.mPlusRounded1c(
-            color: Colors.black,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            decoration: TextDecoration.none,
-          ),
+        width: screenWidth * 0.38,
+        height: screenHeight * 0.085,
+        child: Center(
+          child: fontStyleMPlus(
+              text: '$carrera', sizePercentage: 3.6, color: Colors.black),
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(screenWidth * 0.035),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.07),
+              spreadRadius: 7,
+              blurRadius: 7,
+            ),
+          ],
         ),
       ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 8,
-            blurRadius: 7,
-          ),
-        ],
-      ),
-    )
     );
   }
 }

@@ -32,7 +32,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   final _cloud = FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
 
-  List<dynamic> carreras;
+  List<dynamic> carreras = ["ka", "o", "e"];
   //Indicadores de tests completados
   bool versatilidad = false, prestigio= false, impacto = false, cap_hab = false,cap_rel = false, personal = false, capital=false, ramas=false;
 
@@ -108,7 +108,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   void initState() {
     super.initState();
     print('INIT');
-    update();
+    //update();
   }
 
   @override
