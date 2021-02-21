@@ -8,12 +8,14 @@ class fontStyleMPlus extends StatelessWidget {
       @required this.sizePercentage,
       @required this.color,
       this.letterSpacing,
-      this.textAlign});
+      this.textAlign,
+      this.fontWeight});
   final String text;
   final double sizePercentage;
   final Color color;
   final double letterSpacing;
   final TextAlign textAlign;
+  final FontWeight fontWeight;
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -21,7 +23,7 @@ class fontStyleMPlus extends StatelessWidget {
       style: GoogleFonts.mPlusRounded1c(
           color: color,
           fontSize: ResponsiveFlutter.of(context).fontSize(sizePercentage),
-          fontWeight: FontWeight.bold,
+          fontWeight: fontWeight != null ? fontWeight : FontWeight.bold,
           letterSpacing: letterSpacing != null ? letterSpacing : 0),
       textAlign: textAlign != null ? textAlign : TextAlign.center,
     );

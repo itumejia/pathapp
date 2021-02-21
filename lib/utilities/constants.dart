@@ -21,3 +21,5 @@ const kColorGris = Colors.grey;
 const kColorGrisCards = Color(0xff767676);
 const kColorAzulEfectosFondo = Color(0xFF5C92A3);
 const kColorUniverso = Color(0xFF272B3E);
+const kColorDesierto = Color(0xffe7ca8f);
+const kColorLetraDesierto = Color(0xfbAD935F);

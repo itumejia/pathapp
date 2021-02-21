@@ -30,7 +30,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   final _cloud = FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
 
-  List<dynamic> carreras;
+  List<dynamic> carreras = ["ka", "o", "e"];
   //Indicadores de tests completados
   bool ramas = false, impacto = false, capital = false, personal = false;
 
@@ -100,7 +100,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   void initState() {
     super.initState();
     print('INIT');
-    update();
+    //update();
   }
 
   @override
@@ -225,7 +225,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
-                          colore: impacto ? kColorGris : kColorAmarillo,
+                          colore: impacto ? kColorGrisCards : kColorAmarillo,
                           tapFunction: () {
                             Navigator.push(
                               context,

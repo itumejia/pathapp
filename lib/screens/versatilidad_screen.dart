@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pathapp/utilities/components/backButton.dart';
 import 'package:pathapp/utilities/components/dragContainer.dart';
 import 'package:pathapp/utilities/components/dragTarget.dart';
+import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/versatilidad_data.dart';
@@ -15,6 +15,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:pathapp/utilities/components/fonts.dart';
 
 class versatilidadScreen extends StatefulWidget {
   versatilidadScreen({@required this.carreras, @required this.versatilidad});
@@ -28,13 +29,12 @@ class versatilidadScreen extends StatefulWidget {
 }
 
 class _versatilidadScreenState extends State<versatilidadScreen> {
-
-  List<double> calificaciones=[100,80,50,10];
+  List<double> calificaciones = [100, 80, 50, 10];
 
   User loggedUser;
-  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
-  bool saving=false;
-  Map<String, double> results={};
+  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
+  bool saving = false;
+  Map<String, double> results = {};
 
   void getCurrentUser() async {
     try {
@@ -58,7 +58,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
     getCurrentUser();
   }
 
-  Row targets() {
+  Column targets(double widthScreen, double heightScreen) {
     int counter = -1;
     int rowCounter = 0;
     List columns = [];
@@ -69,27 +69,32 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
         columns.add([
           DragTargetCarrera(
             numPrestigio: i + 1,
+            screenWidth: widthScreen,
+            screenHeight: heightScreen,
           )
         ]);
       } else {
         columns[counter].add(DragTargetCarrera(
           numPrestigio: i + 1,
+          screenWidth: widthScreen,
+          screenHeight: heightScreen,
         ));
       }
     }
 
     List<Widget> columnsFinal = [];
     for (int i = 0; i < columns.length; i++) {
-      columnsFinal.add(Column(
+      columnsFinal.add(Row(
         children: columns[i],
       ));
     }
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: columnsFinal,
     );
   }
 
-  Row contCarreras() {
+  Column contCarreras(double widthScreen, double heightScreen) {
     int counter = -1;
     int rowCounter = 0;
     List columns = [];
@@ -97,22 +102,29 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
       if (i % 2 == 0) {
         counter++;
         columns.add([
-          dragContainer(carrera: widget.carreras[i]),
+          dragContainer(
+              carrera: widget.carreras[i],
+              screenWidth: widthScreen,
+              screenHeight: heightScreen),
         ]);
       } else {
         columns[counter].add(
-          dragContainer(carrera: widget.carreras[i]),
+          dragContainer(
+              carrera: widget.carreras[i],
+              screenWidth: widthScreen,
+              screenHeight: heightScreen),
         );
       }
     }
 
     List<Widget> columnsFinal = [];
     for (int i = 0; i < columns.length; i++) {
-      columnsFinal.add(Column(
+      columnsFinal.add(Row(
         children: columns[i],
       ));
     }
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: columnsFinal,
     );
   }
@@ -125,9 +137,9 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.check,
-          color: Colors.white,
+          color: Colors.black,
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         onPressed: () {
           if (Provider.of<VersatilidadData>(context, listen: false)
               .getFinalValues
@@ -183,23 +195,26 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
             Align(
               alignment: Alignment.bottomRight,
               child: SvgPicture.asset(
-                'assets/images/versatilidad.svg',
+                widget.versatilidad
+                    ? 'assets/images/versatilidad.svg'
+                    : 'assets/images/prestigio.svg',
                 width: widthScreenPercentage,
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Container(
-                  width: MediaQuery.of(context).size.width * .70,
-                  height: MediaQuery.of(context).size.height * 0.17,
+                  width: widthScreenPercentage * .70,
+                  height: heightScreenPercentage * 0.15,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius:
+                        BorderRadius.circular(widthScreenPercentage * 0.05),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(0.1),
                         spreadRadius: 8,
                         blurRadius: 7,
                       ),
@@ -209,25 +224,20 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            'Descripción',
-                            style: GoogleFonts.mPlusRounded1c(
-                              fontSize: 15,
+                            padding: const EdgeInsets.all(10),
+                            child: fontStyleMPlus(
+                              text: "Descripción",
+                              sizePercentage: 2,
+                              color: Colors.black,
                               fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Text(
-                            widget.versatilidad ? 'VERSATILIDAD' : 'PRESTIGIO',
-                            style: GoogleFonts.mPlusRounded1c(
-                              color: Color(0xfbAD935F),
-                              fontSize: 35,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
+                            )),
+                        fontStyleMPlus(
+                          text: widget.versatilidad
+                              ? 'VERSATILIDAD'
+                              : 'PRESTIGIO',
+                          sizePercentage: 3.8,
+                          color: kColorLetraDesierto,
+                          fontWeight: FontWeight.w800,
                         ),
                       ],
                     ),
@@ -237,15 +247,36 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
             ),
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(top: heightScreenPercentage * 0.08),
+                padding: EdgeInsets.only(top: heightScreenPercentage * 0.09),
                 child: Column(
                   children: [
-                    targets(),
+                    widget.carreras.length > 2
+                        ? Container(
+                            width: widthScreenPercentage,
+                            height: heightScreenPercentage * .3,
+                            child: targets(
+                                widthScreenPercentage, heightScreenPercentage))
+                        : Container(
+                            width: widthScreenPercentage,
+                            height: heightScreenPercentage * .2,
+                            child: targets(
+                                widthScreenPercentage, heightScreenPercentage)),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: heightScreenPercentage * 0.05,
-                          horizontal: widthScreenPercentage * 0.03),
-                      child: contCarreras(),
+                          vertical: heightScreenPercentage * 0.02),
+                      child: widget.carreras.length > 2
+                          ? Container(
+                              width: widthScreenPercentage,
+                              height: heightScreenPercentage * .22,
+                              child: contCarreras(widthScreenPercentage,
+                                  heightScreenPercentage),
+                            )
+                          : Container(
+                              width: widthScreenPercentage,
+                              height: heightScreenPercentage * .15,
+                              child: contCarreras(widthScreenPercentage,
+                                  heightScreenPercentage),
+                            ),
                     ),
                     FlatButton(
                       child: Text('RESET'),
