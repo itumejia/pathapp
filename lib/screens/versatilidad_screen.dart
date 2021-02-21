@@ -134,53 +134,90 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.check,
-          color: Colors.black,
-        ),
-        backgroundColor: Colors.white,
-        onPressed: () {
-          if (Provider.of<VersatilidadData>(context, listen: false)
-              .getFinalValues
-              .contains("")) {
-            //Tarea incompleta
-            mostrarAlerta(context, "Tarea no terminada",
-                "Arrastra cada una de las carreras en cada espacio en orden");
-          } else {
-            setState(() {
-              saving = true;
-            });
-
-            for (int i = 0; i < widget.carreras.length; i++) {
-              results[Provider.of<VersatilidadData>(context, listen: false)
-                  .getFinalValues[i]] = calificaciones[i];
-            }
-
-            print(results);
-
-            try {
-              widget.versatilidad
-                  ? _cloud.doc(loggedUser.email).update({
-                      "versatilidad": results,
-                    })
-                  : _cloud.doc(loggedUser.email).update({
-                      "prestigio": results,
+      floatingActionButton: SafeArea(
+        child: Stack(children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: heightScreenPercentage * .2),
+              child: RawMaterialButton(
+                child: Icon(
+                  Icons.check,
+                  color: Colors.black,
+                ),
+                fillColor: Colors.white,
+                elevation: 10,
+                padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                shape: CircleBorder(),
+                onPressed: () {
+                  if (Provider.of<VersatilidadData>(context, listen: false)
+                      .getFinalValues
+                      .contains("")) {
+                    //Tarea incompleta
+                    mostrarAlerta(context, "Tarea no terminada",
+                        "Arrastra cada una de las carreras en cada espacio en orden");
+                  } else {
+                    setState(() {
+                      saving = true;
                     });
 
-              Navigator.pushNamedAndRemoveUntil(
-                  context, SeccionesScreen.id, (Route<dynamic> route) => false);
-            } catch (e) {
-              mostrarAlerta(context, "No se pudieron subir los datos", e);
-            }
+                    for (int i = 0; i < widget.carreras.length; i++) {
+                      results[
+                          Provider.of<VersatilidadData>(context, listen: false)
+                              .getFinalValues[i]] = calificaciones[i];
+                    }
 
-            setState(() {
-              saving = false;
-            });
-          }
+                    print(results);
 
-          //print(Provider.of<VersatilidadData>(context,listen: false).getFinalValues);
-        },
+                    try {
+                      widget.versatilidad
+                          ? _cloud.doc(loggedUser.email).update({
+                              "versatilidad": results,
+                            })
+                          : _cloud.doc(loggedUser.email).update({
+                              "prestigio": results,
+                            });
+
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          SeccionesScreen.id, (Route<dynamic> route) => false);
+                    } catch (e) {
+                      mostrarAlerta(
+                          context, "No se pudieron subir los datos", e);
+                    }
+
+                    setState(() {
+                      saving = false;
+                    });
+                  }
+
+                  //print(Provider.of<VersatilidadData>(context,listen: false).getFinalValues);
+                },
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: heightScreenPercentage * .2,
+                  left: widthScreenPercentage * 0.48),
+              child: RawMaterialButton(
+                child: Icon(
+                  Icons.replay,
+                  color: Colors.black,
+                ),
+                fillColor: Colors.white,
+                elevation: 10,
+                padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                shape: CircleBorder(),
+                onPressed: () {
+                  Provider.of<VersatilidadData>(context, listen: false).reset();
+                  setState(() {});
+                },
+              ),
+            ),
+          )
+        ]),
       ),
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
@@ -278,14 +315,6 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
                                   heightScreenPercentage),
                             ),
                     ),
-                    FlatButton(
-                      child: Text('RESET'),
-                      onPressed: () {
-                        Provider.of<VersatilidadData>(context, listen: false)
-                            .reset();
-                        setState(() {});
-                      },
-                    )
                   ],
                 ),
               ),
