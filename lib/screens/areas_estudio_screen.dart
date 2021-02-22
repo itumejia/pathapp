@@ -7,7 +7,6 @@ import 'package:pathapp/utilities/constants.dart';
 import '../utilities/components/diamond.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/utilities/components/inputCarreras.dart';

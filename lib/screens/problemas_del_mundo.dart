@@ -24,6 +24,7 @@ class problemasMundo extends StatefulWidget {
 
 class _problemasMundoState extends State<problemasMundo> {
 
+  //Controladores para los 4 problemas del usuario
   final List<TextEditingController> controladores= [
     TextEditingController(),
     TextEditingController(),
@@ -31,6 +32,7 @@ class _problemasMundoState extends State<problemasMundo> {
     TextEditingController()
   ];
 
+  //Booleanas para la validación de datos y para asignar estilos
   bool p1bool = true;
   bool p2bool = true;
   bool p3bool = true;
@@ -143,6 +145,8 @@ class _problemasMundoState extends State<problemasMundo> {
                                     controller: controladores[0],
                                     textAlign: TextAlign.start,
                                     keyboardType: TextInputType.text,
+                                    //Estilos que dependen del booleano, es decir, si ingresó
+                                    //o no un problema
                                     decoration: p1bool
                                         ? textFieldProblemas(
                                             "Introduce el primer problema",
@@ -290,12 +294,14 @@ class _problemasMundoState extends State<problemasMundo> {
                       color: kColorBlancoOpaco,
                       fontcolor: kColorUniverso,
                       function: () {
+                        //Regresar las booleanas a true
                         p1bool = true;
                         p2bool = true;
                         p3bool = true;
                         p4bool = true;
                         todoChido = true;
 
+                        //Validar si se han ingresado todos los problemas
                         if (controladores[0].text == "") {
                           todoChido = false;
                           controladores[0].clear();
@@ -324,9 +330,11 @@ class _problemasMundoState extends State<problemasMundo> {
                             p4bool = false;
                           });
                         }
-                        if (todoChido) {
-                          List<CarrerasPorProblema> problemas = [];
+                        if (todoChido) { //Si se ingresaron todos los problemas
+                          List<CarrerasPorProblema> problemas = []; //Arreglo a pasar a la pantalla impacto problemas
 
+                          //Recorrer la lista de controladores, creando una lista de carreras con puntaje en cada index,
+                          //y esa lista de cerreras con puntaje se añade a un objeto CarrerasPorProblema
                           for (int i = 0; i < controladores.length; i++) {
                             List<CarreraRating> carrerasRating = [];
                             for (int j = 0; j < widget.carreras.length; j++) {

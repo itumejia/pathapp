@@ -7,7 +7,6 @@ import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -24,12 +23,13 @@ class HabilidadesPersona extends StatefulWidget {
 
 class _HabilidadesPersonaState extends State<HabilidadesPersona> {
 
-  int indexCarrera = 0;
+  int indexCarrera = 0; //Problema actual del arreglo
   bool finish= false;
   User loggedUser;
   final _cloud=FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
-  Map<String, double> promediosPorCarrera={};
+  Map<String, double> promediosPorCarrera={};  //Map a subir a la base de datos, con carreras y promedios
+
   void getCurrentUser() async {
     try {
       final author = FirebaseAuth.instance;
@@ -87,7 +87,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                       ),
                       Container(
                         child: Text(
-                          widget.habilidadesCarreras[indexCarrera].getCarrera(),
+                          widget.habilidadesCarreras[indexCarrera].getCarrera(), //Carrera actual
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -132,7 +132,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                                 ],
                               ),
                               child: ListView(
-                                children: <Widget>[
+                                children: <Widget>[ //Mostrar los 3 rating row de cada carrera
                                   RatingRow(habilidadPair: widget.habilidadesCarreras[indexCarrera].getHabilidad(0), colore: kColorLila,),
                                   RatingRow(habilidadPair: widget.habilidadesCarreras[indexCarrera].getHabilidad(1), colore: kColorLila,),
                                   RatingRow(habilidadPair: widget.habilidadesCarreras[indexCarrera].getHabilidad(2), colore: kColorLila,)
@@ -148,6 +148,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
               ),
             )
         ),
+        //Mostrar container vacío si llega al primer elemento del array, si no, mostrar botón para ir atrás
         indexCarrera>0?Align(
           alignment: Alignment.bottomLeft,
           child: Padding(
@@ -173,13 +174,15 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
           child: Padding(
             padding: EdgeInsets.all(15),
             child: FloatingActionButton(
-              heroTag: null,
+              heroTag: null, //Permite tener dos floating action button en pantalla
               onPressed: () {
+                //Si ha llegado al final del arreglo, activar finish
                 if(indexCarrera>=widget.habilidadesCarreras.length-1){
                   setState(() {
                     finish=true;
                   });
                 }
+                //Si no ha llegado al final del arreglo, sumar 1 al index
                 if(!finish){
                   setState(() {
                     indexCarrera++;
@@ -188,6 +191,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                   setState(() {
                     saving=true;
                   });
+                  //Verificar que todas las habilidades han sido calificadas, de lo contrario mostrar alerta
                   for(int i=0;i<widget.habilidadesCarreras.length;i++){
                     if(widget.habilidadesCarreras[i].getFull()==false){
                       mostrarAlerta(context, "Contesta por favor", "No has calificado todas las habilidades, por favor intenta de nuevo");
@@ -195,11 +199,12 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                         finish=false;
                         saving=false;
                       });
-
                       return;
                     }
+                    //Obtener el promedio de cada carrera y normalizarlo con 20
                     promediosPorCarrera[widget.habilidadesCarreras[i].getCarrera()]= (widget.habilidadesCarreras[i].getPromedio())*20;
                   }
+                  //Subir resultados a la base de datos al campo cap_habilidades y llevar a menú
                   try {
                     _cloud.doc(loggedUser.email) //Usuario
                         .update({
@@ -216,7 +221,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                   });
                 }
               },
-              child: Icon(
+              child: Icon( //Mostrar check si llega al final del array, si no, mostrar botón para ir adelante
                 indexCarrera>=widget.habilidadesCarreras.length-1 ?Icons.check:Icons.arrow_forward_ios,
                 color: Colors.black,
               ),

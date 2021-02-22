@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'alerta.dart';
 
+//Regresar un Map con todos los datos del usuario proporcionado
 Future<Map<String, dynamic>> getData(BuildContext context, String email) async{
   Map<String, dynamic> res=null;
   try {
