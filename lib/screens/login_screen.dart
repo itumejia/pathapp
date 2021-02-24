@@ -21,17 +21,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email;
-  String password;
-  bool eEmail = true;
-  bool ePass = true;
-  bool _saving = false;
+  String email; //Para guardar dato introducido por usuario
+  String password; //Para guardar dato introducido por usuario
+  bool eEmail = true; //revisa que el campo no esté vacio
+  bool ePass = true; //revisa que el campo no esté vacio
+  bool _saving = false; //Controlador de Modal Progress HUD
 
-  final controllerEmail = TextEditingController();
-  final controllerPass = TextEditingController();
+  final controllerEmail = TextEditingController(); //Controlador de text field
+  final controllerPass = TextEditingController(); //Controlador de text field
 
-  final _author = FirebaseAuth.instance;
-  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
+  final _author = FirebaseAuth.instance; //Autor de firebase que iniciara sesion
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+
+
+                          //Campo de correo electrónico
                           child: TextField(
                             controller: controllerEmail,
                             textAlign: TextAlign.center,
@@ -89,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (value) {
                               email = value;
                             },
+                            //Decoración cambia si se intento seguir y no se lleno el espacio del correo
                             decoration: eEmail
                                 ? textFieldDecoration(
                                     "Correo electrónico",
@@ -111,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+                          //Campo de contraseña
                           child: TextField(
                             controller: controllerPass,
                             textAlign: TextAlign.center,
@@ -118,6 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (value) {
                               password = value;
                             },
+                            //Decoración cambia si se intento seguir y no se lleno el espacio de contraseña
                             decoration: ePass
                                 ? textFieldDecoration(
                                     "Contraseña",
@@ -132,19 +137,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
+                      //Botón para iniciar sesión
                       CountButton(
                           screenHeight: heightScreenPercentage,
                           screenWidth: widthScreenPercentage,
                           text: 'Iniciar sesión',
                           color: kColorAzulEfectosFondo,
                           function: () async {
+                            //Se cambia estado de Modal Progress HUD
                             setState(() {
                               _saving = true;
                             });
 
+                            //Se reinician valores
                             eEmail = true;
                             ePass = true;
 
+                            //Se revisa que los campos no esten vacios
                             if (email == '') {
                               controllerEmail.clear();
                               setState(() {
@@ -158,21 +167,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             }
 
+                            //Si no estan vacios se intenta autenticar
                             if (eEmail == true && ePass == true) {
                               try {
                                 final user =
                                     await _author.signInWithEmailAndPassword(
                                         email: email, password: password);
+                                //Si se logra autenticar, se jalan datos para saber si ya se han introducido las carreras
                                 if (user != null) {
                                   Map<String, dynamic> result =
                                       await getData(context, email);
                                   List<dynamic> arrayCarrera =
                                       result['carreras'];
                                   //print(result['nombres']);
+                                  //Si no se han introducido carreras, se lleva a pantalla para que las introduzca
                                   if (arrayCarrera.length == 0) {
                                     Navigator.pushReplacementNamed(
                                         context, areasEstudioScreen.id);
-                                  } else {
+                                  }
+                                  //Si ya se introdujeron, se lleva a menú principal
+                                  else {
                                     Navigator.pushReplacementNamed(
                                         context, SeccionesScreen.id);
                                   }

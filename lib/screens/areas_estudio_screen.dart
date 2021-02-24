@@ -21,11 +21,21 @@ class areasEstudioScreen extends StatefulWidget {
 }
 
 class _areasEstudioScreenState extends State<areasEstudioScreen> {
-  User loggedUser;
-  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
-  List<String> carrerasLimpio = [];
-  bool saving = false;
+  User loggedUser; //Usuario autenticado
+  final _cloud = FirebaseFirestore.instance.collection('/usuarios'); //Instancia de la base de datos
+  List<String> carrerasLimpio = []; //Lista para almacenar las carreras
+  bool saving = false; //Controlador de modal progress HUD
 
+  //Controladores de los text fields
+  List<TextEditingController> controladores = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+  int numCarreras = 2; //Variable del número de carreras que se agregaran (2-4)
+
+  //Función para autenticar usuario
   void getCurrentUser() async {
     try {
       final author = FirebaseAuth.instance;
@@ -40,20 +50,14 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
     }
   }
 
+  //Se obtiene el usuario actual al cargar la pantalla
   @override
   void initState() {
     super.initState();
     getCurrentUser();
   }
 
-  List<TextEditingController> controladores = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
-  int numCarreras = 2;
-
+  //Eliminar controladores
   void dispose() {
     for (int i = 0; i < controladores.length; i++) {
       controladores[i].dispose();
@@ -93,9 +97,11 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                         Container(
                           height: heightScreenPercentage * 0.52,
                           width: widthScreenPercentage,
+                          //Constructo de la lista de campos
                           child: ListView.builder(
-                            itemCount: numCarreras,
+                            itemCount: numCarreras, //Numero de campos
                             physics: NeverScrollableScrollPhysics(),
+                            //Se construye un text field
                             itemBuilder: (BuildContext context, int index) {
                               return Align(
                                 alignment: Alignment.center,
@@ -107,7 +113,7 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                     height: heightScreenPercentage * 0.1,
                                     child: TextField(
                                       textAlign: TextAlign.center,
-                                      controller: controladores[index],
+                                      controller: controladores[index], //Se le asigna su respectivo controlador
                                       decoration:
                                           inputCarreras(widthScreenPercentage),
                                     ),
@@ -123,14 +129,15 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: widthScreenPercentage * 0.03),
+                              //Botón para disminuir numero de carreras
                               child: FloatingActionButton(
                                 heroTag: null,
                                 onPressed: () {
                                   if (numCarreras > 2) {
                                     setState(() {
-                                      numCarreras--;
+                                      numCarreras--;//se disminuye el numero
                                     });
-                                    controladores[numCarreras].clear();
+                                    controladores[numCarreras].clear(); //Se borra informacion introducida previamente en ese campo
                                   }
                                 },
                                 child: Icon(
@@ -143,12 +150,13 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: widthScreenPercentage * 0.03),
+                              //boton para agregar carreras
                               child: FloatingActionButton(
                                 heroTag: null,
                                 onPressed: () {
                                   if (numCarreras < 4) {
                                     setState(() {
-                                      numCarreras++;
+                                      numCarreras++; //Se aumenta numero de campos
                                     });
                                   }
                                 },
@@ -165,17 +173,21 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                           padding: EdgeInsets.only(
                               top: heightScreenPercentage * 0.035),
                           child: InkWell(
+                            //Accion de boton para continuar
                             onTap: () {
+                              //Se activa modal progress hud
                               setState(() {
                                 saving = true;
                               });
 
+                              //Se agregan solo los campos que no estén vacios
                               for (int i = 0; i < controladores.length; i++) {
                                 if (controladores[i].text != "") {
                                   carrerasLimpio.add(controladores[i].text);
                                 }
                               }
 
+                              //Si falta algun campo de llenar se avisa
                               if(carrerasLimpio.length<numCarreras){
                                 mostrarAlerta(context, "Datos faltantes", "Llena todos los espacios correspondientes a tus carreras de interés");
                                 setState(() {
@@ -184,6 +196,7 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                 return;
                               }
 
+                              //Se agregan las carreras a la base de datos
                               try {
                                 _cloud.doc(loggedUser.email) //Usuario
                                     .update({

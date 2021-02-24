@@ -15,7 +15,7 @@ class NavegadorRamas_screen extends StatelessWidget {
 
   NavegadorRamas_screen({this.carreras,this.test1,this.test2, this.ramas});
 
-  final List<dynamic> carreras;
+  final List<dynamic> carreras; //Recibe carreras paara mandarlas al test indicado
   final bool test1, test2, ramas;
   //Cuando ramas es True, el navegador es de ramas, cuando es false, es de capital
   //Ramas. Test 1: Versatilidad, Test 2: Prestigio
@@ -23,8 +23,11 @@ class NavegadorRamas_screen extends StatelessWidget {
 
   static String id='nav_ramas_screen';
 
+  //Función que indica a que pantalla navegar, dada la seccion actual y el test escogido
   void navegar(BuildContext context, bool ramas, int test){
+    //Se encuentra en ramas
     if(ramas){
+      //Escoge test 1
       if(test==1){
         Navigator.push(
           context,
@@ -36,6 +39,7 @@ class NavegadorRamas_screen extends StatelessWidget {
           ),
         );
       }
+      //Escoge test 2
       else{
         Navigator.push(
           context,
@@ -48,7 +52,9 @@ class NavegadorRamas_screen extends StatelessWidget {
         );
       }
     }
+    //Se encuentra en Capital
     else{
+      //Escoge test 1
       if(test==1){
         Navigator.push(
           context,
@@ -57,6 +63,7 @@ class NavegadorRamas_screen extends StatelessWidget {
           ),
         );
       }
+      //Escoge test 2
       else{
         Navigator.push(
           context,
@@ -80,11 +87,13 @@ class NavegadorRamas_screen extends StatelessWidget {
         height: heightScreenPercentage,
         decoration: BoxDecoration(
           image: DecorationImage(
+            //Imagen de fondo, depende del test actual
               image: AssetImage("assets/images/desiertoFondo.png"), //TODO: ramas ? "assets/images/desiertoFondo.png" : "elegir imagen de capital"
               fit: BoxFit.cover),
         ),
         child: SafeArea(
           child: Stack(children: [
+            //Botón para navegar hacia atras
             backButton(
                 on_pressed: () {
                   Navigator.pop(context);
@@ -106,42 +115,46 @@ class NavegadorRamas_screen extends StatelessWidget {
                   Padding(
                     padding:
                         EdgeInsets.only(top: heightScreenPercentage * 0.07),
+                    //Primer boton para primer test
                     child: RoundedButtonAmatic(
-                      titleText: ramas? "Versatilidad" : "Capital de Habilidades",
+                      titleText: ramas? "Versatilidad" : "Capital de Habilidades", //Se pone el nombre del primer test correspondiente
                       screenHeight: heightScreenPercentage * 1.2,
                       colorProperty: test1 ? kColorGrisCards.withOpacity(0.75): kColorBlancoOpaco,
                       widthHeight: widthScreenPercentage * 1.2,
                       textSize: 3.7,
+                      //Si ya se habia realizado el test, se muestra alerta
                       onPressedFunction: () {
                         if(test1){
                           mostrarAlertaRepetir(context, "Test terminado", "¿Deseas repetir este test?", (){
                             Navigator.pop(context);
-                            navegar(context, ramas, 1);
+                            navegar(context, ramas, 1); //Se llama funcion para navegar al test 1
                         });
                         }
                         else{
-                          navegar(context, ramas, 1);
+                          navegar(context, ramas, 1);//Se llama funcion para navegar al test 1
                         }
 
                       },
                     ),
                   ),
+                  //Segundo boton para segundo test
                   RoundedButtonAmatic(
-                    titleText: ramas? "Prestigio": "Capital de relaciones",
+                    titleText: ramas? "Prestigio": "Capital de relaciones", //Se pone el nombre del segundo test correspondiente
                     screenHeight: heightScreenPercentage * 1.2,
                     colorProperty: test2 ? kColorGrisCards.withOpacity(0.75): kColorBlancoOpaco,
                     widthHeight: widthScreenPercentage * 1.2,
                     textSize: 3.7,
-                    onPressedFunction: () {
 
+                    //Si ya se habia realizado el test, se muestra alerta
+                    onPressedFunction: () {
                       if(test2){
                         mostrarAlertaRepetir(context, "Test terminado", "¿Deseas repetir este test?", (){
                           Navigator.pop(context);
-                          navegar(context, ramas, 2);
+                          navegar(context, ramas, 2); //Se llama funcion para navegar al test 2
                         });
                       }
                       else{
-                        navegar(context, ramas, 2);
+                        navegar(context, ramas, 2); //Se llama funcion para navegar al test 2
                       }
                     },
                   ),
