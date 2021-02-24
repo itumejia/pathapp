@@ -8,10 +8,10 @@ import 'package:pathapp/utilities/components/backButton.dart';
 
 class aboutScreen extends StatelessWidget {
   static String id = 'about_screen';
-  final String titulo;
-  final String cuerpo;
+  final String titulo; //Encabezado de pantalla
+  final String cuerpo; //Cuerpo de pantalla
 
-  aboutScreen({this.titulo,this.cuerpo});
+  aboutScreen({this.titulo,this.cuerpo}); //Recibe titulo y cuerpo como parametros
 
   @override
   Widget build(BuildContext context) {

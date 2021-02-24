@@ -13,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 
+//Clase para carreras con sus resultados
 class CarreraRes{
   String carrera;
   double resultado;
@@ -20,6 +21,7 @@ class CarreraRes{
   CarreraRes(this.carrera, this.resultado);
 }
 
+//Clase para resultados de tests, cada test tiene resultados por carrera
 class TestData{
   String test;
   List<CarreraRes> puntajes=[];
@@ -39,8 +41,6 @@ class TestData{
 
 }
 
-
-
 class resultadosScreen extends StatefulWidget {
   static String id = 'resultados_screen';
 
@@ -48,9 +48,8 @@ class resultadosScreen extends StatefulWidget {
   _resultadosScreenState createState() => _resultadosScreenState();
 }
 
-
 class _resultadosScreenState extends State<resultadosScreen> {
-  Map<String, dynamic> datos={};
+  Map<String, dynamic> datos={}; //Mapa necesario para la gráfica circular
   User loggedUser;
   bool loading = true;
   List<dynamic> procesado=[]; //En index 0 tiene el map de Pastel, y en index 1 tiene la lista de testData
@@ -69,11 +68,12 @@ class _resultadosScreenState extends State<resultadosScreen> {
     }
   }
 
+  //Procesar los datos del doc del usuario para obtener un map para la gráfica circular y una lista de TestData para las gráficas de barras
   List<dynamic> procesar(Map<String, dynamic> data){
     Map<String, double> pastel={};
     List<TestData> barras=[TestData("Ramas del Conocimiento: Versatilidad"),TestData("Ramas del Conocimiento: Prestigio"),TestData("Capital de Carrera: Habilidades"),TestData("Capital de Carrera: Personas"),TestData("Impacto Social"), TestData("Personal Fit")];
     for(int i=0; i<data['carreras'].length;i++){
-
+      //Se itera por carreras, se crean objetos para barras, cuando dos test conforman un área se saca su promedio
       double aux;
       String carrera=data['carreras'][i];
       double aux2=data["cap_habilidades"][carrera].toDouble();
@@ -107,8 +107,8 @@ class _resultadosScreenState extends State<resultadosScreen> {
 
   void update() async {
     await getCurrentUser();
-    datos= await getData(context, loggedUser.email);
-    procesado= procesar(datos);
+    datos= await getData(context, loggedUser.email); //Guardar los datos del doc del usuario en datos
+    procesado= procesar(datos); //Obtener el arreglo con las estructuras para las gráficas
     setState(() {
       loading=false;
     });
@@ -123,6 +123,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
 
   //GRÁFICAS---------------------------
   //CIRCULAR---------------------------
+  //Lista de colores para las 4 posibles carreras a mostrar
   List<Color> colorList=[
     Color(0xFF576EF2),
     Color(0xFFF2B84B),
@@ -130,24 +131,15 @@ class _resultadosScreenState extends State<resultadosScreen> {
     Color(0xFFBF7E78),
   ];
 
-  Map<String, double> dataCircular = {
-    "ITC": 100,
-    "IRS": 50,
-    "IBT": 150,
-    "LAD": 200,
-  };
-
   //BARRAS----------------------------
+
+  //Método que recibe datos de un test para construir la gráfica de barras
   Widget buildChart(TestData data){
-    double maxValue=data.puntajes[0].resultado;
-    for(int i=0;i<data.puntajes.length;i++){
-      if(data.puntajes[i].resultado>maxValue){
-        maxValue=data.puntajes[i].resultado;
-      }
-    }
 
     List<BarChartGroupData> barrasChart=[];
 
+    //Dados los datos de un test, verificar si el puntaje es mayor a 0, si sí, añadir al
+    //arreglo de barras de la gráfica, una barra con los datos dados
     void cleanData(int index, double value, Color colore){
       if(value>0){
         barrasChart.add(BarChartGroupData(
@@ -166,17 +158,18 @@ class _resultadosScreenState extends State<resultadosScreen> {
       }
     }
 
+    //Recorrer el arreglo de puntajes y despreciar aquellos cuyo resultado sea 0
     for(int i=0;i<data.puntajes.length;i++){
       cleanData(i, data.puntajes[i].resultado, colorList[i]);
     }
 
-
+    //Contruir la gráfica de barras
     return BarChart(
       BarChartData(
         alignment: BarChartAlignment.spaceAround,
-        maxY: 100, //Valor máximo en y (AJUSTAR)
+        maxY: 100, //Valor máximo en y constante para todos los casos
         barTouchData: BarTouchData(
-          enabled: false,
+          enabled: false, //Desactivar interacción con barras
           touchTooltipData: BarTouchTooltipData(
             tooltipBgColor: Colors.transparent,
             tooltipPadding: const EdgeInsets.all(0),
@@ -208,6 +201,8 @@ class _resultadosScreenState extends State<resultadosScreen> {
               fontSize: 14,
             ),
             margin: 10,
+            //Obtener los títulos de la gráfica, se consideran los casos en los que haya menos de 4 carreras
+            //Además se restringe la cantidad de caracteres que se muestran por carrera a 4
             getTitles: (double value) {
               switch (value.toInt()) {
                 case 0:
@@ -247,7 +242,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
           ),
           leftTitles: SideTitles(
             showTitles: true,
-            interval: (maxValue/4).roundToDouble(),
+            interval: (100/4).roundToDouble(), //Intervalo para líneas horizontales
             reservedSize: 20, //Espacio reservado para la barra lateral de escala
           ),
         ),
@@ -333,7 +328,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           fontStyleDidactGothic(
-                              text: procesado.length==0?"":'Puntuación más alta: \n ${getGanador(procesado[0])}',
+                              text: procesado.length==0?"":'Puntuación más alta: \n ${getGanador(procesado[0])}',  //Mostrar la carrera ganadora
                               sizePercentage: 2.8,
                               color: Colors.white),
                           Padding(
@@ -368,6 +363,8 @@ class _resultadosScreenState extends State<resultadosScreen> {
                         Container(
                             width: 0.8 * widthScreenPercentage,
                             height: 0.5 * heightScreenPercentage,
+                          //Cuando no se han procesado los datos, devuelve el container vacío, si
+                          //ya se cargaron, muestra la GRÁFICA CIRCULAR
                           child: procesado.length==0?Container():circularChart.PieChart(
                             dataMap: procesado[0],
                             animationDuration: Duration(seconds: 2),
@@ -399,9 +396,11 @@ class _resultadosScreenState extends State<resultadosScreen> {
                         Container(
                           width: 0.8 * widthScreenPercentage,
                           height: 0.5 * heightScreenPercentage,
+                          //Cuando no se han procesado los datos, devuelve el container vacío, si
+                          //ya se cargaron, muestra el scroll con GRÁFICAS DE BARRAS
                           child: procesado.length==0?Container():ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: procesado[1].length,
+                            itemCount: procesado[1].length, //Construir todas las gráficas de barras
                             itemBuilder: (BuildContext context, int index) {
                               return Container(
                                       width: 0.8 * widthScreenPercentage,
@@ -409,7 +408,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
                                       child: Column(
                                       children: <Widget>[
                                         Text(
-                                          procesado[1][index].test,
+                                          procesado[1][index].test, //Nombre del test de la gráfica
                                           style: GoogleFonts.adventPro(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
@@ -420,7 +419,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
                                         Container(
                                           width: 0.7 * widthScreenPercentage,
                                           height: 0.4 * heightScreenPercentage,
-                                          child: buildChart(procesado[1][index]),
+                                          child: buildChart(procesado[1][index]), //Construir gráfica de barras
                                         )
                                       ],
                                       ),

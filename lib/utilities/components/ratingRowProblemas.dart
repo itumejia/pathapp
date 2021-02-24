@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pathapp/utilities/models/ProblemasStructure.dart';
 
+//Row que contiene la carrera calificada y 5 radio buttons
+
 class RatingRowProblemas extends StatefulWidget {
   @override
   _RatingRowProblemasState createState() => _RatingRowProblemasState();
-  final CarreraRating carreraPair;
+  final CarreraRating carreraPair; //Objeto con una carrera y su puntaje
   final Color colore;
   RatingRowProblemas({this.carreraPair, this.colore});
   int rating;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/utilities/components/capital_habilidades.dart';
 import 'package:pathapp/utilities/components/instruction_box_widget2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,11 +10,12 @@ class CapitalHabilidadesScreen extends StatelessWidget {
   static String id = 'cap_habilidades_screen';
 
   CapitalHabilidadesScreen({@required this.carreras});
-  List<dynamic> carreras=[];
+  List<dynamic> carreras=[]; //Arreglo con las carreras del usuario
 
-  final List<List<TextEditingController>> matrizControladores = [];
-  final List<HabilidadesPorCarrera> habCarreras = [];
+  final List<List<TextEditingController>> matrizControladores = []; //Cada carrera tiene tres controladores, y esos sets se guardan en el arreglo
+  final List<HabilidadesPorCarrera> habCarreras = []; //Arreglo a pasar a la pantalla de HabilidadesPersona
 
+  //Crear un set de 3 controladores por cada carrera y agregarlo al arreglo
   void createControladores() {
     for (int i = 0; i < carreras.length; i++) {
       List<TextEditingController> controladores = [
@@ -27,7 +27,8 @@ class CapitalHabilidadesScreen extends StatelessWidget {
     }
   }
 
-
+  //Crear la lista de sets, orientados a la izquierda o derecha, de acuerdo al
+  //index de la carrera en el arreglo
   List<Widget> createList() {
     createControladores();
     List<Widget> widgets = [];
@@ -56,13 +57,11 @@ class CapitalHabilidadesScreen extends StatelessWidget {
         child: Icon(Icons.check, color: Colors.white,),
         backgroundColor: Colors.black,
         onPressed: (){
-          print(carreras.length);
           bool completo=true;
-          print(matrizControladores.length);
 
+          //Verificar cada controlador para saber si está vacío
           for(int i=0; i < carreras.length;i++) {
             for (int j = 0; j < matrizControladores[i].length; j++) {
-              print("Mensaje de ${i} es ${matrizControladores[i][j].text}");
               if (matrizControladores[i][j].text == "") {
                 completo = false;
                 break;
@@ -70,22 +69,20 @@ class CapitalHabilidadesScreen extends StatelessWidget {
             }
           }
 
-
           if(completo==false){
             mostrarAlerta(context,"Contesta por favor", "No has calificado todos los campos, por favor intenta de nuevo");
           }else{
+            //Recorrer todas las carreras y formar el arreglo de habilidadesPorCarrera
             for(int i=0;i<carreras.length;i++) {
-              List<HabilidadRating> habilidadesRatingList = [];
+              List<HabilidadRating> habilidadesRatingList = []; //Lista de objetos con habilidades y puntaje
               for (int j = 0; j < matrizControladores[i].length; j++) {
                 habilidadesRatingList.add(HabilidadRating(habilidad: matrizControladores[i][j].text, rating: 0));
               }
+              //Agregar al arreglo de habilidades por carrera, un objeto que tiene la carrera y el set de habilidades con puntajes
               habCarreras.add(HabilidadesPorCarrera(carrera: carreras[i], habilidadesRating: habilidadesRatingList));
             }
 
-            for(int i=0;i<habCarreras.length;i++){
-              habCarreras[i].printHabCar();
-            }
-
+            //Ir a HabilidadesPersona con el objeto habCarreras
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -103,7 +100,7 @@ class CapitalHabilidadesScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              children: createList(),
+              children: createList(), //Mostrar el set de rows izquierdas y derechas
             ),
           ),
           InstructionBoxWidget(texto: '¿Qué habilidades te gustaría aprender?',),

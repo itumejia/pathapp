@@ -7,6 +7,7 @@ import 'package:pathapp/utilities/components/rigthRow.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 
+//Primera pantalla de personal Fit
 class Valores extends StatefulWidget {
   static String id='personal_habilidades_screen';
   Valores({@required this.carreras});
@@ -17,6 +18,7 @@ class Valores extends StatefulWidget {
 
 class _ValoresState extends State<Valores> {
 
+  //Controladores para las 5 rows de las habilidades personales
   List<TextEditingController> controladores= [TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController(),];
 
   @override
@@ -33,13 +35,11 @@ class _ValoresState extends State<Valores> {
             size: 30,
           ),
           onPressed: () {
-            bool completo=true;
 
-
-
-            List<HabilidadesPorCarrera> car=[];
+            //Verificar si todas las rows han sido llenadas, si no, se muestra la alerta
+            List<HabilidadesPorCarrera> car=[]; //También se construye el objeto que se pasa a la pantalla de Habilidades
             for(int i=0; i < widget.carreras.length;i++) {
-              List<HabilidadRating> habilidades=[];
+              List<HabilidadRating> habilidades=[]; //Arreglo de habilidades con su rating
               for(int i=0; i<controladores.length;i++){
                 if(controladores[i].text==""){
                   mostrarAlerta(context, "Contesta por favor", "No has llenado todos los campos, por favor intenta de nuevo");
@@ -47,17 +47,16 @@ class _ValoresState extends State<Valores> {
                 }
                 habilidades.add(HabilidadRating(habilidad: controladores[i].text,rating: 0));
               }
+              //Armar objeto con carrera y array de habilidades
               car.add(HabilidadesPorCarrera(carrera: widget.carreras[i], habilidadesRating: habilidades));
             }
-
+              //Navegar a Habilidades mandando el objeto car
               Navigator.push(
                   context,
                   MaterialPageRoute(
                   builder: (context) => HabilidadesScreen(habilidadesCarreras: car),
               ),
               );
-
-
           },
         ),
       ),
@@ -71,6 +70,7 @@ class _ValoresState extends State<Valores> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                //Se arma de manera manual las 5 rows derecha e izquierda
                 rightRow(
                   controlador: controladores[0],
                   circleCont:

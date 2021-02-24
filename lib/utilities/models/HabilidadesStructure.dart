@@ -1,3 +1,7 @@
+//Clases auxiliares para test "Capital de Habilidades"
+
+//Rating de una habilidad respecto a una carrera
+
 class HabilidadRating{
   String habilidad;
   int rating;
@@ -21,6 +25,7 @@ class HabilidadRating{
   }
 }
 
+//Listado de habilidad para calificar por una carrera
 class HabilidadesPorCarrera{
   String carrera;
   List<HabilidadRating> habilidadesRating;
@@ -43,6 +48,7 @@ class HabilidadesPorCarrera{
     }
   }
 
+  //Calcular el promedio de una carrera según los puntajes de sus habilidades
   double getPromedio(){
     double promedio = 0;
     for(int i=0;i<habilidadesRating.length;i++){
@@ -51,6 +57,7 @@ class HabilidadesPorCarrera{
     return promedio/habilidadesRating.length;
   }
 
+  //Verificar que todas las habilidades de una carrera hayan sido calificadas
   bool getFull(){
     for(int i=0;i<habilidadesRating.length;i++){
       if(habilidadesRating[i].rating==0){

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 
+//Row que contiene la habilidad calificada y 5 radio buttons
 class RatingRow extends StatefulWidget {
   @override
   _RatingRowState createState() => _RatingRowState();

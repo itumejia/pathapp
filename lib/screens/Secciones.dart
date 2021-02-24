@@ -27,15 +27,15 @@ class SeccionesScreen extends StatefulWidget {
 
 class _SeccionesScreenState extends State<SeccionesScreen> {
 
-  User loggedUser;
-  double progreso = 0;
-  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
-  bool saving = false;
+  User loggedUser; //Instancia de usuario autenticado
+  double progreso = 0; //Porcentaje de progreso completado
+  bool saving = false; //Controlador del modal progress HUD
 
-  List<dynamic> carreras;
+  List<dynamic> carreras; //Carreras del usuario
   //Indicadores de tests completados
   bool versatilidad = false, prestigio= false, impacto = false, cap_hab = false,cap_rel = false, personal = false, capital=false, ramas=false;
 
+  //Función para autenticar usuario
   void getCurrentUser() async {
     try {
       final author = FirebaseAuth.instance;
@@ -50,12 +50,15 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
     }
   }
 
+  //Función para obtener datos de la nube e indicar el progreso
   void getInfo() async {
     Map info = await getData(context, loggedUser.email);
     print('getting data');
 
+    //Se obtienen las carreras
     carreras = info['carreras'];
 
+    //Se revisa cuales tests ya fueron completados
     if (info['versatilidad'].length != 0) {
       versatilidad= true;
       progreso += 16.5;
@@ -96,6 +99,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
   }
 
+  //Funcion que autentica usuario y obtiene informacion de base de datos
   void update() async {
     await getCurrentUser();
     await getInfo();
@@ -104,6 +108,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
     });
   }
 
+  //Se llama funcion update() al inicio
   @override
   void initState() {
     super.initState();
@@ -204,9 +209,12 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       child: Container(
                         width: widthScreenPercentage * 0.4,
                         height: heightScreenPercentage * 0.28,
+
+                        //Tarjeta de Ramas del Conocimiento
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
                           colore: ramas ? kColorGrisCards : kColorAzul,
+                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: () => {
                             if(ramas){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
@@ -245,9 +253,12 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       child: Container(
                         width: widthScreenPercentage * 0.4,
                         height: heightScreenPercentage * 0.28,
+
+                        //Tarjeta de Impacto Social
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
                           colore: impacto ? kColorGrisCards : kColorAmarillo,
+                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: () {
                             if(impacto){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
@@ -292,9 +303,12 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       child: Container(
                         width: widthScreenPercentage * 0.4,
                         height: heightScreenPercentage * 0.28,
+
+                        //Tarjeta de Capital de Carrera
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
                           colore: capital ? kColorGrisCards : kColorNaranja,
+                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: () {
                             if(capital){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
@@ -334,10 +348,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                       child: Container(
                         width: widthScreenPercentage * 0.4,
                         height: heightScreenPercentage * 0.28,
+
+                        //tarjeta de Personal fit
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
 
                           colore: personal ? kColorGrisCards : kColorCafe,
+                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: (){
                             if(personal){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
