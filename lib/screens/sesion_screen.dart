@@ -49,6 +49,7 @@ class sesionScreen extends StatelessWidget {
                       width: widthScreenPercentage * 0.20,
                     ),
                   ),
+                  //--------------------Botón para iniciar sesión-----------------------------------------------
                   Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: heightScreenPercentage * 0.015),
@@ -76,6 +77,7 @@ class sesionScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //--------------------Botón para registrarse-----------------------------------------------
                   Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: heightScreenPercentage * 0.015),

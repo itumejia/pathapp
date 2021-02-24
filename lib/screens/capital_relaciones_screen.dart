@@ -12,7 +12,7 @@ class CapitalRelacionesScreen extends StatefulWidget {
   static String id='cap_relaciones_screen';
 
   CapitalRelacionesScreen({@required this.carreras});
-  List<dynamic> carreras=[];
+  List<dynamic> carreras=[]; //Carreras del usuario
 
   @override
   _CapitalRelacionesScreenState createState() => _CapitalRelacionesScreenState();
@@ -20,14 +20,15 @@ class CapitalRelacionesScreen extends StatefulWidget {
 
 class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
 
-  User loggedUser;
+  User loggedUser; //Instancia de usuario autenticado
 
-  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
+  final _cloud=FirebaseFirestore.instance.collection('/usuarios'); //Instanccia de la base de datos
 
-  bool saving=false;
+  bool saving=false; //Controlado del modal progress hud
 
-  Map<String, int> results={};
+  Map<String, int> results={}; //Mapa de resultados
 
+  //Funcion que obtiene el usuario actual
   void getCurrentUser() async {
     try {
       final author = FirebaseAuth.instance;
@@ -42,6 +43,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
     }
   }
 
+  //Crea lista de widget RelacionesRating, con el nombre de cada carrera
   List<RelacionesRating> createList(){
     List<RelacionesRating> widgets=[];
     for(int i=0; i<widget.carreras.length;i++){
@@ -50,7 +52,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
     return widgets;
   }
 
-
+//Al iniciar se obtiene el usuario
   void initState() {
     super.initState();
     getCurrentUser();
@@ -63,6 +65,8 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+
+          //Se verifica que se hayan calificado todas las carreras
           bool completado=true;
           for(int i=0;i<RatingWidgets.length;i++){
             if(RatingWidgets[i].rating==null){
@@ -70,16 +74,22 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
               break;
             }
           }
+          //Si no se completo, se muestra alerta
           if(completado==false){
             mostrarAlerta(context, "Califica por favor", "No has calificado todas tus carreras, por favor intenta de nuevo");
-          }else{
+          }
+          //Si se completo, se envia a base de datos
+          else{
             setState(() {
               saving=true;
             });
+
+            //Se pone en forma de diccionario y se transforma a calificacion de 0-100
             for (int i = 0; i < RatingWidgets.length; i++) {
               results[RatingWidgets[i].carrera]=RatingWidgets[i].rating*20;
             }
             print(results);
+            //Se envia a base de datos y regresa a menu principal
             try {
               _cloud
                   .doc(loggedUser.email) //Usuario
@@ -117,6 +127,7 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
                   },
                 ),
                 Expanded(
+                  //Lista de ratings, guardados en RatingWidgets
                   child: ListView(
                     children: RatingWidgets,
                   ),

@@ -18,36 +18,41 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  //Variables donde se guardaaran datos de los text field
   String nombre = '';
   String apellidos = '';
   String email = '';
   String password = '';
   String password2 = '';
 
-  bool _saving = false;
+  bool _saving = false; //Controla el Modal Progress HUD
 
+  //Variables para revisar que los campos no esten vacios
   bool eNombre = true;
   bool eApellidos = true;
   bool eEmail = true;
   bool ePass = true;
   bool ePass2 = true;
-  bool pass2coin = true;
+  bool pass2coin = true; //Variable que revisa que coincidan ambas contraseñas
 
-  bool todoChido = true;
+  bool todoChido = true; //Variable para revisar que todas las condiciones se cumplan para el registro
 
+  //Controladores de los TextField
   final controllerNombre = TextEditingController();
   final controllerApellidos = TextEditingController();
   final controllerEmail = TextEditingController();
   final controllerPass = TextEditingController();
   final controllerPass2 = TextEditingController();
 
-  final _author = FirebaseAuth.instance;
-  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
+  final _author = FirebaseAuth.instance; //Instancia al nuevo usuario
+  final _cloud = FirebaseFirestore.instance.collection('/usuarios'); //Instancia a la base de datos
 
   @override
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
+
+    //Funcion para determinar estilo de la segunda contraseña, para mostrar error si es que lo hay
     InputDecoration getEstiloPass2(bool completo, bool coincide) {
       if (!completo) {
         return textFieldDecoration("Confirmación faltante",
@@ -106,12 +111,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+                          //Campo del nombre del usuario
                           child: TextField(
                             controller: controllerNombre,
                             textAlign: TextAlign.center,
                             onChanged: (value) {
                               nombre = value;
                             },
+                            //Cambia decoracion dependiendo si se lleno o no
                             decoration: eNombre
                                 ? textFieldDecoration(
                                     "Nombre",
@@ -134,12 +141,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+                          //Campo de los apellidos
                           child: TextField(
                             controller: controllerApellidos,
                             textAlign: TextAlign.center,
                             onChanged: (value) {
                               apellidos = value;
                             },
+                            //Cambia decoracion dependiendo si se lleno o no
                             decoration: eApellidos
                                 ? textFieldDecoration(
                                     "Apellidos",
@@ -162,6 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+                          //campo del email
                           child: TextField(
                             controller: controllerEmail,
                             textAlign: TextAlign.center,
@@ -169,6 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChanged: (value) {
                               email = value;
                             },
+                            //Cambia decoracion dependiendo si se lleno o no
                             decoration: eEmail
                                 ? textFieldDecoration(
                                     "Correo electrónico",
@@ -191,6 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+                          //Campo de la contraseña
                           child: TextField(
                             controller: controllerPass,
                             textAlign: TextAlign.center,
@@ -198,6 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChanged: (value) {
                               password = value;
                             },
+                            //Cambia decoracion dependiendo si se lleno o no
                             decoration: ePass
                                 ? textFieldDecoration(
                                     "Contraseña",
@@ -220,6 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Container(
                           height: heightScreenPercentage * 0.06,
                           width: widthScreenPercentage * 0.8,
+                          //Campo para confirmacion de contraseña
                           child: TextField(
                             controller: controllerPass2,
                             textAlign: TextAlign.center,
@@ -227,10 +241,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChanged: (value) {
                               password2 = value;
                             },
+                            //llama a funcion para determinar estilo dependiendo de errores
                             decoration: getEstiloPass2(ePass2, pass2coin),
                           ),
                         ),
                       ),
+                      //Botón para registrarse
                       CountButton(
                           screenWidth: widthScreenPercentage,
                           screenHeight: heightScreenPercentage,
@@ -241,6 +257,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               _saving = true;
                             });
 
+                            //Se reinician valores
                             todoChido = true;
                             eNombre = true;
                             eApellidos = true;
@@ -249,6 +266,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ePass2 = true;
                             pass2coin = true;
 
+                            //Se revisa que los campos no esten vacios
                             if (nombre == '') {
                               todoChido = false;
                               controllerNombre.clear();
@@ -285,6 +303,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               });
                             }
 
+                            //Se revisa que las contraseñas coincidan
                             if (password != password2) {
                               todoChido = false;
                               controllerPass2.clear();
@@ -293,6 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               });
                             }
 
+                            //Si se cumplan todas las condiciones, se crea nuevo usuario
                             if (todoChido) {
                               try {
                                 print(email);
@@ -300,6 +320,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 final newUser = await _author
                                     .createUserWithEmailAndPassword(
                                         email: email, password: password);
+                                //Si se crea de manera correcta, se genera nuevo registro en la base de datos
                                 if (newUser != null) {
                                   await _cloud.doc(email).set({
                                     "nombres": nombre,
@@ -312,6 +333,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     "cap_personas": {},
                                     "personal_fit": {}
                                   });
+                                  //Se navega a pantalla para registrar carreras
                                   Navigator.pushReplacementNamed(
                                       context,
                                       areasEstudioScreen

@@ -14,6 +14,8 @@ class introScreen extends StatefulWidget {
 }
 
 class _introScreenState extends State<introScreen> {
+
+  //En init state se inicia contador de 6 segundos, luego cambia la pantalla
   @override
   void initState() {
     super.initState();
