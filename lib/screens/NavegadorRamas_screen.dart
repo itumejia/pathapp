@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/screens/prestigio_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
@@ -10,6 +11,7 @@ import 'package:pathapp/utilities/components/RoundedButton.dart';
 import 'package:pathapp/screens/capital_relaciones_screen.dart';
 import 'package:pathapp/screens/capital_habilidades_screen.dart';
 import 'package:pathapp/utilities/functions/alerta_repetir_seccion.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 
 class NavegadorRamas_screen extends StatelessWidget {
 
@@ -131,7 +133,18 @@ class NavegadorRamas_screen extends StatelessWidget {
                         });
                         }
                         else{
-                          navegar(context, ramas, 1);//Se llama funcion para navegar al test 1
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => aboutScreen(
+                                titulo: ramas ? kAboutVersatilidadTitulo : kAboutCapitalHabilidadesTitulo,
+                                cuerpo: ramas ? kAboutVersatilidadCuerpo : kAboutCapitalHabilidadesCuerpo,
+                                navegar: (){
+                                  Navigator.pop(context);
+                                  navegar(context, ramas, 1); //Se llama funcion para navegar al test 1
+                              },),
+                            ),
+                          );
                         }
 
                       },
@@ -154,7 +167,18 @@ class NavegadorRamas_screen extends StatelessWidget {
                         });
                       }
                       else{
-                        navegar(context, ramas, 2); //Se llama funcion para navegar al test 2
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => aboutScreen(
+                                titulo: ramas ? kAboutPrestigioTitulo : kAboutCapitalRelacionesTitulo,
+                                cuerpo: ramas ? kAboutPrestigioCuerpo : kAboutCapitalRelacionesCuerpo,
+                                navegar: (){
+                                  Navigator.pop(context);
+                                  navegar(context, ramas, 2); //Se llama funcion para navegar al test 2
+                              },),
+                            ),
+                          );
                       }
                     },
                   ),

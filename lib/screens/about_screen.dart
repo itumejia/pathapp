@@ -5,13 +5,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/utilities/components/backButton.dart';
+import 'package:pathapp/utilities/components/RoundedButton.dart';
 
 class aboutScreen extends StatelessWidget {
   static String id = 'about_screen';
   final String titulo; //Encabezado de pantalla
   final String cuerpo; //Cuerpo de pantalla
 
-  aboutScreen({this.titulo,this.cuerpo}); //Recibe titulo y cuerpo como parametros
+  Function navegar;
+
+  aboutScreen({@required this.titulo, @required this.cuerpo,this.navegar}); //Recibe titulo y cuerpo como parametros
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class aboutScreen extends StatelessWidget {
             child: Center(
               child: Container(
                 width: widthScreenPercentage * 0.75,
-                height: heightScreenPercentage * 0.7,
+                height: heightScreenPercentage * 0.75,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -92,6 +96,22 @@ class aboutScreen extends StatelessWidget {
                             sizePercentage: 2,
                             textAlign: TextAlign.justify,
                             color: kColorAzulMarino),
+                      ),
+                    ),
+                    Opacity(
+                      opacity: navegar == null ? 0 : 1,
+                      child: RoundedButton(
+                        screenHeight: heightScreenPercentage,
+                        titleText: 'SIGUIENTE',
+                        colorProperty: Colors.blue,
+                        onPressedFunction: () {
+                          if (navegar != null)
+                          {
+                            print("button pressed");
+                            navegar();
+                            //Navegar a pantalla de resultados
+                          }
+                        },
                       ),
                     ),
                   ],

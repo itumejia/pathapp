@@ -7,6 +7,7 @@ import 'package:pathapp/utilities/components/ReusableCard.dart';
 import 'package:pathapp/utilities/components/CardIcon.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/functions/alerta_repetir_seccion.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -263,20 +264,20 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                             if(impacto){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
                                 Navigator.pop(context);
-                                Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      problemasMundo(carreras: carreras),
-                                ),
-                              );});
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras),),);
+                              });
                             }
                             else{
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      problemasMundo(carreras: carreras),
+                                  builder: (context) => aboutScreen(
+                                    titulo: kAboutProblemasTitulo,
+                                    cuerpo: kAboutProblemasCuerpo,
+                                    navegar: (){
+                                      Navigator.pop(context);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras),),);
+                                    },),
                                 ),
                               );
                             }
@@ -371,8 +372,13 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      Valores(carreras: carreras),
+                                  builder: (context) => aboutScreen(
+                                    titulo: kAboutPersonalTitulo,
+                                    cuerpo: kAboutPersonalCuerpo,
+                                    navegar: (){
+                                      Navigator.pop(context);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Valores(carreras: carreras),),);
+                                    },),
                                 ),
                               );
                             }
@@ -405,8 +411,8 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => aboutScreen(
-                                    titulo: "¿Qué es esto?",
-                                  cuerpo: "El camino es complicado, todos hemos tropezado pero ante la adversidad, y una decisión como  lo es decidir el futuro de tu carrera profesional, puede ser muy complicado. PATH te ayudará a tomar la mejor decisión al reflexionar sobre todos los distintos aspectos que la involucran.",
+                                    titulo: kAboutSeccionesTitulo,
+                                  cuerpo: kAboutSeccionesCuerpo,
                                 ),
                               ),
                             );
