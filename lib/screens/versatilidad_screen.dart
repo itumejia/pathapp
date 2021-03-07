@@ -16,6 +16,8 @@ import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 class versatilidadScreen extends StatefulWidget {
   versatilidadScreen({@required this.carreras, @required this.versatilidad});
@@ -192,6 +194,39 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
 
                   //print(Provider.of<VersatilidadData>(context,listen: false).getFinalValues);
                 },
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: heightScreenPercentage * .2,
+                  left: widthScreenPercentage * 0.05),
+              child: RawMaterialButton(
+                elevation: 10,
+                padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => aboutScreen(
+                        titulo: widget.versatilidad
+                            ? kAboutVersatilidadTitulo
+                            : kAboutPrestigioTitulo,
+                        cuerpo: widget.versatilidad
+                            ? kAboutVersatilidadCuerpo
+                            : kAboutPrestigioCuerpo,
+                      ),
+                    ),
+                  );
+                },
+                fillColor: Colors.white,
+                child: Icon(
+                  Icons.help_outline_sharp,
+                  color: Colors.black,
+                ),
+                shape: CircleBorder(),
               ),
             ),
           ),

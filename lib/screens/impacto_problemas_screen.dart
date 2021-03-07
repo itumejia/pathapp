@@ -14,6 +14,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 class impactoProblemas extends StatefulWidget {
   static String id = 'impacto_problemas_screen';
@@ -107,24 +109,35 @@ class _impactoProblemasState extends State<impactoProblemas> {
                     };
                   },
                   screenWidth: widthScreenPercentage),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: heightScreenPercentage * 0.81,
-                    left: widthScreenPercentage * 0.85),
+              Align(
+                alignment: Alignment.topRight,
                 child: Container(
-                  child: RawMaterialButton(
-                    elevation: 10,
-                    onPressed: () {
-                     //TODO poner explicación de test
-                    },
-                    fillColor: Colors.white,
-                    child: Icon(
-                      Icons.help_outline_sharp,
-                      color: Colors.black,
+                  margin: EdgeInsets.only(
+                      top: widthScreenPercentage * 0.06,
+                      right: widthScreenPercentage * 0.06),
+                  child: Container(
+                    child: RawMaterialButton(
+                      elevation: 10,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => aboutScreen(
+                              titulo: kAboutProblemasTitulo,
+                              cuerpo: kAboutProblemas2Cuerpo,
+                            ),
+                          ),
+                        );
+                      },
+                      fillColor: Colors.white,
+                      child: Icon(
+                        Icons.help_outline_sharp,
+                        color: Colors.black,
+                      ),
+                      shape: CircleBorder(),
                     ),
-                    shape: CircleBorder(),
+                    width: widthScreenPercentage * 0.1,
                   ),
-                  width: widthScreenPercentage * 0.1,
                 ),
               ),
               Center(
@@ -149,7 +162,7 @@ class _impactoProblemasState extends State<impactoProblemas> {
                           EdgeInsets.only(top: heightScreenPercentage * 0.21),
                       child: Container(
                         width: widthScreenPercentage * 0.85,
-                        height: heightScreenPercentage * 0.55,
+                        height: heightScreenPercentage * 0.13 * widget.problemas[0].getNumCarreras(),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -180,7 +193,7 @@ class _impactoProblemasState extends State<impactoProblemas> {
                             ),
                             Container(
                               width: widthScreenPercentage * 0.85,
-                              height: heightScreenPercentage * 0.4,
+                              height: heightScreenPercentage * 0.1 * widget.problemas[0].getNumCarreras(),
                               child: ListView(
                                 shrinkWrap: true,
                                 children: filasCalificar(widget.problemas[indexProblema]), //Mostrar las filas para calificar
