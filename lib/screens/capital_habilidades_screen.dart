@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/components/capital_habilidades.dart';
 import 'package:pathapp/utilities/components/instruction_box_widget2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 import 'package:pathapp/screens/HabilidadesPersona.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 class CapitalHabilidadesScreen extends StatelessWidget {
   static String id = 'cap_habilidades_screen';
+  bool primeraVez;
 
-  CapitalHabilidadesScreen({@required this.carreras});
+  CapitalHabilidadesScreen({@required this.carreras, @required this.primeraVez});
   List<dynamic> carreras=[]; //Arreglo con las carreras del usuario
 
   final List<List<TextEditingController>> matrizControladores = []; //Cada carrera tiene tres controladores, y esos sets se guardan en el arreglo
@@ -53,6 +57,7 @@ class CapitalHabilidadesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffC3DA67),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check, color: Colors.white,),
         backgroundColor: Colors.black,
@@ -82,13 +87,36 @@ class CapitalHabilidadesScreen extends StatelessWidget {
               habCarreras.add(HabilidadesPorCarrera(carrera: carreras[i], habilidadesRating: habilidadesRatingList));
             }
 
-            //Ir a HabilidadesPersona con el objeto habCarreras
-            Navigator.push(
+            //Si es la primera vez pasar por el About, si no ir directo a pantalla siguiente
+            if(primeraVez){
+              Navigator.push(
                 context,
                 MaterialPageRoute(
-                builder: (context) => HabilidadesPersona(habilidadesCarreras: habCarreras),
-            ),
-            );
+                  builder: (context) => aboutScreen(
+                    titulo: kAboutCapitalHabilidadesTitulo,
+                    cuerpo: kAboutHabilidades2Cuerpo,
+                    navegar: (){
+                      Navigator.pop(context);
+                      //Ir a HabilidadesPersona con el objeto habCarreras
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HabilidadesPersona(habilidadesCarreras: habCarreras),
+                        ),
+                      );
+                    },),
+                ),
+              );
+            }
+            else{
+              //Ir a HabilidadesPersona con el objeto habCarreras
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HabilidadesPersona(habilidadesCarreras: habCarreras),
+                ),
+              );
+            }
           }
         },
       ),
@@ -104,6 +132,33 @@ class CapitalHabilidadesScreen extends StatelessWidget {
             ),
           ),
           InstructionBoxWidget(texto: '¿Qué habilidades te gustaría aprender?',),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.05),
+              child: RawMaterialButton(
+                elevation: 10,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => aboutScreen(
+                        titulo: kAboutCapitalHabilidadesTitulo,
+                        cuerpo: kAboutCapitalHabilidadesCuerpo,
+                      ),
+                    ),
+                  );
+                },
+                fillColor: Colors.white,
+                child: Icon(
+                  Icons.help_outline_sharp,
+                  color: Colors.black,
+                ),
+                shape: CircleBorder(),
+              ),
+              width: MediaQuery.of(context).size.width * 0.1,
+            ),
+          ),
         ]
       ),
     );

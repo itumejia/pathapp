@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 class CapitalRelacionesScreen extends StatefulWidget {
   static String id='cap_relaciones_screen';
@@ -119,6 +121,33 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.05),
+                    child: RawMaterialButton(
+                      elevation: 10,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => aboutScreen(
+                              titulo: kAboutCapitalRelacionesTitulo,
+                              cuerpo: kAboutCapitalRelacionesCuerpo,
+                            ),
+                          ),
+                        );
+                      },
+                      fillColor: Colors.white,
+                      child: Icon(
+                        Icons.help_outline_sharp,
+                        color: Colors.black,
+                      ),
+                      shape: CircleBorder(),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  ),
+                ),
                 InstructionBoxWidget(
                   texto: '¿TE SERÍA FÁCIL RELACIONARTE CON PERSONAS DE LA CARRERA?',
                   toDo: (){
