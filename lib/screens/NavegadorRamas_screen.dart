@@ -26,7 +26,7 @@ class NavegadorRamas_screen extends StatelessWidget {
   static String id='nav_ramas_screen';
 
   //Función que indica a que pantalla navegar, dada la seccion actual y el test escogido
-  void navegar(BuildContext context, bool ramas, int test){
+  void navegar(BuildContext context, bool ramas, int test, bool primeraHabilidades){
     //Se encuentra en ramas
     if(ramas){
       //Escoge test 1
@@ -61,7 +61,7 @@ class NavegadorRamas_screen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CapitalHabilidadesScreen(carreras: carreras),
+            builder: (context) => CapitalHabilidadesScreen(carreras: carreras, primeraVez: primeraHabilidades,),
           ),
         );
       }
@@ -129,7 +129,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                         if(test1){
                           mostrarAlertaRepetir(context, "Test terminado", "¿Deseas repetir este test?", (){
                             Navigator.pop(context);
-                            navegar(context, ramas, 1); //Se llama funcion para navegar al test 1
+                            navegar(context, ramas, 1, false); //Se llama funcion para navegar al test 1
                         });
                         }
                         else{
@@ -141,7 +141,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                                 cuerpo: ramas ? kAboutVersatilidadCuerpo : kAboutCapitalHabilidadesCuerpo,
                                 navegar: (){
                                   Navigator.pop(context);
-                                  navegar(context, ramas, 1); //Se llama funcion para navegar al test 1
+                                  navegar(context, ramas, 1, true); //Se llama funcion para navegar al test 1
                               },),
                             ),
                           );
@@ -163,7 +163,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                       if(test2){
                         mostrarAlertaRepetir(context, "Test terminado", "¿Deseas repetir este test?", (){
                           Navigator.pop(context);
-                          navegar(context, ramas, 2); //Se llama funcion para navegar al test 2
+                          navegar(context, ramas, 2, false); //Se llama funcion para navegar al test 2
                         });
                       }
                       else{
@@ -175,7 +175,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                                 cuerpo: ramas ? kAboutPrestigioCuerpo : kAboutCapitalRelacionesCuerpo,
                                 navegar: (){
                                   Navigator.pop(context);
-                                  navegar(context, ramas, 2); //Se llama funcion para navegar al test 2
+                                  navegar(context, ramas, 2, false); //Se llama funcion para navegar al test 2
                               },),
                             ),
                           );

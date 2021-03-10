@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
@@ -9,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/utilities/components/textFieldDecoration.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 import '../utilities/constants.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -333,12 +335,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     "cap_personas": {},
                                     "personal_fit": {}
                                   });
-                                  //Se navega a pantalla para registrar carreras
-                                  Navigator.pushReplacementNamed(
-                                      context,
-                                      areasEstudioScreen
-                                          .id); //Cambiar a Introducir Carreras
-                                  print("Jalo chido");
+                                  //Primero navegará a ¿qué es esto?, luego a about de carreras, y luego a pantalla de carreras
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => aboutScreen(
+                                        titulo: kAboutBienvenidaTitulo,
+                                        cuerpo: kAboutBienvenidaCuerpo,
+                                        navegar: (){
+                                          //Se cierra about de bienvenida y se abre about de carreras
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => aboutScreen(
+                                                titulo: kAboutCarrerasTitulo,
+                                                cuerpo: kAboutCarrerasCuerpo,
+                                                navegar: (){
+                                                  //Se cierra about de carreras y se abre pantalla de introducción de carreras
+                                                  Navigator.pop(context);
+                                                  Navigator.pushReplacementNamed(context, areasEstudioScreen.id); //Cambiar a Introducir Carreras
+                                                },),
+                                            ),
+                                          );
+
+
+
+                                        },),
+                                    ),
+                                  );
+
                                 }
                               } on FirebaseAuthException catch (e) {
                                 print(e);

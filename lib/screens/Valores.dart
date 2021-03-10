@@ -1,16 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pathapp/screens/Habilidades.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/components/leftRow.dart';
 import 'package:pathapp/utilities/components/rigthRow.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 
 //Primera pantalla de personal Fit
 class Valores extends StatefulWidget {
   static String id='personal_habilidades_screen';
-  Valores({@required this.carreras});
+  bool primeraVez;
+  Valores({@required this.carreras, @required this.primeraVez});
   List<dynamic> carreras=[];
   @override
   _ValoresState createState() => _ValoresState();
@@ -50,13 +53,37 @@ class _ValoresState extends State<Valores> {
               //Armar objeto con carrera y array de habilidades
               car.add(HabilidadesPorCarrera(carrera: widget.carreras[i], habilidadesRating: habilidades));
             }
+
+            //Si es la primera vez pasar por el About, si no ir directo a pantalla siguiente
+            if(widget.primeraVez){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => aboutScreen(
+                    titulo: kAboutPersonalTitulo,
+                    cuerpo: kAboutPersonal2Cuerpo,
+                    navegar: (){
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HabilidadesScreen(habilidadesCarreras: car),
+                        ),
+                      );
+                    },),
+                ),
+              );
+            }
+            else{
               //Navegar a Habilidades mandando el objeto car
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
+                context,
+                MaterialPageRoute(
                   builder: (context) => HabilidadesScreen(habilidadesCarreras: car),
-              ),
+                ),
               );
+            }
+
           },
         ),
       ),
