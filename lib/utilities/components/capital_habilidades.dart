@@ -7,7 +7,15 @@ class CapitalHabilidadesWidgetLeft extends StatelessWidget {
   final TextEditingController controlador1;
   final TextEditingController controlador2;
   final TextEditingController controlador3;
-  CapitalHabilidadesWidgetLeft({this.carrera, this.controlador1, this.controlador2, this.controlador3});
+  final double screenWidth;
+  final double screenHeight;
+  CapitalHabilidadesWidgetLeft(
+      {this.carrera,
+      this.controlador1,
+      this.controlador2,
+      this.controlador3,
+      @required this.screenHeight,
+      @required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +24,42 @@ class CapitalHabilidadesWidgetLeft extends StatelessWidget {
       children: [
         //Columna con tres habilidades que ingresará el usuario
         Container(
-          width: 200,
+          width: screenWidth * 0.45,
           child: Column(
             children: [
-              CajaHabilidad(left: true, controlador: controlador1,),
-              CajaHabilidad(left: true, controlador: controlador2,),
-              CajaHabilidad(left: true, controlador: controlador3,),
+              CajaHabilidad(
+                left: true,
+                controlador: controlador1,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
+              CajaHabilidad(
+                left: true,
+                controlador: controlador2,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
+              CajaHabilidad(
+                left: true,
+                controlador: controlador3,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
             ],
-
           ),
         ),
         Expanded(
           child: Divider(
             color: Colors.white,
-            thickness: 2,
+            thickness: screenWidth * 0.005,
           ),
         ),
-        WhiteBoxCarrera(carrera: carrera, padRight: 25,),
+        WhiteBoxCarrera(
+          carrera: carrera,
+          padRight: screenWidth * 0.07,
+          screenHeight: screenHeight,
+          screenWidth: screenWidth,
+        ),
       ],
     );
   }
@@ -43,32 +70,58 @@ class CapitalHabilidadesWidgetRight extends StatelessWidget {
   final TextEditingController controlador1;
   final TextEditingController controlador2;
   final TextEditingController controlador3;
-  CapitalHabilidadesWidgetRight({this.carrera, this.controlador1, this.controlador2, this.controlador3});
+  final double screenWidth;
+  final double screenHeight;
+  CapitalHabilidadesWidgetRight(
+      {this.carrera,
+      this.controlador1,
+      this.controlador2,
+      this.controlador3,
+      @required this.screenHeight,
+      @required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        WhiteBoxCarrera(carrera: carrera, padLeft: 25,),
+        WhiteBoxCarrera(
+          carrera: carrera,
+          padLeft: screenWidth * 0.07,
+          screenWidth: screenWidth,
+          screenHeight: screenHeight,
+        ),
         Expanded(
           child: Divider(
             color: Colors.white,
-            thickness: 2,
+            thickness: screenWidth * 0.005,
           ),
         ),
         Container(
-          width: 200,
+          width: screenWidth * 0.45,
           child: Column(
             children: [
-              CajaHabilidad(left: false, controlador: controlador1,),
-              CajaHabilidad(left: false, controlador: controlador2,),
-              CajaHabilidad(left: false, controlador: controlador3,),
+              CajaHabilidad(
+                left: false,
+                controlador: controlador1,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
+              CajaHabilidad(
+                left: false,
+                controlador: controlador2,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
+              CajaHabilidad(
+                left: false,
+                controlador: controlador3,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
             ],
-
           ),
         ),
-
       ],
     );
   }
@@ -77,33 +130,52 @@ class CapitalHabilidadesWidgetRight extends StatelessWidget {
 class CajaHabilidad extends StatelessWidget {
   final bool left;
   final TextEditingController controlador;
-  CajaHabilidad({@required this.left, @required this.controlador});
+  final double screenWidth;
+  final double screenHeight;
+  CajaHabilidad(
+      {@required this.left,
+      @required this.controlador,
+      @required this.screenWidth,
+      @required this.screenHeight});
 
   @override
   Widget build(BuildContext context) {
-    final double padLeft= (left ? 25: 0).toDouble();
-    final double padRight= (left ? 0:25).toDouble();
+    final double padLeft = (left ? screenWidth * 0.07 : 0).toDouble();
+    final double padRight = (left ? 0 : screenWidth * 0.07).toDouble();
     return Padding(
-      padding: EdgeInsets.only(top:15.0, bottom: 15, left: padLeft,right: padRight),
+      padding: EdgeInsets.only(
+          top: screenWidth * 0.023,
+          bottom: screenWidth * 0.023,
+          left: padLeft,
+          right: padRight),
       child: Container(
-        height: 30,
+        height: screenWidth * 0.074,
         child: TextField(
           controller: controlador,
           decoration: InputDecoration(
-            filled: false,
+            fillColor: Colors.white,
+            filled: true,
             border: OutlineInputBorder(
-                borderRadius:BorderRadius.all(Radius.circular(50)),
-                borderSide: const BorderSide(color: Colors.white, width: 1),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(screenWidth * 0.2)),
+              borderSide:
+                  BorderSide(color: Colors.white, width: screenWidth * 0.003),
             ),
             disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-              borderSide: const BorderSide(color: Colors.white, width: 1),),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)),
-              borderSide: const BorderSide(color: Colors.white, width: 1),),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(screenWidth * 0.2)),
+              borderSide:
+                  BorderSide(color: Colors.white, width: screenWidth * 0.003),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius:
+                  BorderRadius.all(Radius.circular(screenWidth * 0.2)),
+              borderSide:
+                  BorderSide(color: Colors.white, width: screenWidth * 0.003),
+            ),
           ),
         ),
       ),
     );
   }
 }
-

@@ -12,8 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
-import 'package:pathapp/screens/NavegadorCapital_screen.dart';
-import 'package:pathapp/screens/NavegadorRamas_screen.dart';
+import 'package:pathapp/screens/NavegadoresTest.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
@@ -26,7 +25,6 @@ class SeccionesScreen extends StatefulWidget {
 }
 
 class _SeccionesScreenState extends State<SeccionesScreen> {
-
   User loggedUser;
   double progreso = 0;
   final _cloud = FirebaseFirestore.instance.collection('/usuarios');
@@ -34,7 +32,14 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
   List<dynamic> carreras;
   //Indicadores de tests completados
-  bool versatilidad = false, prestigio= false, impacto = false, cap_hab = false,cap_rel = false, personal = false, capital=false, ramas=false;
+  bool versatilidad = false,
+      prestigio = false,
+      impacto = false,
+      cap_hab = false,
+      cap_rel = false,
+      personal = false,
+      capital = false,
+      ramas = false;
 
   void getCurrentUser() async {
     try {
@@ -57,17 +62,17 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
     carreras = info['carreras'];
 
     if (info['versatilidad'].length != 0) {
-      versatilidad= true;
+      versatilidad = true;
       progreso += 16.5;
     }
 
     if (info['prestigio'].length != 0) {
-      prestigio= true;
+      prestigio = true;
       progreso += 16.5;
     }
 
-    if(versatilidad && prestigio){
-      ramas=true;
+    if (versatilidad && prestigio) {
+      ramas = true;
     }
 
     if (info['imp_social'].length != 0) {
@@ -76,24 +81,23 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
     }
 
     if (info['cap_habilidades'].length != 0) {
-      cap_hab= true;
+      cap_hab = true;
       progreso += 16.5;
     }
 
     if (info['cap_personas'].length != 0) {
-      cap_rel= true;
+      cap_rel = true;
       progreso += 16.5;
     }
 
-    if(cap_hab && cap_rel){
-      capital=true;
+    if (cap_hab && cap_rel) {
+      capital = true;
     }
 
     if (info['personal_fit'].length != 0) {
       personal = true;
       progreso += 17;
     }
-
   }
 
   void update() async {
@@ -208,27 +212,41 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: ramas ? kColorGrisCards : kColorAzul,
                           tapFunction: () => {
-                            if(ramas){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
-                                Navigator.pop(context);
+                            if (ramas)
+                              {
+                                mostrarAlertaRepetir(
+                                    context,
+                                    "Sección terminada",
+                                    "¿Deseas repetir algún test de esta sección?",
+                                    () {
+                                  Navigator.pop(context);
 
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavegadorRamas_screen(
+                                              carreras: carreras,
+                                              test1: versatilidad,
+                                              test2: prestigio,
+                                              ramas: true),
+                                    ),
+                                  );
+                                })
+                              }
+                            else
+                              {
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras, test1: versatilidad, test2: prestigio, ramas: true),
-                                ),
-                              );})
-                            }
-                            else{
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,test1: versatilidad, test2: prestigio, ramas: true),
-                                ),
-                              )
-                            }
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NavegadorRamas_screen(
+                                        carreras: carreras,
+                                        test1: versatilidad,
+                                        test2: prestigio,
+                                        ramas: true),
+                                  ),
+                                )
+                              }
                           }, //Ir a navegador de ramas
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
@@ -249,18 +267,20 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: impacto ? kColorGrisCards : kColorAmarillo,
                           tapFunction: () {
-                            if(impacto){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
+                            if (impacto) {
+                              mostrarAlertaRepetir(context, "Sección terminada",
+                                  "¿Deseas repetir el test de esta sección?",
+                                  () {
                                 Navigator.pop(context);
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      problemasMundo(carreras: carreras),
-                                ),
-                              );});
-                            }
-                            else{
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        problemasMundo(carreras: carreras),
+                                  ),
+                                );
+                              });
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -269,7 +289,6 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 ),
                               );
                             }
-
                           }, //Ir a test de problemas del mundo
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
@@ -296,23 +315,31 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           widthScreen: widthScreenPercentage,
                           colore: capital ? kColorGrisCards : kColorNaranja,
                           tapFunction: () {
-                            if(capital){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
+                            if (capital) {
+                              mostrarAlertaRepetir(context, "Sección terminada",
+                                  "¿Deseas repetir algún test de esta sección?",
+                                  () {
                                 Navigator.pop(context);
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,test1: cap_hab, test2: cap_rel, ramas: false),
-                                ),
-                              );});
-                            }
-                            else{
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NavegadorRamas_screen(
+                                        carreras: carreras,
+                                        test1: cap_hab,
+                                        test2: cap_rel,
+                                        ramas: false),
+                                  ),
+                                );
+                              });
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,test1: cap_hab, test2: cap_rel, ramas: false),
+                                  builder: (context) => NavegadorRamas_screen(
+                                      carreras: carreras,
+                                      test1: cap_hab,
+                                      test2: cap_rel,
+                                      ramas: false),
                                 ),
                               );
                             }
@@ -336,21 +363,22 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                         height: heightScreenPercentage * 0.28,
                         child: ReusableCard(
                           widthScreen: widthScreenPercentage,
-
                           colore: personal ? kColorGrisCards : kColorCafe,
-                          tapFunction: (){
-                            if(personal){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
+                          tapFunction: () {
+                            if (personal) {
+                              mostrarAlertaRepetir(context, "Sección terminada",
+                                  "¿Deseas repetir el test de esta sección?",
+                                  () {
                                 Navigator.pop(context);
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Valores(carreras: carreras),
-                                ),
-                              );});
-                            }
-                            else{
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Valores(carreras: carreras),
+                                  ),
+                                );
+                              });
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -360,7 +388,6 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               );
                             }
                           },
-
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
                             screenWidth: widthScreenPercentage,
@@ -388,8 +415,9 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => aboutScreen(
-                                    titulo: "¿Qué es esto?",
-                                  cuerpo: "El camino es complicado, todos hemos tropezado pero ante la adversidad, y una decisión como  lo es decidir el futuro de tu carrera profesional, puede ser muy complicado. PATH te ayudará a tomar la mejor decisión al reflexionar sobre todos los distintos aspectos que la involucran.",
+                                  titulo: "¿Qué es esto?",
+                                  cuerpo:
+                                      "El camino es complicado, todos hemos tropezado pero ante la adversidad, y una decisión como  lo es decidir el futuro de tu carrera profesional, puede ser muy complicado. PATH te ayudará a tomar la mejor decisión al reflexionar sobre todos los distintos aspectos que la involucran.",
                                 ),
                               ),
                             );

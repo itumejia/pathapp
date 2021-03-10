@@ -13,13 +13,12 @@ import 'package:pathapp/screens/register_screen.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/versatilidad_screen.dart';
 import 'package:pathapp/screens/areas_estudio_screen.dart';
-import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pathapp/screens/resultados.dart';
 import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
 import 'package:pathapp/screens/impacto_problemas_screen.dart';
-import 'package:pathapp/screens/NavegadorRamas_screen.dart';
+import 'package:pathapp/screens/NavegadoresTest.dart';
 
 import 'screens/intro_screen.dart';
 import 'screens/login_screen.dart';
@@ -38,7 +37,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-
         create: (context) => VersatilidadData(),
         child: MaterialApp(
           initialRoute: SeccionesScreen.id,
@@ -57,7 +55,7 @@ class MyApp extends StatelessWidget {
             aboutScreen.id: (context) =>
                 aboutScreen(), //Pantalla de información PATH
             //Falta pantalla de resultados
-            
+
             //Ramas del conocimiento:
             NavegadorRamas_screen.id: (context) => NavegadorRamas_screen(),
             versatilidadScreen.id: (context) =>
@@ -84,7 +82,6 @@ class MyApp extends StatelessWidget {
                 HabilidadesScreen(), //Pantalla para calificar habilidades
 
             //Navegadores de test
-            NavegadorCapital_screen.id: (context) => NavegadorCapital_screen(),
             //Navegador de resultados
             resultadosScreen.id: (context) => resultadosScreen(),
           },

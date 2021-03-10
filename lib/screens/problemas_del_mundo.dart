@@ -23,8 +23,7 @@ class problemasMundo extends StatefulWidget {
 }
 
 class _problemasMundoState extends State<problemasMundo> {
-
-  final List<TextEditingController> controladores= [
+  final List<TextEditingController> controladores = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
@@ -338,12 +337,12 @@ class _problemasMundoState extends State<problemasMundo> {
                                 carrerasRating: carrerasRating));
                           }
                           Navigator.push(
-                             context,
-                             MaterialPageRoute(
-                               builder: (context) => impactoProblemas(problemas: problemas),
-                             ),
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  impactoProblemas(problemas: problemas),
+                            ),
                           );
-
                         }
                       },
                     ),
