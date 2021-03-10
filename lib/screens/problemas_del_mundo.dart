@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pathapp/utilities/components/backButton.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 import '../utilities/components/diamond.dart';
 import '../utilities/components/roundedContainer.dart';
 import 'package:pathapp/utilities/components/count_button.dart';
@@ -16,8 +18,8 @@ import 'package:pathapp/screens/about_screen.dart';
 
 class problemasMundo extends StatefulWidget {
   static String id = 'problemas_mundo_screen';
-
-  problemasMundo({@required this.carreras});
+  bool primeraVez;
+  problemasMundo({@required this.carreras, @required this.primeraVez});
   List<dynamic> carreras = [];
 
   @override
@@ -347,12 +349,34 @@ class _problemasMundoState extends State<problemasMundo> {
                                 problema: controladores[i].text,
                                 carrerasRating: carrerasRating));
                           }
-                          Navigator.push(
-                             context,
-                             MaterialPageRoute(
-                               builder: (context) => impactoProblemas(problemas: problemas),
-                             ),
-                          );
+                          //Si es la primera vez pasar por el About, si no ir directo a pantalla siguiente
+                          if(widget.primeraVez){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => aboutScreen(
+                                  titulo: kAboutProblemasTitulo,
+                                  cuerpo: kAboutProblemas2Cuerpo,
+                                  navegar: (){
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => impactoProblemas(problemas: problemas),
+                                      ),
+                                    );
+                                  },),
+                              ),
+                            );
+                          }
+                          else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => impactoProblemas(problemas: problemas),
+                              ),
+                            );
+                          }
 
                         }
                       },

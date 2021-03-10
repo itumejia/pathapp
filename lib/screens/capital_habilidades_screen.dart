@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/components/capital_habilidades.dart';
 import 'package:pathapp/utilities/components/instruction_box_widget2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,8 +11,9 @@ import 'package:pathapp/screens/about_screen.dart';
 
 class CapitalHabilidadesScreen extends StatelessWidget {
   static String id = 'cap_habilidades_screen';
+  bool primeraVez;
 
-  CapitalHabilidadesScreen({@required this.carreras});
+  CapitalHabilidadesScreen({@required this.carreras, @required this.primeraVez});
   List<dynamic> carreras=[]; //Arreglo con las carreras del usuario
 
   final List<List<TextEditingController>> matrizControladores = []; //Cada carrera tiene tres controladores, y esos sets se guardan en el arreglo
@@ -85,13 +87,36 @@ class CapitalHabilidadesScreen extends StatelessWidget {
               habCarreras.add(HabilidadesPorCarrera(carrera: carreras[i], habilidadesRating: habilidadesRatingList));
             }
 
-            //Ir a HabilidadesPersona con el objeto habCarreras
-            Navigator.push(
+            //Si es la primera vez pasar por el About, si no ir directo a pantalla siguiente
+            if(primeraVez){
+              Navigator.push(
                 context,
                 MaterialPageRoute(
-                builder: (context) => HabilidadesPersona(habilidadesCarreras: habCarreras),
-            ),
-            );
+                  builder: (context) => aboutScreen(
+                    titulo: kAboutCapitalHabilidadesTitulo,
+                    cuerpo: kAboutHabilidades2Cuerpo,
+                    navegar: (){
+                      Navigator.pop(context);
+                      //Ir a HabilidadesPersona con el objeto habCarreras
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HabilidadesPersona(habilidadesCarreras: habCarreras),
+                        ),
+                      );
+                    },),
+                ),
+              );
+            }
+            else{
+              //Ir a HabilidadesPersona con el objeto habCarreras
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HabilidadesPersona(habilidadesCarreras: habCarreras),
+                ),
+              );
+            }
           }
         },
       ),

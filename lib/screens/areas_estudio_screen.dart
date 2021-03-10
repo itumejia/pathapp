@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/constants.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 import '../utilities/components/diamond.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -203,8 +205,20 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                   "carreras": carrerasLimpio,
                                 });
 
-                                Navigator.pushReplacementNamed(
-                                    context, SeccionesScreen.id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => aboutScreen(
+                                      titulo: kAboutSeccionesTitulo,
+                                      cuerpo: kAboutSeccionesCuerpo,
+                                      navegar: (){
+                                        Navigator.pop(context);
+                                        Navigator.pushReplacementNamed(
+                                            context, SeccionesScreen.id);
+                                      },),
+                                  ),
+                                );
+
                               } catch (e) {
                                 mostrarAlerta(context, "No se pudieron subir los datos", e);
                                 print(e);

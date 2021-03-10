@@ -264,7 +264,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                             if(impacto){
                               mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras),),);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras, primeraVez: false),),);
                               });
                             }
                             else{
@@ -276,7 +276,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                     cuerpo: kAboutProblemasCuerpo,
                                     navegar: (){
                                       Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras),),);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras, primeraVez: true),),);
                                     },),
                                 ),
                               );
@@ -364,7 +364,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      Valores(carreras: carreras),
+                                      Valores(carreras: carreras, primeraVez: false),
                                 ),
                               );});
                             }
@@ -377,7 +377,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                     cuerpo: kAboutPersonalCuerpo,
                                     navegar: (){
                                       Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Valores(carreras: carreras),),);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Valores(carreras: carreras, primeraVez: true),),);
                                     },),
                                 ),
                               );
