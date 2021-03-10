@@ -200,39 +200,6 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
             ),
           ),
           Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: heightScreenPercentage * .2,
-                  left: widthScreenPercentage * 0.05),
-              child: RawMaterialButton(
-                elevation: 10,
-                padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => aboutScreen(
-                        titulo: widget.versatilidad
-                            ? kAboutVersatilidadTitulo
-                            : kAboutPrestigioTitulo,
-                        cuerpo: widget.versatilidad
-                            ? kAboutVersatilidadCuerpo
-                            : kAboutPrestigioCuerpo,
-                      ),
-                    ),
-                  );
-                },
-                fillColor: Colors.white,
-                child: Icon(
-                  Icons.help_outline_sharp,
-                  color: Colors.black,
-                ),
-                shape: CircleBorder(),
-              ),
-            ),
-          ),
-          Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(
@@ -269,7 +236,21 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
                 elevation: 10,
                 padding: EdgeInsets.all(widthScreenPercentage * 0.02),
                 shape: CircleBorder(),
-                onPressed: () {}, //TODO: pantalla de about
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => aboutScreen(
+                        titulo: widget.versatilidad
+                            ? kAboutVersatilidadTitulo
+                            : kAboutPrestigioTitulo,
+                        cuerpo: widget.versatilidad
+                            ? kAboutVersatilidadCuerpo
+                            : kAboutPrestigioCuerpo,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

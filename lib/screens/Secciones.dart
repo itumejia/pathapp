@@ -13,7 +13,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
-import 'package:pathapp/screens/NavegadorCapital_screen.dart';
 import 'package:pathapp/screens/NavegadorRamas_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/screens/problemas_del_mundo.dart';
