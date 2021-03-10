@@ -42,7 +42,7 @@ class aboutScreen extends StatelessWidget {
             child: Center(
               child: Container(
                 width: widthScreenPercentage * 0.75,
-                height: heightScreenPercentage * 0.75,
+                height: heightScreenPercentage * 0.78,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -91,11 +91,15 @@ class aboutScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(widthScreenPercentage * 0.045),
-                        child: fontStyleMPlus(
-                            text: cuerpo,
-                            sizePercentage: 2,
-                            textAlign: TextAlign.justify,
-                            color: kColorAzulMarino),
+                        child: ListView(
+                          children: [
+                            fontStyleMPlus(
+                                text: cuerpo,
+                                sizePercentage: 2,
+                                textAlign: TextAlign.justify,
+                                color: kColorAzulMarino),
+                          ]
+                        ),
                       ),
                     ),
                     Opacity(

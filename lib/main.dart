@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
         create: (context) => VersatilidadData(),
         child: MaterialApp(
           initialRoute: sesionScreen.id,
+
           routes: {
             //Pantallas de inicio:
             introScreen.id: (context) => introScreen(), //Pantalla de bienvenida

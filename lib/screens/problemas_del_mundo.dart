@@ -13,6 +13,8 @@ import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/components/textFieldProblemas.dart';
 import 'package:pathapp/screens/impacto_problemas_screen.dart';
 import 'package:pathapp/utilities/models/ProblemasStructure.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 class problemasMundo extends StatefulWidget {
   static String id = 'problemas_mundo_screen';
@@ -390,7 +392,17 @@ class _problemasMundoState extends State<problemasMundo> {
               child: Container(
                 child: RawMaterialButton(
                   elevation: 10,
-                  onPressed: () {}, //TODO: Crear el about de la screen
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => aboutScreen(
+                          titulo: kAboutProblemasTitulo,
+                          cuerpo: kAboutProblemasCuerpo,
+                        ),
+                      ),
+                    );
+                  },
                   fillColor: Colors.white,
                   child: Icon(
                     Icons.help_outline_sharp,

@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pathapp/screens/Habilidades.dart';
 import 'package:pathapp/screens/about_screen.dart';
+import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/components/leftRow.dart';
 import 'package:pathapp/utilities/components/rigthRow.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/utilities/models/HabilidadesStructure.dart';
 import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 //Primera pantalla de personal Fit
 class Valores extends StatefulWidget {
@@ -29,16 +31,10 @@ class _ValoresState extends State<Valores> {
     return Scaffold(
       backgroundColor: kColorMorado,
       floatingActionButton: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        child: FloatingActionButton(
-          backgroundColor: Colors.white,
-          child: Icon(
-            Icons.check,
-            color: kColorRosa,
-            size: 30,
-          ),
+        child: RawMaterialButton(
+          elevation: 10,
+          constraints: BoxConstraints(minWidth: 40, maxWidth: 40, minHeight: 40, maxHeight: 40),
           onPressed: () {
-
             //Verificar si todas las rows han sido llenadas, si no, se muestra la alerta
             List<HabilidadesPorCarrera> car=[]; //También se construye el objeto que se pasa a la pantalla de Habilidades
             for(int i=0; i < widget.carreras.length;i++) {
@@ -83,10 +79,16 @@ class _ValoresState extends State<Valores> {
                 ),
               );
             }
-
           },
+          fillColor: Colors.white,
+          child: Icon(
+            Icons.help_outline_sharp,
+            color: Colors.black,
+          ),
+          shape: CircleBorder(),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
         child: ListView(
             padding: EdgeInsets.zero,
@@ -264,7 +266,43 @@ class _ValoresState extends State<Valores> {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: 100,),
+                Container(
+                  width: MediaQuery.of(context).size.width*0.7,
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: CountButton(
+                    screenWidth: MediaQuery.of(context).size.width,
+                    screenHeight: MediaQuery.of(context).size.height,
+                    text: "CONTINUAR",
+                    color: kColorBlancoOpaco,
+                    fontcolor: kColorUniverso,
+                    function: () {
+
+                      //Verificar si todas las rows han sido llenadas, si no, se muestra la alerta
+                      List<HabilidadesPorCarrera> car=[]; //También se construye el objeto que se pasa a la pantalla de Habilidades
+                      for(int i=0; i < widget.carreras.length;i++) {
+                        List<HabilidadRating> habilidades=[]; //Arreglo de habilidades con su rating
+                        for(int i=0; i<controladores.length;i++){
+                          if(controladores[i].text==""){
+                            mostrarAlerta(context, "Contesta por favor", "No has llenado todos los campos, por favor intenta de nuevo");
+                            return;
+                          }
+                          habilidades.add(HabilidadRating(habilidad: controladores[i].text,rating: 0));
+                        }
+                        //Armar objeto con carrera y array de habilidades
+                        car.add(HabilidadesPorCarrera(carrera: widget.carreras[i], habilidadesRating: habilidades));
+                      }
+                      //Navegar a Habilidades mandando el objeto car
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HabilidadesScreen(habilidadesCarreras: car),
+                        ),
+                      );
+                    },
+                  ),
+                ),
                   ],
             )
           ),

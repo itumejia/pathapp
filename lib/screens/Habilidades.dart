@@ -9,6 +9,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 //Segunda pantalla de personal fit
 class HabilidadesScreen extends StatefulWidget {
@@ -64,7 +66,9 @@ class _HabilidadesScreenState extends State<HabilidadesScreen> {
                   color: kColorRosa,
                   size: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
           ),
             floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -263,6 +267,33 @@ class _HabilidadesScreenState extends State<HabilidadesScreen> {
               ),
               backgroundColor: Colors.white,
             ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Container(
+            margin: EdgeInsets.all(MediaQuery.of(context).size.width*0.05),
+            child: RawMaterialButton(
+              elevation: 10,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => aboutScreen(
+                      titulo: kAboutPersonalTitulo,
+                      cuerpo: kAboutPersonal2Cuerpo,
+                    ),
+                  ),
+                );
+              },
+              fillColor: Colors.white,
+              child: Icon(
+                Icons.help_outline_sharp,
+                color: Colors.black,
+              ),
+              shape: CircleBorder(),
+            ),
+            width: MediaQuery.of(context).size.width * 0.1,
           ),
         ),
       ],

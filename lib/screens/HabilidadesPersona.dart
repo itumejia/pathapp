@@ -10,6 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pathapp/utilities/textos_about.dart';
+import 'package:pathapp/screens/about_screen.dart';
 
 class HabilidadesPersona extends StatefulWidget {
   static String id='cap_rating_screen';
@@ -68,7 +70,33 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.05),
+                          child: RawMaterialButton(
+                            elevation: 10,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => aboutScreen(
+                                    titulo: kAboutCapitalHabilidadesTitulo,
+                                    cuerpo: kAboutHabilidades2Cuerpo,
+                                  ),
+                                ),
+                              );
+                            },
+                            fillColor: Colors.white,
+                            child: Icon(
+                              Icons.help_outline_sharp,
+                              color: Colors.black,
+                            ),
+                            shape: CircleBorder(),
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.1,
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                         child: Row(
