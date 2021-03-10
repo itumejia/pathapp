@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:pathapp/utilities/models/versatilidad_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pathapp/screens/NavegadorRamas_screen.dart';
+import 'package:pathapp/screens/NavegadoresTest.dart';
 import 'package:pathapp/screens/Secciones.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
@@ -87,6 +87,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
     List<Widget> columnsFinal = [];
     for (int i = 0; i < columns.length; i++) {
       columnsFinal.add(Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: columns[i],
       ));
     }
@@ -122,6 +123,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
     List<Widget> columnsFinal = [];
     for (int i = 0; i < columns.length; i++) {
       columnsFinal.add(Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: columns[i],
       ));
     }
@@ -235,7 +237,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
             child: Padding(
               padding: EdgeInsets.only(
                   bottom: heightScreenPercentage * .2,
-                  left: widthScreenPercentage * 0.48),
+                  left: widthScreenPercentage * 0.56),
               child: RawMaterialButton(
                 child: Icon(
                   Icons.replay,
@@ -251,7 +253,26 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
                 },
               ),
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: heightScreenPercentage * .2,
+                  left: widthScreenPercentage * 0.33),
+              child: RawMaterialButton(
+                child: Icon(
+                  Icons.help_outline_sharp,
+                  color: Colors.black,
+                ),
+                fillColor: Colors.white,
+                elevation: 10,
+                padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                shape: CircleBorder(),
+                onPressed: () {}, //TODO: pantalla de about
+              ),
+            ),
+          ),
         ]),
       ),
       backgroundColor: Colors.white,
@@ -268,7 +289,7 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
               alignment: Alignment.bottomRight,
               child: SvgPicture.asset(
                 widget.versatilidad
-                    ? 'assets/images/versatilidad.svg'
+                    ? 'assets/images/versatilidad-piramides.svg'
                     : 'assets/images/prestigio.svg',
                 width: widthScreenPercentage,
               ),

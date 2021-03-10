@@ -217,27 +217,41 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           colore: ramas ? kColorGrisCards : kColorAzul,
                           //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: () => {
-                            if(ramas){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
-                                Navigator.pop(context);
+                            if (ramas)
+                              {
+                                mostrarAlertaRepetir(
+                                    context,
+                                    "Sección terminada",
+                                    "¿Deseas repetir algún test de esta sección?",
+                                    () {
+                                  Navigator.pop(context);
 
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavegadorRamas_screen(
+                                              carreras: carreras,
+                                              test1: versatilidad,
+                                              test2: prestigio,
+                                              ramas: true),
+                                    ),
+                                  );
+                                })
+                              }
+                            else
+                              {
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras, test1: versatilidad, test2: prestigio, ramas: true),
-                                ),
-                              );})
-                            }
-                            else{
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,test1: versatilidad, test2: prestigio, ramas: true),
-                                ),
-                              )
-                            }
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NavegadorRamas_screen(
+                                        carreras: carreras,
+                                        test1: versatilidad,
+                                        test2: prestigio,
+                                        ramas: true),
+                                  ),
+                                )
+                              }
                           }, //Ir a navegador de ramas
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
@@ -261,8 +275,10 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           colore: impacto ? kColorGrisCards : kColorAmarillo,
                           //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: () {
-                            if(impacto){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
+                            if (impacto) {
+                              mostrarAlertaRepetir(context, "Sección terminada",
+                                  "¿Deseas repetir el test de esta sección?",
+                                  () {
                                 Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras, primeraVez: false),),);
                               });
