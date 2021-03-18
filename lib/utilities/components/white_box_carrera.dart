@@ -6,11 +6,13 @@ class WhiteBoxCarrera extends StatelessWidget {
   final double padRight;
   final double screenWidth;
   final double screenHeight;
+  final double fontSize;
 
   WhiteBoxCarrera(
       {this.carrera,
       this.padLeft = 0,
       this.padRight = 0,
+      this.fontSize = 14,
       @required this.screenWidth,
       @required this.screenHeight});
 
@@ -28,7 +30,7 @@ class WhiteBoxCarrera extends StatelessWidget {
               vertical: screenWidth * 0.06, horizontal: screenWidth * 0.12),
           child: Text(
             carrera,
-            style: TextStyle(fontWeight: FontWeight.w700),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: fontSize),
           ),
           decoration: BoxDecoration(
               borderRadius:

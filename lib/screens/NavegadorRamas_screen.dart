@@ -12,25 +12,27 @@ import 'package:pathapp/screens/capital_relaciones_screen.dart';
 import 'package:pathapp/screens/capital_habilidades_screen.dart';
 import 'package:pathapp/utilities/functions/alerta_repetir_seccion.dart';
 import 'package:pathapp/utilities/textos_about.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NavegadorRamas_screen extends StatelessWidget {
+  NavegadorRamas_screen({this.carreras, this.test1, this.test2, this.ramas});
 
-  NavegadorRamas_screen({this.carreras,this.test1,this.test2, this.ramas});
-
-  final List<dynamic> carreras; //Recibe carreras paara mandarlas al test indicado
+  final List<dynamic>
+      carreras; //Recibe carreras paara mandarlas al test indicado
   final bool test1, test2, ramas;
   //Cuando ramas es True, el navegador es de ramas, cuando es false, es de capital
   //Ramas. Test 1: Versatilidad, Test 2: Prestigio
   //Capital. Test 1: Habilidades, Test 2; Relaciones
 
-  static String id='nav_ramas_screen';
+  static String id = 'nav_ramas_screen';
 
   //Función que indica a que pantalla navegar, dada la seccion actual y el test escogido
-  void navegar(BuildContext context, bool ramas, int test, bool primeraHabilidades){
+  void navegar(
+      BuildContext context, bool ramas, int test, bool primeraHabilidades) {
     //Se encuentra en ramas
-    if(ramas){
+    if (ramas) {
       //Escoge test 1
-      if(test==1){
+      if (test == 1) {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -42,7 +44,7 @@ class NavegadorRamas_screen extends StatelessWidget {
         );
       }
       //Escoge test 2
-      else{
+      else {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -55,18 +57,21 @@ class NavegadorRamas_screen extends StatelessWidget {
       }
     }
     //Se encuentra en Capital
-    else{
+    else {
       //Escoge test 1
-      if(test==1){
+      if (test == 1) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CapitalHabilidadesScreen(carreras: carreras, primeraVez: primeraHabilidades,),
+            builder: (context) => CapitalHabilidadesScreen(
+              carreras: carreras,
+              primeraVez: primeraHabilidades,
+            ),
           ),
         );
       }
       //Escoge test 2
-      else{
+      else {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -77,23 +82,30 @@ class NavegadorRamas_screen extends StatelessWidget {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Container(
-        width: widthScreenPercentage,
-        height: heightScreenPercentage,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            //Imagen de fondo, depende del test actual
-              image: AssetImage("assets/images/desiertoFondo.png"), //TODO: ramas ? "assets/images/desiertoFondo.png" : "elegir imagen de capital"
-              fit: BoxFit.cover),
-        ),
-        child: SafeArea(
+      backgroundColor: kColorNoche,
+      body: Stack(children: [
+        ramas
+            ? Container(
+                width: widthScreenPercentage,
+                height: heightScreenPercentage,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/desiertoFondo.png"),
+                      fit: BoxFit.cover),
+                ),
+              )
+            : SvgPicture.asset(
+                'assets/images/navegadorCap.svg',
+                width: widthScreenPercentage,
+                height: heightScreenPercentage,
+              ),
+        SafeArea(
           child: Stack(children: [
             //Botón para navegar hacia atras
             backButton(
@@ -119,66 +131,87 @@ class NavegadorRamas_screen extends StatelessWidget {
                         EdgeInsets.only(top: heightScreenPercentage * 0.07),
                     //Primer boton para primer test
                     child: RoundedButtonAmatic(
-                      titleText: ramas? "Versatilidad" : "Capital de Habilidades", //Se pone el nombre del primer test correspondiente
+                      titleText: ramas
+                          ? "Versatilidad"
+                          : "Capital de Habilidades", //Se pone el nombre del primer test correspondiente
                       screenHeight: heightScreenPercentage * 1.2,
-                      colorProperty: test1 ? kColorGrisCards.withOpacity(0.75): kColorBlancoOpaco,
+                      colorProperty: test1
+                          ? kColorGrisCards.withOpacity(0.75)
+                          : kColorBlancoOpaco,
                       widthHeight: widthScreenPercentage * 1.2,
                       textSize: 3.7,
                       //Si ya se habia realizado el test, se muestra alerta
                       onPressedFunction: () {
-                        if(test1){
-                          mostrarAlertaRepetir(context, "Test terminado", "¿Deseas repetir este test?", (){
+                        if (test1) {
+                          mostrarAlertaRepetir(context, "Test terminado",
+                              "¿Deseas repetir este test?", () {
                             Navigator.pop(context);
-                            navegar(context, ramas, 1, false); //Se llama funcion para navegar al test 1
-                        });
-                        }
-                        else{
+                            navegar(context, ramas, 1,
+                                false); //Se llama funcion para navegar al test 1
+                          });
+                        } else {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => aboutScreen(
-                                titulo: ramas ? kAboutVersatilidadTitulo : kAboutCapitalHabilidadesTitulo,
-                                cuerpo: ramas ? kAboutVersatilidadCuerpo : kAboutCapitalHabilidadesCuerpo,
-                                navegar: (){
+                                titulo: ramas
+                                    ? kAboutVersatilidadTitulo
+                                    : kAboutCapitalHabilidadesTitulo,
+                                cuerpo: ramas
+                                    ? kAboutVersatilidadCuerpo
+                                    : kAboutCapitalHabilidadesCuerpo,
+                                navegar: () {
                                   Navigator.pop(context);
-                                  navegar(context, ramas, 1, true); //Se llama funcion para navegar al test 1
-                              },),
+                                  navegar(context, ramas, 1,
+                                      true); //Se llama funcion para navegar al test 1
+                                },
+                              ),
                             ),
                           );
                         }
-
                       },
                     ),
                   ),
                   //Segundo boton para segundo test
                   RoundedButtonAmatic(
-                    titleText: ramas? "Prestigio": "Capital de relaciones", //Se pone el nombre del segundo test correspondiente
+                    titleText: ramas
+                        ? "Prestigio"
+                        : "Capital de relaciones", //Se pone el nombre del segundo test correspondiente
                     screenHeight: heightScreenPercentage * 1.2,
-                    colorProperty: test2 ? kColorGrisCards.withOpacity(0.75): kColorBlancoOpaco,
+                    colorProperty: test2
+                        ? kColorGrisCards.withOpacity(0.75)
+                        : kColorBlancoOpaco,
                     widthHeight: widthScreenPercentage * 1.2,
                     textSize: 3.7,
 
                     //Si ya se habia realizado el test, se muestra alerta
                     onPressedFunction: () {
-                      if(test2){
-                        mostrarAlertaRepetir(context, "Test terminado", "¿Deseas repetir este test?", (){
+                      if (test2) {
+                        mostrarAlertaRepetir(context, "Test terminado",
+                            "¿Deseas repetir este test?", () {
                           Navigator.pop(context);
-                          navegar(context, ramas, 2, false); //Se llama funcion para navegar al test 2
+                          navegar(context, ramas, 2,
+                              false); //Se llama funcion para navegar al test 2
                         });
-                      }
-                      else{
+                      } else {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => aboutScreen(
-                                titulo: ramas ? kAboutPrestigioTitulo : kAboutCapitalRelacionesTitulo,
-                                cuerpo: ramas ? kAboutPrestigioCuerpo : kAboutCapitalRelacionesCuerpo,
-                                navegar: (){
-                                  Navigator.pop(context);
-                                  navegar(context, ramas, 2, false); //Se llama funcion para navegar al test 2
-                              },),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => aboutScreen(
+                              titulo: ramas
+                                  ? kAboutPrestigioTitulo
+                                  : kAboutCapitalRelacionesTitulo,
+                              cuerpo: ramas
+                                  ? kAboutPrestigioCuerpo
+                                  : kAboutCapitalRelacionesCuerpo,
+                              navegar: () {
+                                Navigator.pop(context);
+                                navegar(context, ramas, 2,
+                                    false); //Se llama funcion para navegar al test 2
+                              },
                             ),
-                          );
+                          ),
+                        );
                       }
                     },
                   ),
@@ -187,7 +220,7 @@ class NavegadorRamas_screen extends StatelessWidget {
             ),
           ]),
         ),
-      ),
+      ]),
     );
   }
 }
