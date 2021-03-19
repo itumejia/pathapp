@@ -114,6 +114,9 @@ class CapitalHabilidadesScreen extends StatelessWidget {
                   builder: (context) => aboutScreen(
                     titulo: kAboutCapitalHabilidadesTitulo,
                     cuerpo: kAboutHabilidades2Cuerpo,
+                    image: "assets/images/navegadorCap.svg",
+                    colorFondo: kColorNoche,
+                    colorTexto: Colors.black,
                     navegar: (){
                       Navigator.pop(context);
                       //Ir a HabilidadesPersona con el objeto habCarreras
@@ -202,7 +205,20 @@ class CapitalHabilidadesScreen extends StatelessWidget {
                 elevation: 10,
                 padding: EdgeInsets.all(widthScreenPercentage * 0.02),
                 shape: CircleBorder(),
-                onPressed: () {}, //TODO: pantalla de about
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => aboutScreen(
+                        titulo: kAboutCapitalHabilidadesTitulo,
+                        cuerpo: kAboutHabilidades2Cuerpo,
+                        image: "assets/images/navegadorCap.svg",
+                        colorFondo: kColorNoche,
+                        colorTexto: Colors.black,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

@@ -211,6 +211,9 @@ class _areasEstudioScreenState extends State<areasEstudioScreen> {
                                     builder: (context) => aboutScreen(
                                       titulo: kAboutSeccionesTitulo,
                                       cuerpo: kAboutSeccionesCuerpo,
+                                      image: "assets/images/efectosFondo2.svg",
+                                      colorFondo: kColorMorado,
+                                      colorTexto: kColorAzulMarino,
                                       navegar: (){
                                         Navigator.pop(context);
                                         Navigator.pushReplacementNamed(

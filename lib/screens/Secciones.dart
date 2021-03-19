@@ -289,6 +289,9 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                   builder: (context) => aboutScreen(
                                     titulo: kAboutProblemasTitulo,
                                     cuerpo: kAboutProblemasCuerpo,
+                                    image: "assets/images/efectosFondo2.svg",
+                                    colorFondo: kColorMorado,
+                                    colorTexto: kColorAzulMarino,
                                     navegar: (){
                                       Navigator.pop(context);
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras, primeraVez: true),),);
@@ -390,6 +393,9 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                   builder: (context) => aboutScreen(
                                     titulo: kAboutPersonalTitulo,
                                     cuerpo: kAboutPersonalCuerpo,
+                                    image: "assets/images/efectosFondo2.svg",
+                                    colorFondo: kColorMorado,
+                                    colorTexto: kColorAzulMarino,
                                     navegar: (){
                                       Navigator.pop(context);
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => Valores(carreras: carreras, primeraVez: true),),);
@@ -428,6 +434,9 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                 builder: (context) => aboutScreen(
                                     titulo: kAboutSeccionesTitulo,
                                   cuerpo: kAboutSeccionesCuerpo,
+                                  image: "assets/images/efectosFondo2.svg",
+                                  colorFondo: kColorMorado,
+                                  colorTexto: kColorAzulMarino,
                                 ),
                               ),
                             );

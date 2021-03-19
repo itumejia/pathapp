@@ -357,6 +357,9 @@ class _problemasMundoState extends State<problemasMundo> {
                                 builder: (context) => aboutScreen(
                                   titulo: kAboutProblemasTitulo,
                                   cuerpo: kAboutProblemas2Cuerpo,
+                                  image: "assets/images/efectosFondo2.svg",
+                                  colorFondo: kColorUniverso,
+                                  colorTexto: kColorUniverso,
                                   navegar: (){
                                     Navigator.pop(context);
                                     Navigator.push(
@@ -399,6 +402,9 @@ class _problemasMundoState extends State<problemasMundo> {
                         builder: (context) => aboutScreen(
                           titulo: kAboutProblemasTitulo,
                           cuerpo: kAboutProblemasCuerpo,
+                          image: "assets/images/efectosFondo2.svg",
+                          colorFondo: kColorUniverso,
+                          colorTexto: kColorUniverso,
                         ),
                       ),
                     );

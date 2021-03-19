@@ -83,6 +83,9 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                                   builder: (context) => aboutScreen(
                                     titulo: kAboutCapitalHabilidadesTitulo,
                                     cuerpo: kAboutHabilidades2Cuerpo,
+                                    image: "assets/images/navegadorCap.svg",
+                                    colorFondo: kColorNoche,
+                                    colorTexto: Colors.black,
                                   ),
                                 ),
                               );
