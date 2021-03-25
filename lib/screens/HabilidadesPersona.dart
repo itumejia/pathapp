@@ -60,6 +60,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
 
   @override
   Widget build(BuildContext context) {
+
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -98,6 +99,7 @@ class _HabilidadesPersonaState extends State<HabilidadesPersona> {
                           diamond(diamondSize: widthScreenPercentage * 0.05),
                           Container(
                             width: widthScreenPercentage * 0.045,
+
                           ),
                           fontStyleAmaranth(
                             text:

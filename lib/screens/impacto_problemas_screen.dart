@@ -134,6 +134,9 @@ class _impactoProblemasState extends State<impactoProblemas> {
                             builder: (context) => aboutScreen(
                               titulo: kAboutProblemasTitulo,
                               cuerpo: kAboutProblemas2Cuerpo,
+                              image: "assets/images/efectosFondo2.svg",
+                              colorFondo: kColorUniverso,
+                              colorTexto: kColorUniverso,
                             ),
                           ),
                         );

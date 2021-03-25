@@ -12,6 +12,7 @@ import 'package:pathapp/utilities/functions/firebaseFunctions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
+import 'package:responsive_flutter/responsive_flutter.dart';
 
 //Clase para carreras con sus resultados
 class CarreraRes{
@@ -125,22 +126,22 @@ class _resultadosScreenState extends State<resultadosScreen> {
   //CIRCULAR---------------------------
   //Lista de colores para las 4 posibles carreras a mostrar
   List<Color> colorList=[
-    Color(0xFF576EF2),
-    Color(0xFFF2B84B),
-    Color(0xFFF29544),
-    Color(0xFFBF7E78),
+    kColorAzulGrafica,
+    kColorAmarilloGrafica,
+    kColorNaranjaGrafica,
+    kColorRosaGrafica,
   ];
 
   //BARRAS----------------------------
 
   //Método que recibe datos de un test para construir la gráfica de barras
-  Widget buildChart(TestData data){
+  Widget buildChart(TestData data, widthScreenPercentage, heightScreenPercentage){
 
     List<BarChartGroupData> barrasChart=[];
 
     //Dados los datos de un test, verificar si el puntaje es mayor a 0, si sí, añadir al
     //arreglo de barras de la gráfica, una barra con los datos dados
-    void cleanData(int index, double value, Color colore){
+    void cleanData(int index, double value, Color colore, widthScreenPercentage){
       if(value>0){
         barrasChart.add(BarChartGroupData(
           x: index,
@@ -148,8 +149,8 @@ class _resultadosScreenState extends State<resultadosScreen> {
             BarChartRodData(
               y: value,
               colors: [colore],
-              width: MediaQuery.of(context).size.width*0.1,
-              borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width*0.02)),
+              width: widthScreenPercentage*0.1,
+              borderRadius: BorderRadius.all(Radius.circular(widthScreenPercentage*0.02)),
             )
           ],
           showingTooltipIndicators: [0],
@@ -160,7 +161,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
 
     //Recorrer el arreglo de puntajes y despreciar aquellos cuyo resultado sea 0
     for(int i=0;i<data.puntajes.length;i++){
-      cleanData(i, data.puntajes[i].resultado, colorList[i]);
+      cleanData(i, data.puntajes[i].resultado, colorList[i], widthScreenPercentage);
     }
 
     //Contruir la gráfica de barras
@@ -183,7 +184,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
               return BarTooltipItem( //Estilo de los números de arriba
                 rod.y.round().toString(),
                 GoogleFonts.adventPro(
-                    fontSize: MediaQuery.of(context).size.height*0.03,
+                    fontSize: ResponsiveFlutter.of(context).fontSize(2.5),
                     fontWeight: FontWeight.bold,
                     color: Colors.black
                 ),
@@ -195,10 +196,10 @@ class _resultadosScreenState extends State<resultadosScreen> {
           show: true,
           bottomTitles: SideTitles( //Estilo de los títulos de las columnas
             showTitles: true,
-            getTextStyles: (value) => const TextStyle(
-              color: Color(0xff7589a2),
+            getTextStyles: (value) => TextStyle(
+              color: kColorGrisGrafica,
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: ResponsiveFlutter.of(context).fontSize(1.7),
             ),
             margin: 10,
             //Obtener los títulos de la gráfica, se consideran los casos en los que haya menos de 4 carreras
@@ -243,7 +244,8 @@ class _resultadosScreenState extends State<resultadosScreen> {
           leftTitles: SideTitles(
             showTitles: true,
             interval: (100/4).roundToDouble(), //Intervalo para líneas horizontales
-            reservedSize: 20, //Espacio reservado para la barra lateral de escala
+            reservedSize: 25, //Espacio reservado para la barra lateral de escala
+            getTextStyles: (double a){return TextStyle(fontSize: ResponsiveFlutter.of(context).scale(8), color: Colors.black);}
           ),
         ),
         borderData: FlBorderData( //Marco que encierra las barras
@@ -376,7 +378,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
                               showLegends: true,
                               legendShape: BoxShape.circle,
                               legendTextStyle: GoogleFonts.adventPro(
-                                fontSize: 20,
+                                fontSize: ResponsiveFlutter.of(context).fontSize(2.5),
                               ),
                             ),
                             chartValuesOptions: circularChart.ChartValuesOptions(
@@ -385,7 +387,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
                               showChartValuesInPercentage: true,
                               showChartValuesOutside: false,
                               chartValueStyle: GoogleFonts.adventPro(
-                                  fontSize: 15,
+                                  fontSize: ResponsiveFlutter.of(context).fontSize(2),
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black
                               ),
@@ -395,7 +397,7 @@ class _resultadosScreenState extends State<resultadosScreen> {
                         SizedBox(height: 0.05 * heightScreenPercentage,),
                         Container(
                           width: 0.8 * widthScreenPercentage,
-                          height: 0.5 * heightScreenPercentage,
+                          height: 0.52 * heightScreenPercentage,
                           //Cuando no se han procesado los datos, devuelve el container vacío, si
                           //ya se cargaron, muestra el scroll con GRÁFICAS DE BARRAS
                           child: procesado.length==0?Container():ListView.builder(
@@ -407,19 +409,16 @@ class _resultadosScreenState extends State<resultadosScreen> {
                                       height: 0.5 * heightScreenPercentage,
                                       child: Column(
                                       children: <Widget>[
-                                        Text(
-                                          procesado[1][index].test, //Nombre del test de la gráfica
-                                          style: GoogleFonts.adventPro(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black
-                                          ),
+                                        fontStyleDidactGothic(
+                                            text: procesado[1][index].test, //Nombre del test de la gráfica
+                                            sizePercentage: 1.8,
+                                            color: Colors.black
                                         ),
                                         SizedBox(height: heightScreenPercentage*0.07,),
                                         Container(
                                           width: 0.7 * widthScreenPercentage,
                                           height: 0.4 * heightScreenPercentage,
-                                          child: buildChart(procesado[1][index]), //Construir gráfica de barras
+                                          child: buildChart(procesado[1][index], widthScreenPercentage, heightScreenPercentage), //Construir gráfica de barras
                                         )
                                       ],
                                       ),

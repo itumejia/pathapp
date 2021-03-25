@@ -247,6 +247,9 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
                         cuerpo: widget.versatilidad
                             ? kAboutVersatilidadCuerpo
                             : kAboutPrestigioCuerpo,
+                        image: "assets/images/versatilidadFondo.svg",
+                        colorFondo: kColorNoche,
+                        colorTexto: Colors.black,
                       ),
                     ),
                   );
