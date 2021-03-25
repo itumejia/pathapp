@@ -147,21 +147,24 @@ class NavegadorRamas_screen extends StatelessWidget {
                               "¿Deseas repetir este test?", () {
                             Navigator.pop(context);
 
-                            navegar(context, ramas, 1, false); //Se llama funcion para navegar al test 1
-                        });
-                        }
-                        else{
+                            navegar(context, ramas, 1,
+                                false); //Se llama funcion para navegar al test 1
+                          });
+                        } else {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => aboutScreen(
-                                titulo: ramas ? kAboutVersatilidadTitulo : kAboutCapitalHabilidadesTitulo,
-                                cuerpo: ramas ? kAboutVersatilidadCuerpo : kAboutCapitalHabilidadesCuerpo,
+                                titulo: ramas
+                                    ? kAboutVersatilidadTitulo
+                                    : kAboutCapitalHabilidadesTitulo,
+                                cuerpo: ramas
+                                    ? kAboutVersatilidadCuerpo
+                                    : kAboutCapitalHabilidadesCuerpo,
                                 image: "assets/images/desiertoFondoS.svg",
                                 colorFondo: kColorNoche,
                                 colorTexto: Colors.black,
-                                navegar: (){
-
+                                navegar: () {
                                   Navigator.pop(context);
                                   navegar(context, ramas, 1,
                                       true); //Se llama funcion para navegar al test 1
@@ -196,18 +199,23 @@ class NavegadorRamas_screen extends StatelessWidget {
                         });
                       } else {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => aboutScreen(
-                                titulo: ramas ? kAboutPrestigioTitulo : kAboutCapitalRelacionesTitulo,
-                                cuerpo: ramas ? kAboutPrestigioCuerpo : kAboutCapitalRelacionesCuerpo,
-                                image: "assets/images/desiertoFondoS.svg",
-                                colorFondo: kColorNoche,
-                                colorTexto: Colors.black,
-                                navegar: (){
-                                  Navigator.pop(context);
-                                  navegar(context, ramas, 2, false); //Se llama funcion para navegar al test 2
-                              },),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => aboutScreen(
+                              titulo: ramas
+                                  ? kAboutPrestigioTitulo
+                                  : kAboutCapitalRelacionesTitulo,
+                              cuerpo: ramas
+                                  ? kAboutPrestigioCuerpo
+                                  : kAboutCapitalRelacionesCuerpo,
+                              image: "assets/images/desiertoFondoS.svg",
+                              colorFondo: kColorNoche,
+                              colorTexto: Colors.black,
+                              navegar: () {
+                                Navigator.pop(context);
+                                navegar(context, ramas, 2,
+                                    false); //Se llama funcion para navegar al test 2
+                              },
                             ),
                           ),
                         );
