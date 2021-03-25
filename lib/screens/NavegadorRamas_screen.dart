@@ -133,12 +133,16 @@ class NavegadorRamas_screen extends StatelessWidget {
                         });
                         }
                         else{
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => aboutScreen(
                                 titulo: ramas ? kAboutVersatilidadTitulo : kAboutCapitalHabilidadesTitulo,
                                 cuerpo: ramas ? kAboutVersatilidadCuerpo : kAboutCapitalHabilidadesCuerpo,
+                                image: "assets/images/desiertoFondoS.svg",
+                                colorFondo: kColorNoche,
+                                colorTexto: Colors.black,
                                 navegar: (){
                                   Navigator.pop(context);
                                   navegar(context, ramas, 1, true); //Se llama funcion para navegar al test 1
@@ -173,6 +177,9 @@ class NavegadorRamas_screen extends StatelessWidget {
                               builder: (context) => aboutScreen(
                                 titulo: ramas ? kAboutPrestigioTitulo : kAboutCapitalRelacionesTitulo,
                                 cuerpo: ramas ? kAboutPrestigioCuerpo : kAboutCapitalRelacionesCuerpo,
+                                image: "assets/images/desiertoFondoS.svg",
+                                colorFondo: kColorNoche,
+                                colorTexto: Colors.black,
                                 navegar: (){
                                   Navigator.pop(context);
                                   navegar(context, ramas, 2, false); //Se llama funcion para navegar al test 2

@@ -342,6 +342,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       builder: (context) => aboutScreen(
                                         titulo: kAboutBienvenidaTitulo,
                                         cuerpo: kAboutBienvenidaCuerpo,
+                                        image: "assets/images/efectosFondo2.svg",
+                                        colorFondo: kColorMorado,
+                                        colorTexto: kColorAzulMarino,
                                         navegar: (){
                                           //Se cierra about de bienvenida y se abre about de carreras
                                           Navigator.pop(context);
@@ -351,6 +354,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               builder: (context) => aboutScreen(
                                                 titulo: kAboutCarrerasTitulo,
                                                 cuerpo: kAboutCarrerasCuerpo,
+                                                image: "assets/images/efectosFondo2.svg",
+                                                colorFondo: kColorMorado,
+                                                colorTexto: kColorAzulMarino,
                                                 navegar: (){
                                                   //Se cierra about de carreras y se abre pantalla de introducción de carreras
                                                   Navigator.pop(context);

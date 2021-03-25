@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pathapp/utilities/components/count_button.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
 import 'package:pathapp/utilities/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,10 +12,13 @@ class aboutScreen extends StatelessWidget {
   static String id = 'about_screen';
   final String titulo; //Encabezado de pantalla
   final String cuerpo; //Cuerpo de pantalla
+  final String image;
+  final Color colorFondo;
+  final Color colorTexto;
 
   Function navegar;
 
-  aboutScreen({@required this.titulo, @required this.cuerpo,this.navegar}); //Recibe titulo y cuerpo como parametros
+  aboutScreen({@required this.titulo, @required this.cuerpo,this.navegar, this.image, this.colorFondo, this.colorTexto}); //Recibe titulo y cuerpo como parametros
 
 
   @override
@@ -22,13 +26,12 @@ class aboutScreen extends StatelessWidget {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: kColorMorado,
+      backgroundColor: colorFondo,
       body: Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: heightScreenPercentage * 0.06),
+          Container(
             child: SvgPicture.asset(
-              'assets/images/efectosFondo2.svg',
+              image,
               //La imagen ocupa el 80% de la pantalla
               width: widthScreenPercentage,
             ),
@@ -42,7 +45,7 @@ class aboutScreen extends StatelessWidget {
             child: Center(
               child: Container(
                 width: widthScreenPercentage * 0.75,
-                height: heightScreenPercentage * 0.78,
+                height: heightScreenPercentage * 0.7,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -66,7 +69,7 @@ class aboutScreen extends StatelessWidget {
                       child: fontStyleMPlus(
                           text: titulo,
                           sizePercentage: 3.5,
-                          color: kColorAzulMarino),
+                          color: colorTexto),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -74,15 +77,15 @@ class aboutScreen extends StatelessWidget {
                       child: Container(
                         width: widthScreenPercentage * 0.4,
                         height: heightScreenPercentage * 0.002,
-                        color: kColorAzulMarino,
+                        color: colorTexto,
                       ),
                     ),
                     Container(
                       width: widthScreenPercentage * 0.65,
-                      height: heightScreenPercentage * 0.52,
+                      height: heightScreenPercentage * 0.48,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: kColorAzulMarino,
+                          color: colorTexto,
                           width: widthScreenPercentage * 0.003,
                         ),
                         borderRadius: BorderRadius.all(
@@ -97,29 +100,34 @@ class aboutScreen extends StatelessWidget {
                                 text: cuerpo,
                                 sizePercentage: 2,
                                 textAlign: TextAlign.justify,
-                                color: kColorAzulMarino),
+                                color: colorTexto),
                           ]
                         ),
                       ),
                     ),
-                    Opacity(
-                      opacity: navegar == null ? 0 : 1,
-                      child: RoundedButton(
-                        screenHeight: heightScreenPercentage,
-                        titleText: 'SIGUIENTE',
-                        colorProperty: Colors.blue,
-                        onPressedFunction: () {
-                          if (navegar != null)
-                          {
-                            print("button pressed");
-                            navegar();
-                            //Navegar a pantalla de resultados
-                          }
-                        },
-                      ),
-                    ),
                   ],
                 ),
+              ),
+            ),
+          ),
+          navegar == null ? SizedBox(height: 0) : Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(bottom: heightScreenPercentage * 0.03),
+              child: CountButton(
+                screenWidth: widthScreenPercentage * 0.9,
+                screenHeight: heightScreenPercentage * 0.1,
+                text: "CONTINUAR",
+                color: kColorBlancoOpaco,
+                fontcolor: colorTexto,
+                function: () {
+                  if (navegar != null)
+                  {
+                    print("button pressed");
+                    navegar();
+                    //Navegar a pantalla de resultados
+                  }
+                },
               ),
             ),
           )

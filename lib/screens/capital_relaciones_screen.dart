@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/components/relaciones_rating.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,7 @@ import 'package:pathapp/utilities/constants.dart';
 import 'package:pathapp/utilities/functions/alerta.dart';
 import 'package:pathapp/screens/sesion_screen.dart';
 import 'package:pathapp/utilities/components/backButton.dart';
+import 'package:pathapp/utilities/textos_about.dart';
 import '../utilities/components/diamond.dart';
 import '../utilities/components/roundedContainer.dart';
 import 'package:pathapp/utilities/components/fonts.dart';
@@ -176,7 +178,20 @@ class _CapitalRelacionesScreenState extends State<CapitalRelacionesScreen> {
                   elevation: 10,
                   padding: EdgeInsets.all(widthScreenPercentage * 0.02),
                   shape: CircleBorder(),
-                  onPressed: () {}, //TODO: pantalla de about
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => aboutScreen(
+                          titulo: kAboutCapitalRelacionesTitulo,
+                          cuerpo: kAboutCapitalRelacionesCuerpo,
+                          image: "assets/images/navegadorCap.svg",
+                          colorFondo: kColorNoche,
+                          colorTexto: Colors.black,
+                          ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

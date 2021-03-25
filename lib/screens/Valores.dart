@@ -58,6 +58,9 @@ class _ValoresState extends State<Valores> {
                   builder: (context) => aboutScreen(
                     titulo: kAboutPersonalTitulo,
                     cuerpo: kAboutPersonal2Cuerpo,
+                    image: "assets/images/efectosFondo2.svg",
+                    colorFondo: kColorMorado,
+                    colorTexto: kColorAzulMarino,
                     navegar: (){
                       Navigator.pop(context);
                       Navigator.push(
