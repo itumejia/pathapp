@@ -8,7 +8,13 @@ class RatingRowProblemas extends StatefulWidget {
   _RatingRowProblemasState createState() => _RatingRowProblemasState();
   final CarreraRating carreraPair; //Objeto con una carrera y su puntaje
   final Color colore;
-  RatingRowProblemas({this.carreraPair, this.colore});
+  final double width;
+  final double height;
+  RatingRowProblemas(
+      {@required this.carreraPair,
+      @required this.colore,
+      @required this.width,
+      @required this.height});
   int rating;
 }
 
@@ -18,17 +24,17 @@ class _RatingRowProblemasState extends State<RatingRowProblemas> {
     return Row(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.all(10.0),
-          padding: EdgeInsets.all(8.0),
+          margin: EdgeInsets.all(widget.width * 0.025),
+          padding: EdgeInsets.all(widget.width * 0.02),
           alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width*0.2,
-          height: 50.0,
+          width: widget.width * 0.250,
+          height: widget.height * 0.067,
           child: Text(
             widget.carreraPair.carrera,
             textAlign: TextAlign.center,
           ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(widget.width * 0.025),
             border: Border.all(color: widget.colore),
           ),
         ),
@@ -36,51 +42,56 @@ class _RatingRowProblemasState extends State<RatingRowProblemas> {
           value: 1,
           groupValue: widget.carreraPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.carreraPair.setRating(value);
             });
           },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         Radio(
           value: 2,
           groupValue: widget.carreraPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.carreraPair.setRating(value);
             });
           },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         Radio(
           value: 3,
           groupValue: widget.carreraPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.carreraPair.setRating(value);
             });
           },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         Radio(
           value: 4,
           groupValue: widget.carreraPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.carreraPair.setRating(value);
             });
           },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         Radio(
           value: 5,
           groupValue: widget.carreraPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.carreraPair.setRating(value);
             });
           },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ],
     );

@@ -7,7 +7,14 @@ class RatingRow extends StatefulWidget {
   _RatingRowState createState() => _RatingRowState();
   final HabilidadRating habilidadPair;
   final Color colore;
-  RatingRow({this.habilidadPair, this.colore});
+  final double width;
+  final double height;
+
+  RatingRow(
+      {@required this.habilidadPair,
+      @required this.colore,
+      @required this.width,
+      @required this.height});
   int rating;
 }
 
@@ -15,73 +22,78 @@ class _RatingRowState extends State<RatingRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: <Widget>[
+      children: <Widget>[
         Container(
-          margin: EdgeInsets.all(10.0),
-          padding: EdgeInsets.all(8.0),
+          margin: EdgeInsets.all(widget.width * 0.025),
+          padding: EdgeInsets.all(widget.width * 0.02),
           alignment: Alignment.center,
-          width: 110.0,
-          height: 50.0,
+          width: widget.width * 0.250,
+          height: widget.height * 0.067,
           child: Text(
             widget.habilidadPair.habilidad,
             textAlign: TextAlign.center,
           ),
           decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: widget.colore),
+            borderRadius: BorderRadius.circular(widget.width * 0.025),
+            border: Border.all(color: widget.colore),
           ),
-          ),
-          Radio(
+        ),
+        Radio(
           value: 1,
           groupValue: widget.habilidadPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.habilidadPair.setRating(value);
             });
-            },
-          ),
-          Radio(
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        Radio(
           value: 2,
           groupValue: widget.habilidadPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
-            widget.habilidadPair.setRating(value);
+              widget.habilidadPair.setRating(value);
             });
-            },
-          ),
-          Radio(
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        Radio(
           value: 3,
           groupValue: widget.habilidadPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.habilidadPair.setRating(value);
             });
-            },
-          ),
-          Radio(
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        Radio(
           value: 4,
           groupValue: widget.habilidadPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
+          onChanged: (int value) {
             setState(() {
               widget.habilidadPair.setRating(value);
             });
-            },
-          ),
-          Radio(
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        Radio(
           value: 5,
           groupValue: widget.habilidadPair.getRating(),
           activeColor: widget.colore,
-          onChanged: (int value){
-              setState(() {
-                widget.habilidadPair.setRating(value);
-              });
-              },
-    ),
-    ],
+          onChanged: (int value) {
+            setState(() {
+              widget.habilidadPair.setRating(value);
+            });
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+      ],
     );
   }
 }

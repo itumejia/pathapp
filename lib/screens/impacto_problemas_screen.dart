@@ -30,11 +30,12 @@ class impactoProblemas extends StatefulWidget {
 
 class _impactoProblemasState extends State<impactoProblemas> {
   int indexProblema = 0; //Problema actual del arreglo
-  bool finish= false;
+  bool finish = false;
   User loggedUser;
-  final _cloud=FirebaseFirestore.instance.collection('/usuarios');
+  final _cloud = FirebaseFirestore.instance.collection('/usuarios');
   bool saving = false;
-  Map<String, double> promediosPorCarrera={}; //Map a subir a la base de datos, con carreras y promedios
+  Map<String, double> promediosPorCarrera =
+      {}; //Map a subir a la base de datos, con carreras y promedios
 
   void getCurrentUser() async {
     try {
@@ -44,28 +45,34 @@ class _impactoProblemasState extends State<impactoProblemas> {
         print(loggedUser.email);
       }
     } on FirebaseAuthException catch (e) {
-      mostrarAlerta(context, "Usuario no identificado", e.message );
+      mostrarAlerta(context, "Usuario no identificado", e.message);
       Navigator.pushReplacementNamed(context, sesionScreen.id);
       print(e);
     }
   }
 
   //Método para generar el número suficiente de RatingRowProblemas para cada problema, según el núm de carreras
-  List<RatingRowProblemas> filasCalificar(CarrerasPorProblema problemaAct){
-    List<RatingRowProblemas> filas=[];
+  List<RatingRowProblemas> filasCalificar(
+      CarrerasPorProblema problemaAct, double width, double height) {
+    List<RatingRowProblemas> filas = [];
     print(problemaAct.getAllCarreras().length);
-    for(int i=0;i<problemaAct.getAllCarreras().length;i++) {
-      filas.add(RatingRowProblemas(carreraPair: problemaAct.getCarrera(i), colore: Colors.blue));
+    for (int i = 0; i < problemaAct.getAllCarreras().length; i++) {
+      filas.add(RatingRowProblemas(
+        carreraPair: problemaAct.getCarrera(i),
+        colore: Colors.blue,
+        width: width,
+        height: height,
+      ));
     }
     print(filas.length);
     return filas;
   }
 
   //Crear un map con las carreras y su promedio, inicializados en 0
-  Map<String, double> createMapPromedio(){
-    Map<String,double> mapReturn={};
-    for(int i=0;i<widget.problemas[0].getNumCarreras();i++){
-      mapReturn[widget.problemas[0].getCarrera(i).carrera]=0;
+  Map<String, double> createMapPromedio() {
+    Map<String, double> mapReturn = {};
+    for (int i = 0; i < widget.problemas[0].getNumCarreras(); i++) {
+      mapReturn[widget.problemas[0].getCarrera(i).carrera] = 0;
     }
     return mapReturn;
   }
@@ -98,15 +105,17 @@ class _impactoProblemasState extends State<impactoProblemas> {
                 ),
               ),
               backButton(
-                //Controlar la navegación hacia atrás en el arreglo
+                  //Controlar la navegación hacia atrás en el arreglo
                   on_pressed: () {
-                    if(indexProblema>0){
+                    if (indexProblema > 0) {
                       setState(() {
                         indexProblema--;
                       });
-                    }else{
-                      Navigator.pop(context); //Si está en el primer problema, lo regresa a la pantalla anterior
-                    };
+                    } else {
+                      Navigator.pop(
+                          context); //Si está en el primer problema, lo regresa a la pantalla anterior
+                    }
+                    ;
                   },
                   screenWidth: widthScreenPercentage),
               Align(
@@ -165,14 +174,16 @@ class _impactoProblemasState extends State<impactoProblemas> {
                           EdgeInsets.only(top: heightScreenPercentage * 0.21),
                       child: Container(
                         width: widthScreenPercentage * 0.85,
-                        height: heightScreenPercentage * 0.13 * widget.problemas[0].getNumCarreras(),
+                        height: heightScreenPercentage *
+                            0.13 *
+                            widget.problemas[0].getNumCarreras(),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topRight:
                                   Radius.circular(widthScreenPercentage * 0.13),
-                              bottomLeft:
-                                  Radius.circular(widthScreenPercentage * 0.13)),
+                              bottomLeft: Radius.circular(
+                                  widthScreenPercentage * 0.13)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,8 +191,10 @@ class _impactoProblemasState extends State<impactoProblemas> {
                             Padding(
                               padding: EdgeInsets.only(
                                   top: heightScreenPercentage * 0.015),
-                              child: fontStyleMPlus( //Mostrar el problema que está siendo calificado
-                                  text: widget.problemas[indexProblema].getProblema(),
+                              child: fontStyleMPlus(
+                                  //Mostrar el problema que está siendo calificado
+                                  text: widget.problemas[indexProblema]
+                                      .getProblema(),
                                   sizePercentage: 3,
                                   color: Colors.black),
                             ),
@@ -189,19 +202,23 @@ class _impactoProblemasState extends State<impactoProblemas> {
                               padding: EdgeInsets.only(
                                   bottom: heightScreenPercentage * 0.025),
                               child: Container(
-                                  width: widthScreenPercentage * 0.4,
-                                  height: heightScreenPercentage * 0.0015,
-                                  color: Colors.black,
+                                width: widthScreenPercentage * 0.4,
+                                height: heightScreenPercentage * 0.0015,
+                                color: Colors.black,
                               ),
                             ),
                             Container(
-                              width: widthScreenPercentage * 0.85,
-                              height: heightScreenPercentage * 0.1 * widget.problemas[0].getNumCarreras(),
-                              child: ListView(
-                                shrinkWrap: true,
-                                children: filasCalificar(widget.problemas[indexProblema]), //Mostrar las filas para calificar
-                              )
-                            )
+                                width: widthScreenPercentage * 0.85,
+                                height: heightScreenPercentage *
+                                    0.1 *
+                                    widget.problemas[0].getNumCarreras(),
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: filasCalificar(
+                                      widget.problemas[indexProblema],
+                                      widthScreenPercentage,
+                                      heightScreenPercentage), //Mostrar las filas para calificar
+                                ))
                           ],
                         ),
                       ),
@@ -212,43 +229,55 @@ class _impactoProblemasState extends State<impactoProblemas> {
                       child: CountButton(
                         screenWidth: widthScreenPercentage,
                         screenHeight: heightScreenPercentage,
-                        text: indexProblema<widget.problemas.length-1?'CONTINUAR':'FINALIZAR',
+                        text: indexProblema < widget.problemas.length - 1
+                            ? 'CONTINUAR'
+                            : 'FINALIZAR',
                         color: kColorBlancoOpaco,
                         fontcolor: kColorUniverso,
                         function: () async {
                           //Controlar la navegación hacia adelante en el arreglo, comprobando si ya está en el último
                           setState(() {
-                            if(indexProblema<widget.problemas.length-1){
+                            if (indexProblema < widget.problemas.length - 1) {
                               setState(() {
                                 indexProblema++;
                               });
-                            }else{
-                              finish=true;
+                            } else {
+                              finish = true;
                             }
                             //Si llegó al final
-                            if(finish){
+                            if (finish) {
                               setState(() {
-                                saving=true;
+                                saving = true;
                               });
-                              promediosPorCarrera=createMapPromedio(); //Crear el map de carreras y promedio vacío
+                              promediosPorCarrera =
+                                  createMapPromedio(); //Crear el map de carreras y promedio vacío
                               //Verificar que todos los problemas se calificaron, si no, mostrar alerta
-                              for(int i=0;i<widget.problemas.length;i++){
-                                if(widget.problemas[i].getFull()==false){
-                                  mostrarAlerta(context, "Contesta por favor", "No has calificado todas las habilidades, por favor intenta de nuevo");
+                              for (int i = 0;
+                                  i < widget.problemas.length;
+                                  i++) {
+                                if (widget.problemas[i].getFull() == false) {
+                                  mostrarAlerta(context, "Contesta por favor",
+                                      "No has calificado todas las habilidades, por favor intenta de nuevo");
                                   setState(() {
-                                    finish=false;
-                                    saving=false;
+                                    finish = false;
+                                    saving = false;
                                   });
                                   return;
                                 }
                                 //Si ya se calificó, sumar los puntajes por problema en cada carrera
-                                for(int j=0;j<widget.problemas[i].getNumCarreras();j++){
-                                  promediosPorCarrera[widget.problemas[i].getCarrera(j).carrera] += widget.problemas[i].getCarrera(j).rating;
+                                for (int j = 0;
+                                    j < widget.problemas[i].getNumCarreras();
+                                    j++) {
+                                  promediosPorCarrera[widget.problemas[i]
+                                          .getCarrera(j)
+                                          .carrera] +=
+                                      widget.problemas[i].getCarrera(j).rating;
                                 }
                               }
                               //A cada elemento del map, con la suma, sacarle promedio y normalizar con 20
-                              promediosPorCarrera.forEach((k, v){
-                                promediosPorCarrera[k]=(v/widget.problemas.length)*20;
+                              promediosPorCarrera.forEach((k, v) {
+                                promediosPorCarrera[k] =
+                                    (v / widget.problemas.length) * 20;
                               });
                               //Subir a base de datos en el campo imp_social y llevar al menú
                               try {
@@ -259,7 +288,8 @@ class _impactoProblemasState extends State<impactoProblemas> {
                                 Navigator.pushReplacementNamed(
                                     context, SeccionesScreen.id);
                               } catch (e) {
-                                mostrarAlerta(context, "No se pudieron subir los datos", e);
+                                mostrarAlerta(context,
+                                    "No se pudieron subir los datos", e);
                               }
 
                               setState(() {
