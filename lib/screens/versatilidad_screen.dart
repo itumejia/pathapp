@@ -241,13 +241,14 @@ class _versatilidadScreenState extends State<versatilidadScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => aboutScreen(
+                        png: 1,
                         titulo: widget.versatilidad
                             ? kAboutVersatilidadTitulo
                             : kAboutPrestigioTitulo,
                         cuerpo: widget.versatilidad
                             ? kAboutVersatilidadCuerpo
                             : kAboutPrestigioCuerpo,
-                        image: "assets/images/versatilidadFondo.svg",
+                        image: "assets/images/desiertoFondo.png",
                         colorFondo: kColorNoche,
                         colorTexto: Colors.black,
                       ),

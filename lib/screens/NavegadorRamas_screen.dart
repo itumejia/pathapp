@@ -161,7 +161,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                                 cuerpo: ramas
                                     ? kAboutVersatilidadCuerpo
                                     : kAboutCapitalHabilidadesCuerpo,
-                                image: "assets/images/desiertoFondoS.svg",
+                                image: "assets/images/navegadorCap.svg",
                                 colorFondo: kColorNoche,
                                 colorTexto: Colors.black,
                                 navegar: () {
@@ -208,7 +208,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                               cuerpo: ramas
                                   ? kAboutPrestigioCuerpo
                                   : kAboutCapitalRelacionesCuerpo,
-                              image: "assets/images/desiertoFondoS.svg",
+                              image: "assets/images/navegadorCap.svg",
                               colorFondo: kColorNoche,
                               colorTexto: Colors.black,
                               navegar: () {

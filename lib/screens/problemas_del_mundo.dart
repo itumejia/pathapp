@@ -27,9 +27,8 @@ class problemasMundo extends StatefulWidget {
 }
 
 class _problemasMundoState extends State<problemasMundo> {
-
   //Controladores para los 4 problemas del usuario
-  final List<TextEditingController> controladores= [
+  final List<TextEditingController> controladores = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
@@ -103,9 +102,9 @@ class _problemasMundoState extends State<problemasMundo> {
                   Padding(
                     padding:
                         EdgeInsets.only(top: heightScreenPercentage * 0.025),
-                    child: Image.asset(
-                      'assets/images/mundo.png',
-                      scale: widthScreenPercentage * 0.0028,
+                    child: SvgPicture.asset(
+                      'assets/images/tierra.svg',
+                      width: widthScreenPercentage * 0.25,
                     ),
                   ),
                   Padding(
@@ -334,8 +333,10 @@ class _problemasMundoState extends State<problemasMundo> {
                             p4bool = false;
                           });
                         }
-                        if (todoChido) { //Si se ingresaron todos los problemas
-                          List<CarrerasPorProblema> problemas = []; //Arreglo a pasar a la pantalla impacto problemas
+                        if (todoChido) {
+                          //Si se ingresaron todos los problemas
+                          List<CarrerasPorProblema> problemas =
+                              []; //Arreglo a pasar a la pantalla impacto problemas
 
                           //Recorrer la lista de controladores, creando una lista de carreras con puntaje en cada index,
                           //y esa lista de cerreras con puntaje se añade a un objeto CarrerasPorProblema
@@ -350,7 +351,7 @@ class _problemasMundoState extends State<problemasMundo> {
                                 carrerasRating: carrerasRating));
                           }
                           //Si es la primera vez pasar por el About, si no ir directo a pantalla siguiente
-                          if(widget.primeraVez){
+                          if (widget.primeraVez) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -360,27 +361,28 @@ class _problemasMundoState extends State<problemasMundo> {
                                   image: "assets/images/efectosFondo2.svg",
                                   colorFondo: kColorUniverso,
                                   colorTexto: kColorUniverso,
-                                  navegar: (){
+                                  navegar: () {
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => impactoProblemas(problemas: problemas),
+                                        builder: (context) => impactoProblemas(
+                                            problemas: problemas),
                                       ),
                                     );
-                                  },),
+                                  },
+                                ),
                               ),
                             );
-                          }
-                          else{
+                          } else {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => impactoProblemas(problemas: problemas),
+                                builder: (context) =>
+                                    impactoProblemas(problemas: problemas),
                               ),
                             );
                           }
-
                         }
                       },
                     ),
