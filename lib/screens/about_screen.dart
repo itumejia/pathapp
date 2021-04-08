@@ -15,11 +15,18 @@ class aboutScreen extends StatelessWidget {
   final String image;
   final Color colorFondo;
   final Color colorTexto;
+  final int png;
 
   Function navegar;
 
-  aboutScreen({@required this.titulo, @required this.cuerpo,this.navegar, this.image, this.colorFondo, this.colorTexto}); //Recibe titulo y cuerpo como parametros
-
+  aboutScreen(
+      {@required this.titulo,
+      @required this.cuerpo,
+      this.navegar,
+      this.image,
+      this.colorFondo,
+      this.colorTexto,
+      this.png}); //Recibe titulo y cuerpo como parametros
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +36,16 @@ class aboutScreen extends StatelessWidget {
       backgroundColor: colorFondo,
       body: Stack(
         children: [
-          Container(
-            child: SvgPicture.asset(
-              image,
-              //La imagen ocupa el 80% de la pantalla
-              width: widthScreenPercentage,
-            ),
-          ),
+          png != null
+              ? Container(
+                  child: Image.asset(image, width: widthScreenPercentage))
+              : Container(
+                  child: SvgPicture.asset(
+                    image,
+                    //La imagen ocupa el 80% de la pantalla
+                    width: widthScreenPercentage,
+                  ),
+                ),
           backButton(
               on_pressed: () {
                 Navigator.pop(context);
@@ -67,9 +77,7 @@ class aboutScreen extends StatelessWidget {
                       padding:
                           EdgeInsets.only(top: heightScreenPercentage * 0.035),
                       child: fontStyleMPlus(
-                          text: titulo,
-                          sizePercentage: 3.5,
-                          color: colorTexto),
+                          text: titulo, sizePercentage: 3.5, color: colorTexto),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -94,15 +102,13 @@ class aboutScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(widthScreenPercentage * 0.045),
-                        child: ListView(
-                          children: [
-                            fontStyleMPlus(
-                                text: cuerpo,
-                                sizePercentage: 2,
-                                textAlign: TextAlign.justify,
-                                color: colorTexto),
-                          ]
-                        ),
+                        child: ListView(children: [
+                          fontStyleMPlus(
+                              text: cuerpo,
+                              sizePercentage: 2,
+                              textAlign: TextAlign.justify,
+                              color: colorTexto),
+                        ]),
                       ),
                     ),
                   ],
@@ -110,27 +116,29 @@ class aboutScreen extends StatelessWidget {
               ),
             ),
           ),
-          navegar == null ? SizedBox(height: 0) : Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(bottom: heightScreenPercentage * 0.03),
-              child: CountButton(
-                screenWidth: widthScreenPercentage * 0.9,
-                screenHeight: heightScreenPercentage * 0.1,
-                text: "CONTINUAR",
-                color: kColorBlancoOpaco,
-                fontcolor: colorTexto,
-                function: () {
-                  if (navegar != null)
-                  {
-                    print("button pressed");
-                    navegar();
-                    //Navegar a pantalla de resultados
-                  }
-                },
-              ),
-            ),
-          )
+          navegar == null
+              ? SizedBox(height: 0)
+              : Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin:
+                        EdgeInsets.only(bottom: heightScreenPercentage * 0.03),
+                    child: CountButton(
+                      screenWidth: widthScreenPercentage * 0.9,
+                      screenHeight: heightScreenPercentage * 0.1,
+                      text: "CONTINUAR",
+                      color: kColorBlancoOpaco,
+                      fontcolor: colorTexto,
+                      function: () {
+                        if (navegar != null) {
+                          print("button pressed");
+                          navegar();
+                          //Navegar a pantalla de resultados
+                        }
+                      },
+                    ),
+                  ),
+                )
         ],
       ),
     );
