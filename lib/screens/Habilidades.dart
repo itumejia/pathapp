@@ -308,11 +308,11 @@ class _HabilidadesScreenState extends State<HabilidadesScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => aboutScreen(
-                      titulo: kAboutCapitalHabilidadesTitulo,
-                      cuerpo: kAboutHabilidades2Cuerpo,
-                      image: "assets/images/navegadorCap.svg",
-                      colorFondo: kColorNoche,
-                      colorTexto: Colors.black,
+                      titulo: kAboutPersonalTitulo,
+                      cuerpo: kAboutPersonal2Cuerpo,
+                      image: "assets/images/efectosFondo2.svg",
+                      colorFondo: kColorMorado,
+                      colorTexto: kColorAzulMarino,
                     ),
                   ),
                 );

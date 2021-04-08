@@ -274,13 +274,39 @@ class _ValoresState extends State<Valores> {
                                     habilidadesRating: habilidades));
                               }
                               //Navegar a Habilidades mandando el objeto car
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HabilidadesScreen(
-                                      habilidadesCarreras: car),
-                                ),
-                              );
+                              if (widget.primeraVez) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => aboutScreen(
+                                      titulo: kAboutPersonalTitulo,
+                                      cuerpo: kAboutPersonal2Cuerpo,
+                                      image: "assets/images/efectosFondo2.svg",
+                                      colorFondo: kColorMorado,
+                                      colorTexto: kColorAzulMarino,
+                                      navegar: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                HabilidadesScreen(
+                                                    habilidadesCarreras: car),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HabilidadesScreen(
+                                        habilidadesCarreras: car),
+                                  ),
+                                );
+                              }
                             },
                           ),
                         ),
@@ -306,7 +332,10 @@ class _ValoresState extends State<Valores> {
                                   MaterialPageRoute(
                                     builder: (context) => aboutScreen(
                                       titulo: kAboutPersonalTitulo,
-                                      cuerpo: kAboutPersonal2Cuerpo,
+                                      cuerpo: kAboutPersonalCuerpo,
+                                      image: "assets/images/efectosFondo2.svg",
+                                      colorFondo: kColorMorado,
+                                      colorTexto: kColorAzulMarino,
                                     ),
                                   ),
                                 );

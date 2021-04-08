@@ -38,12 +38,19 @@ class aboutScreen extends StatelessWidget {
         children: [
           png != null
               ? Container(
-                  child: Image.asset(image, width: widthScreenPercentage))
+                  child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  width: widthScreenPercentage,
+                  height: heightScreenPercentage,
+                ))
               : Container(
                   child: SvgPicture.asset(
                     image,
+                    fit: BoxFit.cover,
                     //La imagen ocupa el 80% de la pantalla
                     width: widthScreenPercentage,
+                    height: heightScreenPercentage,
                   ),
                 ),
           backButton(

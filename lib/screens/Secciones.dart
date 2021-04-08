@@ -26,14 +26,20 @@ class SeccionesScreen extends StatefulWidget {
 }
 
 class _SeccionesScreenState extends State<SeccionesScreen> {
-
   User loggedUser; //Instancia de usuario autenticado
   double progreso = 0; //Porcentaje de progreso completado
   bool saving = false; //Controlador del modal progress HUD
 
   List<dynamic> carreras; //Carreras del usuario
   //Indicadores de tests completados
-  bool versatilidad = false, prestigio= false, impacto = false, cap_hab = false,cap_rel = false, personal = false, capital=false, ramas=false;
+  bool versatilidad = false,
+      prestigio = false,
+      impacto = false,
+      cap_hab = false,
+      cap_rel = false,
+      personal = false,
+      capital = false,
+      ramas = false;
 
   //Función para autenticar usuario
   void getCurrentUser() async {
@@ -60,17 +66,17 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
     //Se revisa cuales tests ya fueron completados
     if (info['versatilidad'].length != 0) {
-      versatilidad= true;
+      versatilidad = true;
       progreso += 16.5;
     }
 
     if (info['prestigio'].length != 0) {
-      prestigio= true;
+      prestigio = true;
       progreso += 16.5;
     }
 
-    if(versatilidad && prestigio){
-      ramas=true;
+    if (versatilidad && prestigio) {
+      ramas = true;
     }
 
     if (info['imp_social'].length != 0) {
@@ -79,24 +85,23 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
     }
 
     if (info['cap_habilidades'].length != 0) {
-      cap_hab= true;
+      cap_hab = true;
       progreso += 16.5;
     }
 
     if (info['cap_personas'].length != 0) {
-      cap_rel= true;
+      cap_rel = true;
       progreso += 16.5;
     }
 
-    if(cap_hab && cap_rel){
-      capital=true;
+    if (cap_hab && cap_rel) {
+      capital = true;
     }
 
     if (info['personal_fit'].length != 0) {
       personal = true;
       progreso += 17;
     }
-
   }
 
   //Funcion que autentica usuario y obtiene informacion de base de datos
@@ -279,10 +284,15 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                   "¿Deseas repetir el test de esta sección?",
                                   () {
                                 Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras, primeraVez: false),),);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => problemasMundo(
+                                        carreras: carreras, primeraVez: false),
+                                  ),
+                                );
                               });
-                            }
-                            else{
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -290,16 +300,23 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                     titulo: kAboutProblemasTitulo,
                                     cuerpo: kAboutProblemasCuerpo,
                                     image: "assets/images/efectosFondo2.svg",
-                                    colorFondo: kColorMorado,
+                                    colorFondo: kColorUniverso,
                                     colorTexto: kColorAzulMarino,
-                                    navegar: (){
+                                    navegar: () {
                                       Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => problemasMundo(carreras: carreras, primeraVez: true),),);
-                                    },),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => problemasMundo(
+                                              carreras: carreras,
+                                              primeraVez: true),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               );
                             }
-
                           }, //Ir a test de problemas del mundo
                           cardChild: CardIcon(
                             screenHeigth: heightScreenPercentage,
@@ -329,23 +346,31 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                           colore: capital ? kColorGrisCards : kColorNaranja,
                           //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
                           tapFunction: () {
-                            if(capital){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir algún test de esta sección?", (){
+                            if (capital) {
+                              mostrarAlertaRepetir(context, "Sección terminada",
+                                  "¿Deseas repetir algún test de esta sección?",
+                                  () {
                                 Navigator.pop(context);
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,test1: cap_hab, test2: cap_rel, ramas: false),
-                                ),
-                              );});
-                            }
-                            else{
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NavegadorRamas_screen(
+                                        carreras: carreras,
+                                        test1: cap_hab,
+                                        test2: cap_rel,
+                                        ramas: false),
+                                  ),
+                                );
+                              });
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavegadorRamas_screen(carreras: carreras,test1: cap_hab, test2: cap_rel, ramas: false),
+                                  builder: (context) => NavegadorRamas_screen(
+                                      carreras: carreras,
+                                      test1: cap_hab,
+                                      test2: cap_rel,
+                                      ramas: false),
                                 ),
                               );
                             }
@@ -374,19 +399,21 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
 
                           colore: personal ? kColorGrisCards : kColorCafe,
                           //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
-                          tapFunction: (){
-                            if(personal){
-                              mostrarAlertaRepetir(context, "Sección terminada", "¿Deseas repetir el test de esta sección?", (){
+                          tapFunction: () {
+                            if (personal) {
+                              mostrarAlertaRepetir(context, "Sección terminada",
+                                  "¿Deseas repetir el test de esta sección?",
+                                  () {
                                 Navigator.pop(context);
                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Valores(carreras: carreras, primeraVez: false),
-                                ),
-                              );});
-                            }
-                            else{
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Valores(
+                                        carreras: carreras, primeraVez: false),
+                                  ),
+                                );
+                              });
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -396,10 +423,18 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                     image: "assets/images/efectosFondo2.svg",
                                     colorFondo: kColorMorado,
                                     colorTexto: kColorAzulMarino,
-                                    navegar: (){
+                                    navegar: () {
                                       Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Valores(carreras: carreras, primeraVez: true),),);
-                                    },),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Valores(
+                                              carreras: carreras,
+                                              primeraVez: true),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               );
                             }
@@ -432,7 +467,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => aboutScreen(
-                                    titulo: kAboutSeccionesTitulo,
+                                  titulo: kAboutSeccionesTitulo,
                                   cuerpo: kAboutSeccionesCuerpo,
                                   image: "assets/images/efectosFondo2.svg",
                                   colorFondo: kColorMorado,

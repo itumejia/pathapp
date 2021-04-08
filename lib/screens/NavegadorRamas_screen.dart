@@ -104,6 +104,7 @@ class NavegadorRamas_screen extends StatelessWidget {
                 'assets/images/navegadorCap.svg',
                 width: widthScreenPercentage,
                 height: heightScreenPercentage,
+                fit: BoxFit.cover,
               ),
         SafeArea(
           child: Stack(children: [
@@ -155,13 +156,16 @@ class NavegadorRamas_screen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => aboutScreen(
+                                png: ramas ? 1 : null,
                                 titulo: ramas
                                     ? kAboutVersatilidadTitulo
                                     : kAboutCapitalHabilidadesTitulo,
                                 cuerpo: ramas
                                     ? kAboutVersatilidadCuerpo
                                     : kAboutCapitalHabilidadesCuerpo,
-                                image: "assets/images/navegadorCap.svg",
+                                image: ramas
+                                    ? "assets/images/desiertoFondo.png"
+                                    : "assets/images/navegadorCap.svg",
                                 colorFondo: kColorNoche,
                                 colorTexto: Colors.black,
                                 navegar: () {
@@ -202,13 +206,16 @@ class NavegadorRamas_screen extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => aboutScreen(
+                              png: ramas ? 1 : null,
                               titulo: ramas
                                   ? kAboutPrestigioTitulo
                                   : kAboutCapitalRelacionesTitulo,
                               cuerpo: ramas
                                   ? kAboutPrestigioCuerpo
                                   : kAboutCapitalRelacionesCuerpo,
-                              image: "assets/images/navegadorCap.svg",
+                              image: ramas
+                                  ? "assets/images/desiertoFondo.png"
+                                  : "assets/images/navegadorCap.svg",
                               colorFondo: kColorNoche,
                               colorTexto: Colors.black,
                               navegar: () {
