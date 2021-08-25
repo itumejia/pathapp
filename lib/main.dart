@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => VersatilidadData(),
         child: MaterialApp(
-          initialRoute: introScreen.id,
+          initialRoute: SeccionesScreen.id, //TODO: Cambiar a introScreen.id
 
           routes: {
             //Pantallas de inicio:

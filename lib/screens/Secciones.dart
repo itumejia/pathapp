@@ -459,6 +459,35 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: widthScreenPercentage * 0.6),
+                        child: Container(
+                          child: RawMaterialButton(
+                            elevation: 10,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => aboutScreen(
+                                    titulo: kAboutCreditosTitulo,
+                                    cuerpo: kAboutCreditosCuerpo,
+                                    image: "assets/images/efectosFondo2.svg",
+                                    colorFondo: kColorMorado,
+                                    colorTexto: kColorAzulMarino,
+                                  ),
+                                ),
+                              );
+                            },
+                            fillColor: kColorBlancoBoton,
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.black,
+                            ),
+                            shape: CircleBorder(),
+                          ),
+                          width: widthScreenPercentage * 0.1,
+                        ),
+                      ),
                       Container(
                         child: RawMaterialButton(
                           elevation: 10,

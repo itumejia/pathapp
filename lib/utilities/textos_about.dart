@@ -10,6 +10,11 @@ const String kAboutSeccionesTitulo="Progreso";
 const String kAboutSeccionesCuerpo="Para haber terminado el camino que PATH te propone, deberás haber terminado las 4 secciones que se muestran, y cuando las termines podrás ver tus resultados. Cada que termines una sección, cambiará el color de la tarjeta, sin embargo, puedes repetir cualquier test si cambias de opinión, solo vuelve a seleccionarla.";
 
 
+//----------------------------------- Creditos -----------------------------------------
+const String kAboutCreditosTitulo = "Créditos";
+const String kAboutCreditosCuerpo = "Esta aplicación fue desarrollado por el departamento de Acción Social de TecBytes, por los estudiantes:\n- Salvador Alejandro Gaytán Ibáñez\n- Ituriel Mejia Garita\n- Myroslava Sánchez Andrade\n- David Eduardo Santiago Sánchez\n\nAlgunos de los íconos y figuras fueron obtenidos de FLATICON\n\nAgradecimientos especiales a Daniela Hernández y Hernández y a Víctor Mancera Osorio por su contribución en el diseño inicial de la aplicación.";
+
+
 
 //------------------------------------ TESTS ----------------------------------------------------
 
