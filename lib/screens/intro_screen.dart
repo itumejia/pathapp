@@ -19,7 +19,7 @@ class _introScreenState extends State<introScreen> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(const Duration(seconds: 6),
+    new Future.delayed(const Duration(seconds: 1),
         () => Navigator.pushReplacementNamed(context, sesionScreen.id));
   }
 
