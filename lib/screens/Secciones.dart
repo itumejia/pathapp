@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pathapp/screens/Valores.dart';
 import 'package:pathapp/screens/about_screen.dart';
 import 'package:pathapp/utilities/components/RoundedButton.dart';
@@ -29,6 +30,7 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   User loggedUser; //Instancia de usuario autenticado
   double progreso = 0; //Porcentaje de progreso completado
   bool saving = false; //Controlador del modal progress HUD
+  FirebaseAuth author = FirebaseAuth.instance;
 
   List<dynamic> carreras; //Carreras del usuario
   //Indicadores de tests completados
@@ -44,7 +46,6 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   //Función para autenticar usuario
   void getCurrentUser() async {
     try {
-      final author = FirebaseAuth.instance;
       loggedUser = await author.currentUser;
       if (loggedUser != null) {
         print(loggedUser.email);
@@ -125,232 +126,246 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
   Widget build(BuildContext context) {
     final double widthScreenPercentage = MediaQuery.of(context).size.width;
     final double heightScreenPercentage = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: kColorBlancoOpaco,
-      body: SafeArea(
-        child: Container(
-          width: widthScreenPercentage,
-          height: heightScreenPercentage,
-          child: Padding(
-            padding: EdgeInsets.only(top: heightScreenPercentage * 0.02),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: widthScreenPercentage * 0.9,
-                  height: heightScreenPercentage * 0.19,
-                  child: Padding(
-                    padding: EdgeInsets.all(heightScreenPercentage * 0.013),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
+    return WillPopScope(
+      onWillPop: () => SystemNavigator.pop(),
+      child: Scaffold(
+        backgroundColor: kColorBlancoOpaco,
+        body: SafeArea(
+          child: Container(
+            width: widthScreenPercentage,
+            height: heightScreenPercentage,
+            child: Padding(
+              padding: EdgeInsets.only(top: heightScreenPercentage * 0.02),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: widthScreenPercentage * 0.9,
+                    height: heightScreenPercentage * 0.19,
+                    child: Padding(
+                      padding: EdgeInsets.all(heightScreenPercentage * 0.013),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: widthScreenPercentage * 0.02),
+                              child: fontStyleMPlus(
+                                  text: "Continúa tu aventura...",
+                                  sizePercentage: 2.5,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Padding(
                             padding: EdgeInsets.only(
-                                left: widthScreenPercentage * 0.02),
-                            child: fontStyleMPlus(
-                                text: "Continúa tu aventura...",
-                                sizePercentage: 2.5,
-                                color: Colors.white),
+                                top: heightScreenPercentage * 0.02,
+                                right: widthScreenPercentage * 0.02),
+                            child: LinearPercentIndicator(
+                              alignment: MainAxisAlignment.end,
+                              width: widthScreenPercentage * 0.55,
+                              animation: true,
+                              lineHeight: heightScreenPercentage * 0.03,
+                              animationDuration: 1000,
+                              percent: progreso / 100,
+                              center: Text("${progreso}%"),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: Colors.white,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: heightScreenPercentage * 0.02,
-                              right: widthScreenPercentage * 0.02),
-                          child: LinearPercentIndicator(
-                            alignment: MainAxisAlignment.end,
-                            width: widthScreenPercentage * 0.55,
-                            animation: true,
-                            lineHeight: heightScreenPercentage * 0.03,
-                            animationDuration: 1000,
-                            percent: progreso / 100,
-                            center: Text("${progreso}%"),
-                            linearStrokeCap: LinearStrokeCap.roundAll,
-                            progressColor: Colors.white,
+                          Opacity(
+                            opacity: progreso == 100 ? 1 : 0,
+                            child: RoundedButton(
+                              screenHeight: heightScreenPercentage,
+                              titleText: 'VER RESULTADOS',
+                              colorProperty: Colors.white,
+                              onPressedFunction: () {
+                                //Condición para saber si el progreso ya está en 100
+                                if (progreso == 100) {
+                                  Navigator.pushNamed(
+                                      context, resultadosScreen.id);
+                                  //Navegar a pantalla de resultados
+                                }
+                              },
+                            ),
                           ),
-                        ),
-                        Opacity(
-                          opacity: progreso == 100 ? 1 : 0,
-                          child: RoundedButton(
-                            screenHeight: heightScreenPercentage,
-                            titleText: 'VER RESULTADOS',
-                            colorProperty: Colors.white,
-                            onPressedFunction: () {
-                              //Condición para saber si el progreso ya está en 100
-                              if (progreso == 100) {
-                                Navigator.pushNamed(
-                                    context, resultadosScreen.id);
-                                //Navegar a pantalla de resultados
-                              }
-                            },
-                          ),
+                        ],
+                      ),
+                    ),
+                    margin: EdgeInsets.all(widthScreenPercentage * 0.03),
+                    decoration: BoxDecoration(
+                      color: kColorMorado,
+                      borderRadius:
+                          BorderRadius.circular(widthScreenPercentage * 0.05),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(4, 8),
                         ),
                       ],
                     ),
                   ),
-                  margin: EdgeInsets.all(widthScreenPercentage * 0.03),
-                  decoration: BoxDecoration(
-                    color: kColorMorado,
-                    borderRadius:
-                        BorderRadius.circular(widthScreenPercentage * 0.05),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(4, 8),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                      child: Container(
-                        width: widthScreenPercentage * 0.4,
-                        height: heightScreenPercentage * 0.28,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                        child: Container(
+                          width: widthScreenPercentage * 0.4,
+                          height: heightScreenPercentage * 0.28,
 
-                        //Tarjeta de Ramas del Conocimiento
-                        child: ReusableCard(
-                          widthScreen: widthScreenPercentage,
-                          colore: ramas ? kColorGrisCards : kColorAzul,
-                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
-                          tapFunction: () => {
-                            if (ramas)
-                              {
-                                mostrarAlertaRepetir(
-                                    context,
-                                    "Sección terminada",
-                                    "¿Deseas repetir algún test de esta sección?",
-                                    () {
-                                  Navigator.pop(context);
+                          //Tarjeta de Ramas del Conocimiento
+                          child: ReusableCard(
+                            widthScreen: widthScreenPercentage,
+                            colore: ramas ? kColorGrisCards : kColorAzul,
+                            //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
+                            tapFunction: () => {
+                              if (ramas)
+                                {
+                                  mostrarAlertaRepetir(
+                                      context,
+                                      "Sección terminada",
+                                      "¿Deseas repetir algún test de esta sección?",
+                                      () {
+                                    Navigator.pop(context);
 
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            NavegadorRamas_screen(
+                                                carreras: carreras,
+                                                test1: versatilidad,
+                                                test2: prestigio,
+                                                ramas: true),
+                                      ),
+                                    );
+                                  })
+                                }
+                              else
+                                {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavegadorRamas_screen(
-                                              carreras: carreras,
-                                              test1: versatilidad,
-                                              test2: prestigio,
-                                              ramas: true),
+                                      builder: (context) => NavegadorRamas_screen(
+                                          carreras: carreras,
+                                          test1: versatilidad,
+                                          test2: prestigio,
+                                          ramas: true),
+                                    ),
+                                  )
+                                }
+                            }, //Ir a navegador de ramas
+                            cardChild: CardIcon(
+                              screenHeigth: heightScreenPercentage,
+                              screenWidth: widthScreenPercentage,
+                              cardColor: ramas ? kColorGrisCards : kColorAzul,
+                              nameImage: 'assets/images/light-bulb.png',
+                              iconTitle: 'Ramas del conocimiento',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                        child: Container(
+                          width: widthScreenPercentage * 0.4,
+                          height: heightScreenPercentage * 0.28,
+
+                          //Tarjeta de Impacto Social
+                          child: ReusableCard(
+                            widthScreen: widthScreenPercentage,
+                            colore: impacto ? kColorGrisCards : kColorAmarillo,
+                            //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
+                            tapFunction: () {
+                              if (impacto) {
+                                mostrarAlertaRepetir(context, "Sección terminada",
+                                    "¿Deseas repetir el test de esta sección?",
+                                    () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => problemasMundo(
+                                          carreras: carreras, primeraVez: false),
                                     ),
                                   );
-                                })
-                              }
-                            else
-                              {
+                                });
+                              } else {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => NavegadorRamas_screen(
-                                        carreras: carreras,
-                                        test1: versatilidad,
-                                        test2: prestigio,
-                                        ramas: true),
-                                  ),
-                                )
-                              }
-                          }, //Ir a navegador de ramas
-                          cardChild: CardIcon(
-                            screenHeigth: heightScreenPercentage,
-                            screenWidth: widthScreenPercentage,
-                            cardColor: ramas ? kColorGrisCards : kColorAzul,
-                            nameImage: 'assets/images/light-bulb.png',
-                            iconTitle: 'Ramas del conocimiento',
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                      child: Container(
-                        width: widthScreenPercentage * 0.4,
-                        height: heightScreenPercentage * 0.28,
-
-                        //Tarjeta de Impacto Social
-                        child: ReusableCard(
-                          widthScreen: widthScreenPercentage,
-                          colore: impacto ? kColorGrisCards : kColorAmarillo,
-                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
-                          tapFunction: () {
-                            if (impacto) {
-                              mostrarAlertaRepetir(context, "Sección terminada",
-                                  "¿Deseas repetir el test de esta sección?",
-                                  () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => problemasMundo(
-                                        carreras: carreras, primeraVez: false),
+                                    builder: (context) => aboutScreen(
+                                      titulo: kAboutProblemasTitulo,
+                                      cuerpo: kAboutProblemasCuerpo,
+                                      image: "assets/images/efectosFondo2.svg",
+                                      colorFondo: kColorUniverso,
+                                      colorTexto: kColorAzulMarino,
+                                      navegar: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => problemasMundo(
+                                                carreras: carreras,
+                                                primeraVez: true),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 );
-                              });
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => aboutScreen(
-                                    titulo: kAboutProblemasTitulo,
-                                    cuerpo: kAboutProblemasCuerpo,
-                                    image: "assets/images/efectosFondo2.svg",
-                                    colorFondo: kColorUniverso,
-                                    colorTexto: kColorAzulMarino,
-                                    navegar: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => problemasMundo(
-                                              carreras: carreras,
-                                              primeraVez: true),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            }
-                          }, //Ir a test de problemas del mundo
-                          cardChild: CardIcon(
-                            screenHeigth: heightScreenPercentage,
-                            screenWidth: widthScreenPercentage,
-                            cardColor:
-                                impacto ? kColorGrisCards : kColorAmarillo,
-                            nameImage: 'assets/images/world-map.png',
-                            iconTitle: 'Problemas del mundo',
+                              }
+                            }, //Ir a test de problemas del mundo
+                            cardChild: CardIcon(
+                              screenHeigth: heightScreenPercentage,
+                              screenWidth: widthScreenPercentage,
+                              cardColor:
+                                  impacto ? kColorGrisCards : kColorAmarillo,
+                              nameImage: 'assets/images/world-map.png',
+                              iconTitle: 'Problemas del mundo',
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                      child: Container(
-                        width: widthScreenPercentage * 0.4,
-                        height: heightScreenPercentage * 0.28,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                        child: Container(
+                          width: widthScreenPercentage * 0.4,
+                          height: heightScreenPercentage * 0.28,
 
-                        //Tarjeta de Capital de Carrera
-                        child: ReusableCard(
-                          widthScreen: widthScreenPercentage,
-                          colore: capital ? kColorGrisCards : kColorNaranja,
-                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
-                          tapFunction: () {
-                            if (capital) {
-                              mostrarAlertaRepetir(context, "Sección terminada",
-                                  "¿Deseas repetir algún test de esta sección?",
-                                  () {
-                                Navigator.pop(context);
+                          //Tarjeta de Capital de Carrera
+                          child: ReusableCard(
+                            widthScreen: widthScreenPercentage,
+                            colore: capital ? kColorGrisCards : kColorNaranja,
+                            //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
+                            tapFunction: () {
+                              if (capital) {
+                                mostrarAlertaRepetir(context, "Sección terminada",
+                                    "¿Deseas repetir algún test de esta sección?",
+                                    () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NavegadorRamas_screen(
+                                          carreras: carreras,
+                                          test1: cap_hab,
+                                          test2: cap_rel,
+                                          ramas: false),
+                                    ),
+                                  );
+                                });
+                              } else {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -361,183 +376,173 @@ class _SeccionesScreenState extends State<SeccionesScreen> {
                                         ramas: false),
                                   ),
                                 );
-                              });
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NavegadorRamas_screen(
-                                      carreras: carreras,
-                                      test1: cap_hab,
-                                      test2: cap_rel,
-                                      ramas: false),
-                                ),
-                              );
-                            }
-                          }, //Ir a navegador de capital
+                              }
+                            }, //Ir a navegador de capital
 
-                          cardChild: CardIcon(
-                            screenHeigth: heightScreenPercentage,
-                            screenWidth: widthScreenPercentage,
-                            cardColor:
-                                capital ? kColorGrisCards : kColorNaranja,
-                            nameImage: 'assets/images/treasure.png',
-                            iconTitle: 'Capital de carrera',
+                            cardChild: CardIcon(
+                              screenHeigth: heightScreenPercentage,
+                              screenWidth: widthScreenPercentage,
+                              cardColor:
+                                  capital ? kColorGrisCards : kColorNaranja,
+                              nameImage: 'assets/images/treasure.png',
+                              iconTitle: 'Capital de carrera',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(widthScreenPercentage * 0.02),
-                      child: Container(
-                        width: widthScreenPercentage * 0.4,
-                        height: heightScreenPercentage * 0.28,
+                      Padding(
+                        padding: EdgeInsets.all(widthScreenPercentage * 0.02),
+                        child: Container(
+                          width: widthScreenPercentage * 0.4,
+                          height: heightScreenPercentage * 0.28,
 
-                        //tarjeta de Personal fit
-                        child: ReusableCard(
-                          widthScreen: widthScreenPercentage,
+                          //tarjeta de Personal fit
+                          child: ReusableCard(
+                            widthScreen: widthScreenPercentage,
 
-                          colore: personal ? kColorGrisCards : kColorCafe,
-                          //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
-                          tapFunction: () {
-                            if (personal) {
-                              mostrarAlertaRepetir(context, "Sección terminada",
-                                  "¿Deseas repetir el test de esta sección?",
-                                  () {
-                                Navigator.pop(context);
+                            colore: personal ? kColorGrisCards : kColorCafe,
+                            //Al presionar el botón, se muestra alerta para indicar que ya se habia completado la seccion antes
+                            tapFunction: () {
+                              if (personal) {
+                                mostrarAlertaRepetir(context, "Sección terminada",
+                                    "¿Deseas repetir el test de esta sección?",
+                                    () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Valores(
+                                          carreras: carreras, primeraVez: false),
+                                    ),
+                                  );
+                                });
+                              } else {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Valores(
-                                        carreras: carreras, primeraVez: false),
+                                    builder: (context) => aboutScreen(
+                                      titulo: kAboutPersonalTitulo,
+                                      cuerpo: kAboutPersonalCuerpo,
+                                      image: "assets/images/efectosFondo2.svg",
+                                      colorFondo: kColorMorado,
+                                      colorTexto: kColorAzulMarino,
+                                      navegar: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Valores(
+                                                carreras: carreras,
+                                                primeraVez: true),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 );
-                              });
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => aboutScreen(
-                                    titulo: kAboutPersonalTitulo,
-                                    cuerpo: kAboutPersonalCuerpo,
-                                    image: "assets/images/efectosFondo2.svg",
-                                    colorFondo: kColorMorado,
-                                    colorTexto: kColorAzulMarino,
-                                    navegar: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Valores(
-                                              carreras: carreras,
-                                              primeraVez: true),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            }
-                          },
+                              }
+                            },
 
-                          cardChild: CardIcon(
-                            screenHeigth: heightScreenPercentage,
-                            screenWidth: widthScreenPercentage,
-                            cardColor: personal ? kColorGrisCards : kColorCafe,
-                            nameImage: 'assets/images/paper-plane.png',
-                            iconTitle: 'Personal fit',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: heightScreenPercentage * 0.025,
-                      right: widthScreenPercentage * 0.03),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: widthScreenPercentage * 0.6),
-                        child: Container(
-                          child: RawMaterialButton(
-                            elevation: 10,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => aboutScreen(
-                                    titulo: kAboutCreditosTitulo,
-                                    cuerpo: kAboutCreditosCuerpo,
-                                    image: "assets/images/efectosFondo2.svg",
-                                    colorFondo: kColorMorado,
-                                    colorTexto: kColorAzulMarino,
-                                  ),
-                                ),
-                              );
-                            },
-                            fillColor: kColorBlancoBoton,
-                            child: Icon(
-                              Icons.info_outline_rounded,
-                              color: Colors.black,
+                            cardChild: CardIcon(
+                              screenHeigth: heightScreenPercentage,
+                              screenWidth: widthScreenPercentage,
+                              cardColor: personal ? kColorGrisCards : kColorCafe,
+                              nameImage: 'assets/images/paper-plane.png',
+                              iconTitle: 'Personal fit',
                             ),
-                            shape: CircleBorder(),
                           ),
-                          width: widthScreenPercentage * 0.1,
                         ),
                       ),
-                      Container(
-                        child: RawMaterialButton(
-                          elevation: 10,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => aboutScreen(
-                                  titulo: kAboutSeccionesTitulo,
-                                  cuerpo: kAboutSeccionesCuerpo,
-                                  image: "assets/images/efectosFondo2.svg",
-                                  colorFondo: kColorMorado,
-                                  colorTexto: kColorAzulMarino,
-                                ),
-                              ),
-                            );
-                          },
-                          fillColor: kColorBlancoBoton,
-                          child: Icon(
-                            Icons.help_outline_sharp,
-                            color: Colors.black,
-                          ),
-                          shape: CircleBorder(),
-                        ),
-                        width: widthScreenPercentage * 0.1,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: widthScreenPercentage * 0.025),
-                        child: Container(
-                          child: RawMaterialButton(
-                            elevation: 10,
-                            fillColor: kColorBlancoBoton,
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                  context, sesionScreen.id);
-                            },
-                            child: Icon(
-                              Icons.exit_to_app,
-                              color: Colors.black,
-                            ),
-                            shape: CircleBorder(),
-                          ),
-                          width: widthScreenPercentage * 0.1,
-                        ),
-                      )
                     ],
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: heightScreenPercentage * 0.025,
+                        right: widthScreenPercentage * 0.03),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: widthScreenPercentage * 0.6),
+                          child: Container(
+                            child: RawMaterialButton(
+                              elevation: 10,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => aboutScreen(
+                                      titulo: kAboutCreditosTitulo,
+                                      cuerpo: kAboutCreditosCuerpo,
+                                      image: "assets/images/efectosFondo2.svg",
+                                      colorFondo: kColorMorado,
+                                      colorTexto: kColorAzulMarino,
+                                    ),
+                                  ),
+                                );
+                              },
+                              fillColor: kColorBlancoBoton,
+                              child: Icon(
+                                Icons.info_outline_rounded,
+                                color: Colors.black,
+                              ),
+                              shape: CircleBorder(),
+                            ),
+                            width: widthScreenPercentage * 0.1,
+                          ),
+                        ),
+                        Container(
+                          child: RawMaterialButton(
+                            elevation: 10,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => aboutScreen(
+                                    titulo: kAboutSeccionesTitulo,
+                                    cuerpo: kAboutSeccionesCuerpo,
+                                    image: "assets/images/efectosFondo2.svg",
+                                    colorFondo: kColorMorado,
+                                    colorTexto: kColorAzulMarino,
+                                  ),
+                                ),
+                              );
+                            },
+                            fillColor: kColorBlancoBoton,
+                            child: Icon(
+                              Icons.help_outline_sharp,
+                              color: Colors.black,
+                            ),
+                            shape: CircleBorder(),
+                          ),
+                          width: widthScreenPercentage * 0.1,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: widthScreenPercentage * 0.025),
+                          child: Container(
+                            child: RawMaterialButton(
+                              elevation: 10,
+                              fillColor: kColorBlancoBoton,
+                              onPressed: () {
+                                author.signOut();
+                                Navigator.pushReplacementNamed(
+                                    context, sesionScreen.id);
+                              },
+                              child: Icon(
+                                Icons.exit_to_app,
+                                color: Colors.black,
+                              ),
+                              shape: CircleBorder(),
+                            ),
+                            width: widthScreenPercentage * 0.1,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
